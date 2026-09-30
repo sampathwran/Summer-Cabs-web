@@ -232,6 +232,9 @@ export default function Home() {
                     <>Calculate Fare & Book <ArrowRight size={20} /></>
                   )}
                 </button>
+                <div className="mt-4 flex items-center justify-center gap-2 text-sm font-bold text-yellow-400 bg-yellow-400/10 py-2.5 rounded-lg border border-yellow-400/20">
+                  <ShieldCheck size={18} /> 100% Transparent Meter-Based Pricing
+                </div>
               </div>
 
             </div>
@@ -252,13 +255,14 @@ export default function Home() {
                 <p className="text-sm text-slate-500 mt-1">Our fleet is on standby around the clock.</p>
               </div>
             </div>
-            <div className="flex items-center gap-4 p-5 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-md transition">
-              <div className="w-12 h-12 shrink-0 bg-yellow-100 rounded-full flex items-center justify-center">
-                <CreditCard className="text-yellow-600" size={24} />
+            <div className="flex items-center gap-4 p-5 rounded-2xl border border-yellow-300 bg-yellow-50 hover:shadow-md transition relative overflow-hidden">
+              <div className="absolute top-0 right-0 bg-yellow-400 text-slate-900 text-[10px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-wider">Guaranteed</div>
+              <div className="w-12 h-12 shrink-0 bg-yellow-400 rounded-full flex items-center justify-center shadow-inner">
+                <Car className="text-slate-900" size={24} />
               </div>
               <div>
-                <h3 className="text-base font-bold text-slate-900">Fixed Pricing</h3>
-                <p className="text-sm text-slate-500 mt-1">No hidden fees, no surge pricing.</p>
+                <h3 className="text-base font-extrabold text-slate-900">Meter-Based Pricing</h3>
+                <p className="text-sm text-slate-700 mt-1 font-medium">Calculated strictly per km. Zero hidden fees.</p>
               </div>
             </div>
             <div className="flex items-center gap-4 p-5 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-md transition">
@@ -527,34 +531,67 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 bg-slate-50">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-extrabold text-slate-900">Frequently Asked Questions</h2>
+      <section className="py-24 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
+        {/* Background Decorative Elements */}
+        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 bg-yellow-400/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 bg-slate-900/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <span className="text-yellow-500 font-bold tracking-wider uppercase text-sm mb-3 block">Support</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">Frequently Asked Questions</h2>
+            <p className="mt-4 text-slate-500 text-lg">Everything you need to know about booking with Summer Cabs.</p>
           </div>
+
           <div className="space-y-4">
             {[
-              { q: 'Do you charge extra for flight delays?', a: 'No, we do not. We actively monitor your flight status and our driver will be there when you land, with no extra waiting charges.' },
-              { q: 'How do I find my driver at the airport?', a: 'Your driver will be waiting in the arrival hall holding a name board with your name clearly printed on it.' },
-              { q: 'Can I pay by credit card?', a: 'Currently, we accept Cash (LKR, USD, EUR, GBP) directly to the driver. Online card payments will be introduced soon.' },
-              { q: 'Are your vehicles air-conditioned?', a: 'Yes, all our vehicles are modern, well-maintained, and fully air-conditioned for your maximum comfort.' }
-            ].map((faq, i) => (
-              <div 
-                key={i} 
-                className="bg-white border border-slate-200 rounded-2xl p-5 hover:border-yellow-400 transition cursor-pointer shadow-sm" 
-                onClick={() => setOpenFaq(openFaq === i ? null : i)}
-              >
-                <div className="flex justify-between items-center gap-4">
-                  <h3 className="font-bold text-slate-900 text-[15px]">{faq.q}</h3>
-                  <ChevronDown size={20} className={`text-slate-400 transition-transform duration-300 ${openFaq === i ? 'rotate-180 text-yellow-500' : ''}`} />
+              { q: 'Do you charge extra for flight delays?', a: 'Not at all! We actively monitor your flight status using real-time trackers. Our driver will be there exactly when you land, with absolutely no extra waiting charges for delayed flights.' },
+              { q: 'How do I find my driver at the airport?', a: 'Your dedicated chauffeur will be waiting in the arrival hall, holding a personalized name board. If you have any trouble finding them, you can always contact our 24/7 support line.' },
+              { q: 'Can I pay by credit card?', a: 'Currently, we accept Cash (LKR, USD, EUR, GBP) directly to the driver at the end of your trip. Online secure card payments are being developed and will be introduced very soon!' },
+              { q: 'Are your vehicles air-conditioned?', a: 'Yes, 100%. All our vehicles are modern, strictly maintained, and fully air-conditioned to ensure you have a highly comfortable journey in Sri Lanka.' }
+            ].map((faq, i) => {
+              const isOpen = openFaq === i;
+              return (
+                <div 
+                  key={i} 
+                  className={`border transition-all duration-300 rounded-2xl cursor-pointer overflow-hidden ${
+                    isOpen ? 'border-yellow-400 bg-white shadow-lg shadow-yellow-400/10 ring-1 ring-yellow-400' : 'border-slate-200 bg-white hover:border-yellow-300 shadow-sm'
+                  }`}
+                  onClick={() => setOpenFaq(isOpen ? null : i)}
+                >
+                  <div className="flex justify-between items-center p-6 gap-4">
+                    <h3 className={`font-bold text-[17px] transition-colors duration-300 ${isOpen ? 'text-slate-900' : 'text-slate-700'}`}>
+                      {faq.q}
+                    </h3>
+                    <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${
+                      isOpen ? 'bg-yellow-400 text-slate-900' : 'bg-slate-100 text-slate-500'
+                    }`}>
+                      <ChevronDown size={20} className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                    </div>
+                  </div>
+                  <div 
+                    className={`px-6 text-slate-600 leading-relaxed transition-all duration-400 ease-in-out ${
+                      isOpen ? 'max-h-40 pb-6 opacity-100' : 'max-h-0 pb-0 opacity-0'
+                    }`}
+                  >
+                    <div className="border-t border-slate-100 pt-4 mt-2">
+                      {faq.a}
+                    </div>
+                  </div>
                 </div>
-                {openFaq === i && (
-                  <p className="mt-4 text-sm text-slate-600 leading-relaxed pt-4 border-t border-slate-100 animate-in fade-in slide-in-from-top-2">
-                    {faq.a}
-                  </p>
-                )}
-              </div>
-            ))}
+              );
+            })}
+          </div>
+
+          <div className="mt-16 text-center bg-slate-900 rounded-3xl p-8 md:p-10 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 to-slate-800 z-0"></div>
+            <div className="text-left relative z-10">
+              <h3 className="text-2xl font-bold text-white mb-2">Still have questions?</h3>
+              <p className="text-slate-400">Can't find the answer you're looking for? Please chat to our friendly team.</p>
+            </div>
+            <a href="https://wa.me/94771234567" target="_blank" rel="noreferrer" className="shrink-0 bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold px-8 py-4 rounded-xl transition shadow-lg shadow-yellow-400/20 whitespace-nowrap flex items-center gap-2 relative z-10 hover:scale-105 transform duration-300">
+              <MessageCircle size={20} /> Chat on WhatsApp
+            </a>
           </div>
         </div>
       </section>
