@@ -8,15 +8,16 @@ import Autocomplete from "react-google-autocomplete";
 import { useLanguage } from '@/i18n/LanguageContext';
 
 const heroImages = [
-  "https://images.unsplash.com/photo-1546874177-9e664ce7eb52?q=80&w=2069&auto=format&fit=crop", // Nine Arches Bridge
-  "https://images.unsplash.com/photo-1588614959060-4d144f28b207?q=80&w=2070&auto=format&fit=crop", // Sigiriya Rock
-  "https://images.unsplash.com/photo-1566296314736-6eaac1ca0cb9?q=80&w=2070&auto=format&fit=crop", // Blue Train SL
-  "https://images.unsplash.com/photo-1620025424750-b851c518b10b?q=80&w=2070&auto=format&fit=crop", // Galle Coast
-  "https://images.unsplash.com/photo-1579697096985-41fe1430e5df?q=80&w=2072&auto=format&fit=crop", // Colombo City
-  "https://images.unsplash.com/photo-1580979870817-1849a9fb1fb6?q=80&w=2070&auto=format&fit=crop", // Tea Plantation
-  "https://images.unsplash.com/photo-1541336032412-2048a678540d?q=80&w=2070&auto=format&fit=crop", // Leopard Yala
-  "https://images.unsplash.com/photo-1711389552655-9230667c6338?q=80&w=2070&auto=format&fit=crop", // Sigiriya Cliff
-  "https://images.unsplash.com/photo-1563499737522-38b8209804c8?q=80&w=2070&auto=format&fit=crop", // Elephants Minneriya
+  "https://images.unsplash.com/photo-1566296314736-6eaac1ca0cb9?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1612862862126-865765df2ded?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1580910527739-556eb89f9d65?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1519566335946-e6f65f0f4fdf?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1609681980718-340e7f4b11d7?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1578519050142-afb511e518de?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1651264042769-ef84e30f4ac8?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1711797750174-c3750dd9d7c9?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1623595289196-007a22dd8560?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1624963145721-277432579507?q=80&w=2070&auto=format&fit=crop"
 ];
 
 export default function Home() {
