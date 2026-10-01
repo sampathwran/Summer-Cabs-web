@@ -82,57 +82,60 @@ export default function Home() {
     <main className="min-h-screen bg-slate-50 font-sans relative">
 
       {/* Hero Section */}
-      <div className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex items-center min-h-screen">
+      <div className="relative pt-40 pb-24 lg:pt-48 lg:pb-32 overflow-hidden flex items-center min-h-[90vh]">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop" 
             alt="Taxi Background" 
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-slate-900/50" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent" />
+          <div className="absolute inset-0 bg-slate-900/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             
             {/* Left text */}
-            <div className="text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-400/10 text-yellow-400 border border-yellow-400/20 mb-6 text-sm font-medium">
+            <div className="text-left lg:col-span-7 animate-in fade-in slide-in-from-bottom-8 duration-700">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md text-white border border-white/20 mb-8 text-sm font-bold shadow-lg">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-yellow-500"></span>
                 </span>
                 {t('hero.badge')}
               </div>
-              <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-                {t('hero.title').split(',')[0]}<span className="text-yellow-400">{t('hero.title').includes(',') ? ',' + t('hero.title').split(',')[1] : ''}</span>
+              <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] mb-6 tracking-tight drop-shadow-lg">
+                {t('hero.title').split(',')[0]}<span className="text-yellow-400 block mt-2">{t('hero.title').includes(',') ? t('hero.title').split(',')[1].trim() : ''}</span>
               </h1>
-              <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-lg">
+              <p className="text-lg md:text-xl text-slate-200 mb-10 max-w-xl leading-relaxed font-medium">
                 {t('hero.subtitle')}
               </p>
               
-              <div className="flex flex-wrap gap-4 mt-8">
-                <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-5 py-3 rounded-xl text-white text-sm border border-white/10">
-                  <Car className="text-yellow-400" size={18} /> Modern Fleet
+              <div className="flex flex-wrap gap-4 mt-8 hidden md:flex">
+                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl text-white text-sm font-semibold border border-white/20 shadow-lg">
+                  <Car className="text-yellow-400" size={20} /> Modern Fleet
                 </div>
-                <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-5 py-3 rounded-xl text-white text-sm border border-white/10">
-                  <Plane className="text-yellow-400" size={18} /> Flight Tracking
+                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl text-white text-sm font-semibold border border-white/20 shadow-lg">
+                  <Plane className="text-yellow-400" size={20} /> Flight Tracking
+                </div>
+                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl text-white text-sm font-semibold border border-white/20 shadow-lg">
+                  <Clock4 className="text-yellow-400" size={20} /> On-Time Guarantee
                 </div>
               </div>
             </div>
 
             {/* Right Booking Widget */}
-            <div id="booking-form" className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 md:p-8 rounded-3xl shadow-2xl">
+            <div id="booking-form" className="lg:col-span-5 bg-white p-8 rounded-[2rem] shadow-2xl relative overflow-hidden animate-in fade-in slide-in-from-right-8 duration-700">
               
-              <div className="flex bg-slate-900/50 rounded-2xl p-1 mb-8">
-                <button className="flex-1 flex items-center justify-center gap-2 bg-yellow-400 text-slate-900 py-3 rounded-xl font-bold shadow-sm transition">
+              <div className="flex bg-slate-100 rounded-xl p-1.5 mb-8 shadow-inner">
+                <button className="flex-1 flex items-center justify-center gap-2 bg-white text-slate-900 py-3 rounded-lg font-bold shadow-sm transition transform hover:scale-[1.02]">
                   <Car size={18} /> {t('form.taxi')}
                 </button>
-                <button className="flex-1 flex items-center justify-center gap-2 text-white hover:bg-white/10 py-3 rounded-xl font-medium transition">
+                <button className="flex-1 flex items-center justify-center gap-2 text-slate-500 hover:text-slate-900 py-3 rounded-lg font-bold transition">
                   <Hotel size={18} /> {t('form.hotels')}
                 </button>
-                <button className="flex-1 flex items-center justify-center gap-2 text-white hover:bg-white/10 py-3 rounded-xl font-medium transition">
+                <button className="flex-1 flex items-center justify-center gap-2 text-slate-500 hover:text-slate-900 py-3 rounded-lg font-bold transition">
                   <Plane size={18} /> {t('form.flights')}
                 </button>
               </div>
@@ -144,12 +147,12 @@ export default function Home() {
                   <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="relative">
-                        <label className="text-white text-sm font-medium mb-1 block">{t('form.serviceType')}</label>
+                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.serviceType')}</label>
                         <div className="relative">
                           <select 
                             value={bookingServiceType}
                             onChange={(e) => setBookingServiceType(e.target.value)}
-                            className="w-full bg-slate-900/60 border border-slate-600 text-white pl-4 pr-10 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition appearance-none cursor-pointer"
+                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
                           >
                             <option value="Airport Transfers">Airport Transfers</option>
                             <option value="City Tours">City Tours</option>
@@ -160,12 +163,12 @@ export default function Home() {
                         </div>
                       </div>
                       <div className="relative">
-                        <label className="text-white text-sm font-medium mb-1 block">{t('form.vehicleType')}</label>
+                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.vehicleType')}</label>
                         <div className="relative">
                           <select 
                             value={bookingVehicle}
                             onChange={(e) => setBookingVehicle(e.target.value)}
-                            className="w-full bg-slate-900/60 border border-slate-600 text-white pl-4 pr-10 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition appearance-none cursor-pointer"
+                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
                           >
                             <option value="Mini (Alto/Kwid)">Mini (Alto/Kwid)</option>
                             <option value="Standard Car (Prius/Axio)">Standard Car</option>
@@ -180,7 +183,7 @@ export default function Home() {
                     </div>
 
                     <div className="relative">
-                      <label className="text-white text-sm font-medium mb-1 block">{t('form.pickup')}</label>
+                      <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.pickup')}</label>
                       <div className="relative">
                         <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                         <Autocomplete 
@@ -193,7 +196,7 @@ export default function Home() {
                             setTimeout(() => setPickupLocation(val), 200);
                           }}
                           placeholder="Bandaranaike International Airport (CMB)"
-                          className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
+                          className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
                         />
                       </div>
                     </div>
@@ -201,15 +204,15 @@ export default function Home() {
                     <div className="space-y-3">
                       {dropoffs.map((drop, index) => (
                         <div key={index} className="relative">
-                          <div className="flex justify-between items-end mb-1">
-                            <label className="text-white text-sm font-medium">
+                          <div className="flex justify-between items-end mb-1.5">
+                            <label className="text-slate-700 text-sm font-bold">
                               {index === 0 ? t('form.dropoff') : `Stop ${index}`}
                             </label>
                             {index > 0 && (
                               <button 
                                 type="button" 
                                 onClick={() => removeDropoff(index)}
-                                className="text-red-400 hover:text-red-300 text-xs flex items-center gap-1 transition"
+                                className="text-red-500 hover:text-red-600 text-xs flex items-center gap-1 transition font-bold"
                               >
                                 <X size={12} /> {t('form.remove')}
                               </button>
@@ -227,7 +230,7 @@ export default function Home() {
                                 setTimeout(() => handleDropoffChange(index, val), 200);
                               }}
                               placeholder="Enter destination (e.g. Colombo, Kandy)"
-                              className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
+                              className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
                             />
                           </div>
                         </div>
@@ -237,7 +240,7 @@ export default function Home() {
                         <button 
                           type="button" 
                           onClick={addDropoff}
-                          className="text-yellow-400 hover:text-yellow-300 text-sm font-medium flex items-center gap-1 transition pt-1"
+                          className="text-yellow-600 hover:text-yellow-700 text-sm font-bold flex items-center gap-1 transition pt-1"
                         >
                           <Plus size={16} /> {t('form.addStop')}
                         </button>
@@ -245,7 +248,7 @@ export default function Home() {
                     </div>
 
                     <div className="relative mt-4">
-                      <label className="text-white text-sm font-medium mb-1 block">{t('form.date')}</label>
+                      <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.date')}</label>
                       <div className="relative">
                         <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                         <input 
@@ -253,14 +256,14 @@ export default function Home() {
                           required
                           value={dateTime}
                           onChange={(e) => setDateTime(e.target.value)}
-                          className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer"
+                          className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition cursor-pointer font-medium"
                         />
                       </div>
                     </div>
 
                     {bookingVehicle === 'Bus / Coach' && (
                       <div className="relative mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
-                        <label className="text-white text-sm font-medium mb-1 block">{t('form.passengers')}</label>
+                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.passengers')}</label>
                         <div className="relative">
                           <Users className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                           <input 
@@ -270,7 +273,7 @@ export default function Home() {
                             value={passengerCount}
                             onChange={(e) => setPassengerCount(e.target.value)}
                             placeholder="Enter total passengers"
-                            className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
+                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
                           />
                         </div>
                       </div>
@@ -285,7 +288,7 @@ export default function Home() {
                           alert("Please fill in pickup, drop-off, and date/time first.");
                         }
                       }}
-                      className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20"
+                      className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-8 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20"
                     >
                       {t('form.next')} <ArrowRight size={20} />
                     </button>
@@ -295,50 +298,50 @@ export default function Home() {
                     <button 
                       type="button"
                       onClick={() => setBookingStep(1)}
-                      className="text-yellow-400 hover:text-yellow-300 text-sm font-bold flex items-center gap-1 mb-4 transition"
+                      className="text-yellow-600 hover:text-yellow-700 text-sm font-bold flex items-center gap-1 mb-4 transition"
                     >
                       {t('form.back')}
                     </button>
 
                     <div className="relative">
-                      <label className="text-white text-sm font-medium mb-1 block">{t('form.name')}</label>
+                      <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.name')}</label>
                       <input 
                         type="text" 
                         required
                         value={customerName}
                         onChange={(e) => setCustomerName(e.target.value)}
                         placeholder="John Doe"
-                        className="w-full bg-slate-900/60 border border-slate-600 text-white px-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
+                        className="w-full bg-slate-50 border border-slate-200 text-slate-900 px-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
                       />
                     </div>
 
                     <div className="relative">
-                      <label className="text-white text-sm font-medium mb-1 block">{t('form.phone')}</label>
+                      <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.phone')}</label>
                       <input 
                         type="tel" 
                         required
                         value={customerPhone}
                         onChange={(e) => setCustomerPhone(e.target.value)}
                         placeholder="+94 7X XXX XXXX"
-                        className="w-full bg-slate-900/60 border border-slate-600 text-white px-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
+                        className="w-full bg-slate-50 border border-slate-200 text-slate-900 px-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
                       />
                     </div>
                     
                     <div className="relative">
-                      <label className="text-white text-sm font-medium mb-1 block">{t('form.note')}</label>
+                      <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.note')}</label>
                       <textarea 
                         value={additionalNote}
                         onChange={(e) => setAdditionalNote(e.target.value)}
                         placeholder="Flight number, extra luggage, etc."
                         rows={3}
-                        className="w-full bg-slate-900/60 border border-slate-600 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400 resize-none"
+                        className="w-full bg-slate-50 border border-slate-200 text-slate-900 px-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 resize-none font-medium"
                       />
                     </div>
 
                     <button 
                       type="submit" 
                       disabled={isSubmitting}
-                      className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-8 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isSubmitting ? (
                         t('form.processing')
@@ -351,8 +354,8 @@ export default function Home() {
                   </div>
                 )}
                 
-                <div className="mt-4 flex items-center justify-center gap-2 text-sm font-bold text-yellow-400 bg-yellow-400/10 py-2.5 rounded-lg border border-yellow-400/20">
-                  <ShieldCheck size={18} /> {t('form.transparent')}
+                <div className="mt-4 flex items-center justify-center gap-2 text-xs font-bold text-slate-500 bg-slate-50 py-3 rounded-xl border border-slate-100">
+                  <ShieldCheck size={16} className="text-yellow-500" /> {t('form.transparent')}
                 </div>
               </form>
 
