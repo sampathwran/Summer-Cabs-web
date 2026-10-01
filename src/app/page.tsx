@@ -5,8 +5,10 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 import Autocomplete from "react-google-autocomplete";
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export default function Home() {
+  const { t } = useLanguage();
   const [dropoffs, setDropoffs] = useState(['']);
   const [selectedService, setSelectedService] = useState<{title: string, img: string, longDesc: string} | null>(null);
   const [bookingServiceType, setBookingServiceType] = useState('Airport Transfers');
@@ -79,7 +81,6 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-slate-50 font-sans relative">
 
-
       {/* Hero Section */}
       <div className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex items-center min-h-screen">
         <div className="absolute inset-0 z-0">
@@ -102,13 +103,13 @@ export default function Home() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-yellow-500"></span>
                 </span>
-                Available 24/7 Island-wide
+                {t('hero.badge')}
               </div>
               <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-                Your reliable <span className="text-yellow-400">airport transfer</span>, just a click away.
+                {t('hero.title').split(',')[0]}<span className="text-yellow-400">{t('hero.title').includes(',') ? ',' + t('hero.title').split(',')[1] : ''}</span>
               </h1>
               <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-lg">
-                Book a comfortable ride from Bandaranaike Airport (CMB) instantly. Transparent pricing with zero hidden charges.
+                {t('hero.subtitle')}
               </p>
               
               <div className="flex flex-wrap gap-4 mt-8">
@@ -126,13 +127,13 @@ export default function Home() {
               
               <div className="flex bg-slate-900/50 rounded-2xl p-1 mb-8">
                 <button className="flex-1 flex items-center justify-center gap-2 bg-yellow-400 text-slate-900 py-3 rounded-xl font-bold shadow-sm transition">
-                  <Car size={18} /> Taxi
+                  <Car size={18} /> {t('form.taxi')}
                 </button>
                 <button className="flex-1 flex items-center justify-center gap-2 text-white hover:bg-white/10 py-3 rounded-xl font-medium transition">
-                  <Hotel size={18} /> Hotels
+                  <Hotel size={18} /> {t('form.hotels')}
                 </button>
                 <button className="flex-1 flex items-center justify-center gap-2 text-white hover:bg-white/10 py-3 rounded-xl font-medium transition">
-                  <Plane size={18} /> Flights
+                  <Plane size={18} /> {t('form.flights')}
                 </button>
               </div>
 
@@ -143,7 +144,7 @@ export default function Home() {
                   <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="relative">
-                        <label className="text-white text-sm font-medium mb-1 block">Service Type</label>
+                        <label className="text-white text-sm font-medium mb-1 block">{t('form.serviceType')}</label>
                         <div className="relative">
                           <select 
                             value={bookingServiceType}
@@ -159,7 +160,7 @@ export default function Home() {
                         </div>
                       </div>
                       <div className="relative">
-                        <label className="text-white text-sm font-medium mb-1 block">Vehicle Type</label>
+                        <label className="text-white text-sm font-medium mb-1 block">{t('form.vehicleType')}</label>
                         <div className="relative">
                           <select 
                             value={bookingVehicle}
@@ -179,7 +180,7 @@ export default function Home() {
                     </div>
 
                     <div className="relative">
-                      <label className="text-white text-sm font-medium mb-1 block">Pickup Location</label>
+                      <label className="text-white text-sm font-medium mb-1 block">{t('form.pickup')}</label>
                       <div className="relative">
                         <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                         <Autocomplete 
@@ -202,7 +203,7 @@ export default function Home() {
                         <div key={index} className="relative">
                           <div className="flex justify-between items-end mb-1">
                             <label className="text-white text-sm font-medium">
-                              {index === 0 ? 'Drop-off Location' : `Stop ${index}`}
+                              {index === 0 ? t('form.dropoff') : `Stop ${index}`}
                             </label>
                             {index > 0 && (
                               <button 
@@ -210,7 +211,7 @@ export default function Home() {
                                 onClick={() => removeDropoff(index)}
                                 className="text-red-400 hover:text-red-300 text-xs flex items-center gap-1 transition"
                               >
-                                <X size={12} /> Remove
+                                <X size={12} /> {t('form.remove')}
                               </button>
                             )}
                           </div>
@@ -238,13 +239,13 @@ export default function Home() {
                           onClick={addDropoff}
                           className="text-yellow-400 hover:text-yellow-300 text-sm font-medium flex items-center gap-1 transition pt-1"
                         >
-                          <Plus size={16} /> Add another stop
+                          <Plus size={16} /> {t('form.addStop')}
                         </button>
                       )}
                     </div>
 
                     <div className="relative mt-4">
-                      <label className="text-white text-sm font-medium mb-1 block">Pickup Date & Time</label>
+                      <label className="text-white text-sm font-medium mb-1 block">{t('form.date')}</label>
                       <div className="relative">
                         <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                         <input 
@@ -259,7 +260,7 @@ export default function Home() {
 
                     {bookingVehicle === 'Bus / Coach' && (
                       <div className="relative mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
-                        <label className="text-white text-sm font-medium mb-1 block">Number of Passengers</label>
+                        <label className="text-white text-sm font-medium mb-1 block">{t('form.passengers')}</label>
                         <div className="relative">
                           <Users className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                           <input 
@@ -286,7 +287,7 @@ export default function Home() {
                       }}
                       className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20"
                     >
-                      Next: Passenger Details <ArrowRight size={20} />
+                      {t('form.next')} <ArrowRight size={20} />
                     </button>
                   </div>
                 ) : (
@@ -296,11 +297,11 @@ export default function Home() {
                       onClick={() => setBookingStep(1)}
                       className="text-yellow-400 hover:text-yellow-300 text-sm font-bold flex items-center gap-1 mb-4 transition"
                     >
-                      ← Back to Journey Details
+                      {t('form.back')}
                     </button>
 
                     <div className="relative">
-                      <label className="text-white text-sm font-medium mb-1 block">Your Name</label>
+                      <label className="text-white text-sm font-medium mb-1 block">{t('form.name')}</label>
                       <input 
                         type="text" 
                         required
@@ -312,7 +313,7 @@ export default function Home() {
                     </div>
 
                     <div className="relative">
-                      <label className="text-white text-sm font-medium mb-1 block">WhatsApp / Phone</label>
+                      <label className="text-white text-sm font-medium mb-1 block">{t('form.phone')}</label>
                       <input 
                         type="tel" 
                         required
@@ -324,7 +325,7 @@ export default function Home() {
                     </div>
                     
                     <div className="relative">
-                      <label className="text-white text-sm font-medium mb-1 block">Additional Note (Optional)</label>
+                      <label className="text-white text-sm font-medium mb-1 block">{t('form.note')}</label>
                       <textarea 
                         value={additionalNote}
                         onChange={(e) => setAdditionalNote(e.target.value)}
@@ -340,18 +341,18 @@ export default function Home() {
                       className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isSubmitting ? (
-                        'Processing Booking...'
+                        t('form.processing')
                       ) : bookingVehicle === 'Bus / Coach' ? (
-                        <>Request Custom Quote <CheckCircle2 size={20} /></>
+                        <>{t('form.quote')} <CheckCircle2 size={20} /></>
                       ) : (
-                        <>Confirm & Book Ride <CheckCircle2 size={20} /></>
+                        <>{t('form.confirm')} <CheckCircle2 size={20} /></>
                       )}
                     </button>
                   </div>
                 )}
                 
                 <div className="mt-4 flex items-center justify-center gap-2 text-sm font-bold text-yellow-400 bg-yellow-400/10 py-2.5 rounded-lg border border-yellow-400/20">
-                  <ShieldCheck size={18} /> 100% Transparent Meter-Based Pricing
+                  <ShieldCheck size={18} /> {t('form.transparent')}
                 </div>
               </form>
 
