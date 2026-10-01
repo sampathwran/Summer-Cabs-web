@@ -579,37 +579,20 @@ export default function Home() {
             <h2 className="text-3xl font-extrabold text-slate-900">How It Works</h2>
             <p className="mt-4 text-slate-500 max-w-2xl mx-auto text-lg">Book your ride in 3 simple steps</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative mt-16">
+            <div className="hidden md:block absolute top-1/2 left-[16%] right-[16%] h-0.5 bg-slate-200 -z-0"></div>
             {[
-              { 
-                step: '01', 
-                title: 'Book Online', 
-                desc: 'Fill the form and select your preferred vehicle and route.', 
-                img: 'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?q=80&w=600&auto=format&fit=crop'
-              },
-              { 
-                step: '02', 
-                title: 'Meet Driver', 
-                desc: 'Our driver will wait for you at the arrivals with a name board.', 
-                img: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=600&auto=format&fit=crop'
-              },
-              { 
-                step: '03', 
-                title: 'Enjoy Ride', 
-                desc: 'Travel safely to your destination and pay directly to the driver.', 
-                img: 'https://images.unsplash.com/photo-1593950315186-76a92975b60c?q=80&w=600&auto=format&fit=crop'
-              },
+              { step: '01', title: 'Book Online', desc: 'Fill the form and select your preferred vehicle and route.', icon: <MapPin className="text-yellow-500" size={32} /> },
+              { step: '02', title: 'Meet Driver', desc: 'Our driver will wait for you at the arrivals with a name board.', icon: <UserCheck className="text-yellow-500" size={32} /> },
+              { step: '03', title: 'Enjoy Ride', desc: 'Travel safely to your destination and pay directly to the driver.', icon: <Smile className="text-yellow-500" size={32} /> },
             ].map((item, idx) => (
-              <div key={idx} className="relative bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-100/50 overflow-hidden text-center z-10 flex flex-col group transition duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-400/20">
-                <div className="h-56 w-full relative overflow-hidden">
-                  <div className="absolute inset-0 bg-slate-900/20 z-10 group-hover:bg-transparent transition duration-500"></div>
-                  <img src={item.img} alt={item.title} className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" />
-                  <div className="absolute top-4 left-4 z-20 bg-slate-900 text-yellow-400 text-sm font-black w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-2 border-slate-900 group-hover:border-yellow-400 transition">{item.step}</div>
+              <div key={idx} className="relative bg-white pt-10 pb-8 px-6 rounded-3xl border border-slate-200 shadow-xl shadow-slate-100/50 text-center z-10">
+                <div className="w-20 h-20 bg-white border border-slate-100 shadow-md rounded-full flex items-center justify-center mx-auto mb-6 -mt-20 relative">
+                  {item.icon}
+                  <div className="absolute -top-2 -right-2 bg-slate-900 text-yellow-400 text-xs font-black w-7 h-7 rounded-full flex items-center justify-center">{item.step}</div>
                 </div>
-                <div className="p-8 flex-1 flex flex-col justify-center">
-                  <h3 className="text-xl font-bold mb-3 text-slate-900">{item.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
-                </div>
+                <h3 className="text-xl font-bold mb-3 text-slate-900">{item.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
