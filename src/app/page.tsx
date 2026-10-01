@@ -14,6 +14,8 @@ export default function Home() {
   const [passengerCount, setPassengerCount] = useState('');
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
+  const [additionalNote, setAdditionalNote] = useState('');
+  const [bookingStep, setBookingStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -50,6 +52,7 @@ export default function Home() {
         passengerCount: bookingVehicle === 'Bus / Coach' ? passengerCount : null,
         customerName: customerName,
         customerPhone: customerPhone,
+        additionalNote: additionalNote,
         status: 'pending',
         createdAt: serverTimestamp()
       });
@@ -58,9 +61,11 @@ export default function Home() {
       // Reset form
       setCustomerName('');
       setCustomerPhone('');
+      setAdditionalNote('');
       setDateTime('');
       setDropoffs(['']);
       setPassengerCount('');
+      setBookingStep(1);
     } catch (error) {
       console.error("Error adding document: ", error);
       alert('Something went wrong. Please try again.');
@@ -132,171 +137,209 @@ export default function Home() {
               {/* Booking Form */}
               <form onSubmit={handleBookingSubmit} className="space-y-4">
                 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="relative">
-                    <label className="text-white text-sm font-medium mb-1 block">Service Type</label>
-                    <div className="relative">
-                      <select 
-                        value={bookingServiceType}
-                        onChange={(e) => setBookingServiceType(e.target.value)}
-                        className="w-full bg-slate-900/60 border border-slate-600 text-white pl-4 pr-10 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition appearance-none cursor-pointer"
-                      >
-                        <option value="Airport Transfers">Airport Transfers</option>
-                        <option value="City Tours">City Tours</option>
-                        <option value="Wedding Hires">Wedding Hires</option>
-                        <option value="Corporate Travel">Corporate Travel</option>
-                      </select>
-                      <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={20} />
-                    </div>
-                  </div>
-                  <div className="relative">
-                    <label className="text-white text-sm font-medium mb-1 block">Vehicle Type</label>
-                    <div className="relative">
-                      <select 
-                        value={bookingVehicle}
-                        onChange={(e) => setBookingVehicle(e.target.value)}
-                        className="w-full bg-slate-900/60 border border-slate-600 text-white pl-4 pr-10 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition appearance-none cursor-pointer"
-                      >
-                        <option value="Mini (Alto/Kwid)">Mini (Alto/Kwid)</option>
-                        <option value="Standard Car (Prius/Axio)">Standard Car</option>
-                        <option value="Minivan (KDH)">Minivan (KDH)</option>
-                        <option value="Mini Van (5-6 Pax)">Mini Van (5-6 Pax)</option>
-                        <option value="Luxury (Benz/BMW)">Luxury (Benz/BMW)</option>
-                        <option value="Bus / Coach">Bus / Coach</option>
-                      </select>
-                      <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={20} />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="relative">
-                    <label className="text-white text-sm font-medium mb-1 block">Your Name</label>
-                    <input 
-                      type="text" 
-                      required
-                      value={customerName}
-                      onChange={(e) => setCustomerName(e.target.value)}
-                      placeholder="John Doe"
-                      className="w-full bg-slate-900/60 border border-slate-600 text-white px-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
-                    />
-                  </div>
-                  <div className="relative">
-                    <label className="text-white text-sm font-medium mb-1 block">WhatsApp / Phone</label>
-                    <input 
-                      type="tel" 
-                      required
-                      value={customerPhone}
-                      onChange={(e) => setCustomerPhone(e.target.value)}
-                      placeholder="+94 7X XXX XXXX"
-                      className="w-full bg-slate-900/60 border border-slate-600 text-white px-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
-                    />
-                  </div>
-                </div>
-
-                <div className="relative">
-                  <label className="text-white text-sm font-medium mb-1 block">Pickup Location</label>
-                  <div className="relative">
-                    <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                    <input 
-                      type="text" 
-                      required
-                      value={pickupLocation}
-                      onChange={(e) => setPickupLocation(e.target.value)}
-                      placeholder="Bandaranaike International Airport (CMB)"
-                      className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  {dropoffs.map((drop, index) => (
-                    <div key={index} className="relative">
-                      <div className="flex justify-between items-end mb-1">
-                        <label className="text-white text-sm font-medium">
-                          {index === 0 ? 'Drop-off Location' : `Stop ${index}`}
-                        </label>
-                        {index > 0 && (
-                          <button 
-                            type="button" 
-                            onClick={() => removeDropoff(index)}
-                            className="text-red-400 hover:text-red-300 text-xs flex items-center gap-1 transition"
+                {bookingStep === 1 ? (
+                  <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="relative">
+                        <label className="text-white text-sm font-medium mb-1 block">Service Type</label>
+                        <div className="relative">
+                          <select 
+                            value={bookingServiceType}
+                            onChange={(e) => setBookingServiceType(e.target.value)}
+                            className="w-full bg-slate-900/60 border border-slate-600 text-white pl-4 pr-10 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition appearance-none cursor-pointer"
                           >
-                            <X size={12} /> Remove
-                          </button>
-                        )}
+                            <option value="Airport Transfers">Airport Transfers</option>
+                            <option value="City Tours">City Tours</option>
+                            <option value="Wedding Hires">Wedding Hires</option>
+                            <option value="Corporate Travel">Corporate Travel</option>
+                          </select>
+                          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={20} />
+                        </div>
                       </div>
+                      <div className="relative">
+                        <label className="text-white text-sm font-medium mb-1 block">Vehicle Type</label>
+                        <div className="relative">
+                          <select 
+                            value={bookingVehicle}
+                            onChange={(e) => setBookingVehicle(e.target.value)}
+                            className="w-full bg-slate-900/60 border border-slate-600 text-white pl-4 pr-10 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition appearance-none cursor-pointer"
+                          >
+                            <option value="Mini (Alto/Kwid)">Mini (Alto/Kwid)</option>
+                            <option value="Standard Car (Prius/Axio)">Standard Car</option>
+                            <option value="Minivan (KDH)">Minivan (KDH)</option>
+                            <option value="Mini Van (5-6 Pax)">Mini Van (5-6 Pax)</option>
+                            <option value="Luxury (Benz/BMW)">Luxury (Benz/BMW)</option>
+                            <option value="Bus / Coach">Bus / Coach</option>
+                          </select>
+                          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={20} />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="relative">
+                      <label className="text-white text-sm font-medium mb-1 block">Pickup Location</label>
                       <div className="relative">
                         <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                         <input 
                           type="text" 
-                          required={index === 0}
-                          value={drop}
-                          onChange={(e) => handleDropoffChange(index, e.target.value)}
-                          placeholder="Enter destination (e.g. Colombo, Kandy)"
+                          required
+                          value={pickupLocation}
+                          onChange={(e) => setPickupLocation(e.target.value)}
+                          placeholder="Bandaranaike International Airport (CMB)"
                           className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
                         />
                       </div>
                     </div>
-                  ))}
-                  
-                  {dropoffs.length < 4 && (
+
+                    <div className="space-y-3">
+                      {dropoffs.map((drop, index) => (
+                        <div key={index} className="relative">
+                          <div className="flex justify-between items-end mb-1">
+                            <label className="text-white text-sm font-medium">
+                              {index === 0 ? 'Drop-off Location' : `Stop ${index}`}
+                            </label>
+                            {index > 0 && (
+                              <button 
+                                type="button" 
+                                onClick={() => removeDropoff(index)}
+                                className="text-red-400 hover:text-red-300 text-xs flex items-center gap-1 transition"
+                              >
+                                <X size={12} /> Remove
+                              </button>
+                            )}
+                          </div>
+                          <div className="relative">
+                            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                            <input 
+                              type="text" 
+                              required={index === 0}
+                              value={drop}
+                              onChange={(e) => handleDropoffChange(index, e.target.value)}
+                              placeholder="Enter destination (e.g. Colombo, Kandy)"
+                              className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
+                            />
+                          </div>
+                        </div>
+                      ))}
+                      
+                      {dropoffs.length < 4 && (
+                        <button 
+                          type="button" 
+                          onClick={addDropoff}
+                          className="text-yellow-400 hover:text-yellow-300 text-sm font-medium flex items-center gap-1 transition pt-1"
+                        >
+                          <Plus size={16} /> Add another stop
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="relative mt-4">
+                      <label className="text-white text-sm font-medium mb-1 block">Pickup Date & Time</label>
+                      <div className="relative">
+                        <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                        <input 
+                          type="datetime-local" 
+                          required
+                          value={dateTime}
+                          onChange={(e) => setDateTime(e.target.value)}
+                          className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer"
+                        />
+                      </div>
+                    </div>
+
+                    {bookingVehicle === 'Bus / Coach' && (
+                      <div className="relative mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                        <label className="text-white text-sm font-medium mb-1 block">Number of Passengers</label>
+                        <div className="relative">
+                          <Users className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                          <input 
+                            type="number" 
+                            min="1"
+                            required
+                            value={passengerCount}
+                            onChange={(e) => setPassengerCount(e.target.value)}
+                            placeholder="Enter total passengers"
+                            className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
+                          />
+                        </div>
+                      </div>
+                    )}
+
                     <button 
                       type="button" 
-                      onClick={addDropoff}
-                      className="text-yellow-400 hover:text-yellow-300 text-sm font-medium flex items-center gap-1 transition pt-1"
+                      onClick={() => {
+                        if(pickupLocation && dropoffs[0] && dateTime) {
+                          setBookingStep(2);
+                        } else {
+                          alert("Please fill in pickup, drop-off, and date/time first.");
+                        }
+                      }}
+                      className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20"
                     >
-                      <Plus size={16} /> Add another stop
+                      Next: Passenger Details <ArrowRight size={20} />
                     </button>
-                  )}
-                </div>
-
-                <div className="relative mt-4">
-                  <label className="text-white text-sm font-medium mb-1 block">Pickup Date & Time</label>
-                  <div className="relative">
-                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                    <input 
-                      type="datetime-local" 
-                      required
-                      value={dateTime}
-                      onChange={(e) => setDateTime(e.target.value)}
-                      className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer"
-                    />
                   </div>
-                </div>
+                ) : (
+                  <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-4">
+                    <button 
+                      type="button"
+                      onClick={() => setBookingStep(1)}
+                      className="text-yellow-400 hover:text-yellow-300 text-sm font-bold flex items-center gap-1 mb-4 transition"
+                    >
+                      ← Back to Journey Details
+                    </button>
 
-                {/* Conditional Passenger Count for Bus */}
-                {bookingVehicle === 'Bus / Coach' && (
-                  <div className="relative mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
-                    <label className="text-white text-sm font-medium mb-1 block">Number of Passengers</label>
                     <div className="relative">
-                      <Users className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                      <label className="text-white text-sm font-medium mb-1 block">Your Name</label>
                       <input 
-                        type="number" 
-                        min="1"
+                        type="text" 
                         required
-                        value={passengerCount}
-                        onChange={(e) => setPassengerCount(e.target.value)}
-                        placeholder="Enter total passengers"
-                        className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
+                        value={customerName}
+                        onChange={(e) => setCustomerName(e.target.value)}
+                        placeholder="John Doe"
+                        className="w-full bg-slate-900/60 border border-slate-600 text-white px-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
                       />
                     </div>
+
+                    <div className="relative">
+                      <label className="text-white text-sm font-medium mb-1 block">WhatsApp / Phone</label>
+                      <input 
+                        type="tel" 
+                        required
+                        value={customerPhone}
+                        onChange={(e) => setCustomerPhone(e.target.value)}
+                        placeholder="+94 7X XXX XXXX"
+                        className="w-full bg-slate-900/60 border border-slate-600 text-white px-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
+                      />
+                    </div>
+                    
+                    <div className="relative">
+                      <label className="text-white text-sm font-medium mb-1 block">Additional Note (Optional)</label>
+                      <textarea 
+                        value={additionalNote}
+                        onChange={(e) => setAdditionalNote(e.target.value)}
+                        placeholder="Flight number, extra luggage, etc."
+                        rows={3}
+                        className="w-full bg-slate-900/60 border border-slate-600 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400 resize-none"
+                      />
+                    </div>
+
+                    <button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? (
+                        'Processing Booking...'
+                      ) : bookingVehicle === 'Bus / Coach' ? (
+                        <>Request Custom Quote <CheckCircle2 size={20} /></>
+                      ) : (
+                        <>Confirm & Book Ride <CheckCircle2 size={20} /></>
+                      )}
+                    </button>
                   </div>
                 )}
-
-                <button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? (
-                    'Processing Booking...'
-                  ) : bookingVehicle === 'Bus / Coach' ? (
-                    <>Request Custom Quote <ArrowRight size={20} /></>
-                  ) : (
-                    <>Calculate Fare & Book <ArrowRight size={20} /></>
-                  )}
-                </button>
+                
                 <div className="mt-4 flex items-center justify-center gap-2 text-sm font-bold text-yellow-400 bg-yellow-400/10 py-2.5 rounded-lg border border-yellow-400/20">
                   <ShieldCheck size={18} /> 100% Transparent Meter-Based Pricing
                 </div>
