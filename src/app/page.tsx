@@ -26,28 +26,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-slate-50 font-sans relative">
-      {/* Navbar */}
-      <nav className="absolute top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center gap-2">
-              <Car className="text-yellow-400 w-8 h-8" />
-              <span className="text-white font-bold text-2xl tracking-tight">Summer Cabs</span>
-            </div>
-            <div className="hidden md:flex space-x-8 text-slate-200">
-              <a href="#" className="hover:text-yellow-400 transition">Services</a>
-              <a href="#" className="hover:text-yellow-400 transition">Airport Rates</a>
-              <a href="#" className="hover:text-yellow-400 transition">Contact</a>
-            </div>
-            <div className="flex items-center gap-4">
-              <button className="text-white hover:text-yellow-400 text-sm font-medium">EN | SI | TA</button>
-              <button className="bg-yellow-400 hover:bg-yellow-500 text-slate-900 px-6 py-2 rounded-full font-bold transition shadow-lg shadow-yellow-400/20">
-                Sign In
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+
 
       {/* Hero Section */}
       <div className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex items-center min-h-screen">
@@ -57,8 +36,8 @@ export default function Home() {
             alt="Taxi Background" 
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-slate-900/80" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-slate-900/50" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -595,66 +574,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-slate-950 text-slate-400 py-16 border-t border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          <div>
-            <div className="flex items-center gap-2 mb-6">
-              <Car className="text-yellow-400 w-8 h-8" />
-              <span className="text-white font-extrabold text-2xl tracking-tight">Summer Cabs</span>
-            </div>
-            <p className="text-sm leading-relaxed mb-6">Your premium transport partner in Sri Lanka. Reliable, safe, and transparent airport transfers and tours.</p>
-            <div className="flex gap-4">
-              <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-yellow-400 hover:text-slate-900 transition cursor-pointer">f</div>
-              <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-yellow-400 hover:text-slate-900 transition cursor-pointer">ig</div>
-            </div>
-          </div>
-          <div>
-            <h4 className="text-white font-bold text-lg mb-6">Quick Links</h4>
-            <ul className="space-y-3 text-sm">
-              <li><a href="#" className="hover:text-yellow-400 transition">Home</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition">Our Services</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition">Vehicle Fleet</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition">About Us</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition">Contact Support</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-white font-bold text-lg mb-6">Airport Routes</h4>
-            <ul className="space-y-3 text-sm">
-              <li><a href="#" className="hover:text-white transition">BIA to Colombo</a></li>
-              <li><a href="#" className="hover:text-white transition">BIA to Kandy</a></li>
-              <li><a href="#" className="hover:text-white transition">BIA to Galle / Unawatuna</a></li>
-              <li><a href="#" className="hover:text-white transition">BIA to Ella</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-white font-bold text-lg mb-6">Contact Us</h4>
-            <ul className="space-y-4 text-sm">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-yellow-400 shrink-0" />
-                <span>123, Galle Road,<br/>Colombo 03, Sri Lanka</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Clock className="w-5 h-5 text-yellow-400 shrink-0" />
-                <span>info@summercabs.lk</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-yellow-400 shrink-0" />
-                <span>+94 77 123 4567</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pt-8 border-t border-slate-800 text-sm text-center flex flex-col md:flex-row justify-between items-center gap-4">
-          <p>&copy; {new Date().getFullYear()} Summer Cabs. All rights reserved.</p>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-white transition">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition">Terms of Service</a>
-          </div>
-        </div>
-      </footer>
 
       {/* Service Popup Modal */}
       {selectedService && (
