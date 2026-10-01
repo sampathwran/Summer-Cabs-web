@@ -193,43 +193,6 @@ export default function Home() {
                 {activeTab === 'taxi' && (
                   bookingStep === 1 ? (
                     <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-4">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="relative">
-                          <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.serviceType')}</label>
-                          <div className="relative">
-                            <select 
-                              value={bookingServiceType}
-                              onChange={(e) => setBookingServiceType(e.target.value)}
-                              className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
-                            >
-                              <option value="Airport Transfers">Airport Transfers</option>
-                              <option value="City Tours">City Tours</option>
-                              <option value="Wedding Hires">Wedding Hires</option>
-                              <option value="Corporate Travel">Corporate Travel</option>
-                            </select>
-                            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={20} />
-                          </div>
-                        </div>
-                        <div className="relative">
-                          <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.vehicleType')}</label>
-                          <div className="relative">
-                            <select 
-                              value={bookingVehicle}
-                              onChange={(e) => setBookingVehicle(e.target.value)}
-                              className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
-                            >
-                              <option value="Mini (Alto/Kwid)">Mini (Alto/Kwid)</option>
-                              <option value="Standard Car (Prius/Axio)">Standard Car</option>
-                              <option value="Minivan (KDH)">Minivan (KDH)</option>
-                              <option value="Mini Van (5-6 Pax)">Mini Van (5-6 Pax)</option>
-                              <option value="Luxury (Benz/BMW)">Luxury (Benz/BMW)</option>
-                              <option value="Bus / Coach">Bus / Coach</option>
-                            </select>
-                            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={20} />
-                          </div>
-                        </div>
-                      </div>
-
                       <div className="relative">
                         <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.pickup')}</label>
                         <div className="relative">
@@ -309,24 +272,6 @@ export default function Home() {
                         </div>
                       </div>
 
-                      {bookingVehicle === 'Bus / Coach' && (
-                        <div className="relative mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
-                          <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.passengers')}</label>
-                          <div className="relative">
-                            <Users className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                            <input 
-                              type="number" 
-                              min="1"
-                              required
-                              value={passengerCount}
-                              onChange={(e) => setPassengerCount(e.target.value)}
-                              placeholder="Enter total passengers"
-                              className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
-                            />
-                          </div>
-                        </div>
-                      )}
-
                       <button 
                         type="button" 
                         onClick={() => {
@@ -346,33 +291,90 @@ export default function Home() {
                       <button 
                         type="button"
                         onClick={() => setBookingStep(1)}
-                        className="text-yellow-600 hover:text-yellow-700 text-sm font-bold flex items-center gap-1 mb-4 transition"
+                        className="text-yellow-600 hover:text-yellow-700 text-sm font-bold flex items-center gap-1 mb-2 transition"
                       >
                         {t('form.back')}
                       </button>
 
-                      <div className="relative">
-                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.name')}</label>
-                        <input 
-                          type="text" 
-                          required
-                          value={customerName}
-                          onChange={(e) => setCustomerName(e.target.value)}
-                          placeholder="John Doe"
-                          className="w-full bg-slate-50 border border-slate-200 text-slate-900 px-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
-                        />
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="relative">
+                          <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.serviceType')}</label>
+                          <div className="relative">
+                            <select 
+                              value={bookingServiceType}
+                              onChange={(e) => setBookingServiceType(e.target.value)}
+                              className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
+                            >
+                              <option value="Airport Transfers">Airport Transfers</option>
+                              <option value="City Tours">City Tours</option>
+                              <option value="Wedding Hires">Wedding Hires</option>
+                              <option value="Corporate Travel">Corporate Travel</option>
+                            </select>
+                            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={20} />
+                          </div>
+                        </div>
+                        <div className="relative">
+                          <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.vehicleType')}</label>
+                          <div className="relative">
+                            <select 
+                              value={bookingVehicle}
+                              onChange={(e) => setBookingVehicle(e.target.value)}
+                              className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
+                            >
+                              <option value="Mini (Alto/Kwid)">Mini (Alto/Kwid)</option>
+                              <option value="Standard Car (Prius/Axio)">Standard Car</option>
+                              <option value="Minivan (KDH)">Minivan (KDH)</option>
+                              <option value="Mini Van (5-6 Pax)">Mini Van (5-6 Pax)</option>
+                              <option value="Luxury (Benz/BMW)">Luxury (Benz/BMW)</option>
+                              <option value="Bus / Coach">Bus / Coach</option>
+                            </select>
+                            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={20} />
+                          </div>
+                        </div>
                       </div>
 
-                      <div className="relative">
-                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.phone')}</label>
-                        <input 
-                          type="tel" 
-                          required
-                          value={customerPhone}
-                          onChange={(e) => setCustomerPhone(e.target.value)}
-                          placeholder="+94 7X XXX XXXX"
-                          className="w-full bg-slate-50 border border-slate-200 text-slate-900 px-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
-                        />
+                      {bookingVehicle === 'Bus / Coach' && (
+                        <div className="relative animate-in fade-in slide-in-from-top-2 duration-300">
+                          <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.passengers')}</label>
+                          <div className="relative">
+                            <Users className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                            <input 
+                              type="number" 
+                              min="1"
+                              required
+                              value={passengerCount}
+                              onChange={(e) => setPassengerCount(e.target.value)}
+                              placeholder="Enter total passengers"
+                              className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="relative">
+                          <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.name')}</label>
+                          <input 
+                            type="text" 
+                            required
+                            value={customerName}
+                            onChange={(e) => setCustomerName(e.target.value)}
+                            placeholder="John Doe"
+                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 px-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
+                          />
+                        </div>
+
+                        <div className="relative">
+                          <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.phone')}</label>
+                          <input 
+                            type="tel" 
+                            required
+                            value={customerPhone}
+                            onChange={(e) => setCustomerPhone(e.target.value)}
+                            placeholder="+94 7X XXX XXXX"
+                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 px-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
+                          />
+                        </div>
                       </div>
                       
                       <div className="relative">
@@ -381,15 +383,15 @@ export default function Home() {
                           value={additionalNote}
                           onChange={(e) => setAdditionalNote(e.target.value)}
                           placeholder="Flight number, extra luggage, etc."
-                          rows={3}
-                          className="w-full bg-slate-50 border border-slate-200 text-slate-900 px-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 resize-none font-medium"
+                          rows={2}
+                          className="w-full bg-slate-50 border border-slate-200 text-slate-900 px-4 py-3 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 resize-none font-medium"
                         />
                       </div>
 
                       <button 
                         type="submit" 
                         disabled={isSubmitting}
-                        className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-8 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {isSubmitting ? (
                           t('form.processing')
