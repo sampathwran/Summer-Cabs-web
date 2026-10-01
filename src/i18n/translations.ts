@@ -7,9 +7,29 @@ export const translations = {
     "nav.contact": "Contact Us",
     "nav.bookNow": "Book Now",
 
-    "hero.badge": "Available 24/7 Island-wide",
-    "hero.title": "Your reliable airport transfer, just a click away.",
-    "hero.subtitle": "Book a comfortable ride from Bandaranaike Airport (CMB) instantly. Transparent pricing with zero hidden charges.",
+    "hero.slide0.badge": "24/7 Airport Taxi",
+    "hero.slide0.title": "Your reliable airport transfer, just a click away.",
+    "hero.slide0.subtitle": "Book a comfortable ride from Bandaranaike Airport (CMB) instantly. Transparent pricing with zero hidden charges.",
+
+    "hero.slide1.badge": "Customizable Itineraries",
+    "hero.slide1.title": "Discover the hidden gems of Sri Lanka.",
+    "hero.slide1.subtitle": "From the bustling streets of Colombo to the historic temples of Kandy, let our local experts guide you.",
+
+    "hero.slide2.badge": "Scenic Routes",
+    "hero.slide2.title": "Explore the misty hills and tea gardens.",
+    "hero.slide2.subtitle": "Enjoy the breathtaking views of Ella and Nuwara Eliya. We know the safest routes through the highlands.",
+
+    "hero.slide3.badge": "Island-wide Coverage",
+    "hero.slide3.title": "Relax on tropical pristine beaches.",
+    "hero.slide3.subtitle": "Direct transfers to Galle, Mirissa, and Trincomalee. Start your perfect holiday with a relaxing drive.",
+
+    "hero.slide4.badge": "Safari & Nature",
+    "hero.slide4.title": "Experience the wild beauty of nature.",
+    "hero.slide4.subtitle": "Travel safely to Yala, Minneriya, and Udawalawe. Comfortable vans and rugged vehicles for your adventure.",
+
+    "hero.slide5.badge": "Premium Fleet",
+    "hero.slide5.title": "Executive transport and luxury rides.",
+    "hero.slide5.subtitle": "Luxury Benz and BMW fleets for weddings, corporate events, and VIP airport meet-and-greet services.",
 
     "form.taxi": "Taxi",
     "form.hotels": "Hotels",
@@ -52,9 +72,29 @@ export const translations = {
     "nav.contact": "අපව අමතන්න",
     "nav.bookNow": "වෙන්කරන්න",
 
-    "hero.badge": "දිවයින පුරා පැය 24 පුරාම සේවාව",
-    "hero.title": "ඔබගේ විශ්වාසවන්ත ගුවන් තොටුපළ ප්‍රවාහන සේවාව.",
-    "hero.subtitle": "කටුනායක ගුවන් තොටුපළේ (CMB) සිට සුවපහසු ගමනක් ක්ෂණිකව වෙන්කරවා ගන්න. කිසිදු සැඟවුණු ගාස්තුවක් නොමැත.",
+    "hero.slide0.badge": "පැය 24 පුරා ගුවන් තොටුපළ සේවාව",
+    "hero.slide0.title": "ඔබගේ විශ්වාසවන්ත ගුවන් තොටුපළ ප්‍රවාහනය.",
+    "hero.slide0.subtitle": "කටුනායක ගුවන් තොටුපළේ (CMB) සිට සුවපහසු ගමනක් ක්ෂණිකව වෙන්කරවා ගන්න. කිසිදු සැඟවුණු ගාස්තුවක් නොමැත.",
+
+    "hero.slide1.badge": "ඔබට අවශ්‍ය පරිදි ගමන් වාර",
+    "hero.slide1.title": "ශ්‍රී ලංකාවේ සැඟවුණු සුන්දරත්වය සොයා යන්න.",
+    "hero.slide1.subtitle": "කොළඹ නගරයේ සිට මහනුවර ඓතිහාසික විහාරස්ථාන දක්වා අපගේ පළපුරුදු රියදුරන් සමඟ ආරක්ෂිතව ගමන් කරන්න.",
+
+    "hero.slide2.badge": "සුන්දර කඳුකරය",
+    "hero.slide2.title": "මීදුමෙන් වැසුණු කඳු සහ තේ වතු නරඹන්න.",
+    "hero.slide2.subtitle": "ඇල්ල සහ නුවරඑළියේ අසිරිමත් දසුන් විඳින්න. කඳුකරයේ ආරක්ෂිතම මාර්ග අප හොඳින් දනී.",
+
+    "hero.slide3.badge": "දිවයින පුරා සේවාව",
+    "hero.slide3.title": "නිවර්තන කලාපීය මුහුදු වෙරළේ විවේක ගන්න.",
+    "hero.slide3.subtitle": "ගාල්ල, මිරිස්ස, සහ ත්‍රිකුණාමලයට සෘජු ප්‍රවාහන සේවාවන්. සුවපහසු ගමනකින් ඔබගේ නිවාඩුව ආරම්භ කරන්න.",
+
+    "hero.slide4.badge": "වනජීවී සෆාරි",
+    "hero.slide4.title": "වනජීවීන්ගේ ස්වභාවික සුන්දරත්වය අත්විඳින්න.",
+    "hero.slide4.subtitle": "යාල, මින්නේරිය සහ උඩවලව වෙත ආරක්ෂිතව යන්න. ඔබේ ත්‍රාසජනක ගමනට සුවපහසු වාහන.",
+
+    "hero.slide5.badge": "සුඛෝපභෝගී වාහන",
+    "hero.slide5.title": "සුඛෝපභෝගී ප්‍රවාහන සේවාවන්.",
+    "hero.slide5.subtitle": "මංගල උත්සව, ව්‍යාපාරික ගමන් සහ VIP ගුවන් තොටුපළ සේවා සඳහා Benz සහ BMW වාහන.",
 
     "form.taxi": "ටැක්සි",
     "form.hotels": "හෝටල්",
@@ -97,9 +137,29 @@ export const translations = {
     "nav.contact": "தொடர்புகளுக்கு",
     "nav.bookNow": "முன்பதிவு",
 
-    "hero.badge": "தீவு முழுவதும் 24/7 சேவை",
-    "hero.title": "உங்கள் நம்பகமான விமான நிலைய போக்குவரத்து.",
-    "hero.subtitle": "கட்டுநாயக்க விமான நிலையத்திலிருந்து (CMB) வசதியான பயணத்தை உடனடியாக முன்பதிவு செய்யுங்கள்.",
+    "hero.slide0.badge": "24/7 விமான நிலைய டாக்ஸி",
+    "hero.slide0.title": "உங்கள் நம்பகமான விமான நிலைய போக்குவரத்து.",
+    "hero.slide0.subtitle": "கட்டுநாயக்க விமான நிலையத்திலிருந்து (CMB) வசதியான பயணத்தை உடனடியாக முன்பதிவு செய்யுங்கள்.",
+
+    "hero.slide1.badge": "சுற்றுலாப் பொதிகள்",
+    "hero.slide1.title": "இலங்கையின் அழகிய இடங்களை கண்டறியுங்கள்.",
+    "hero.slide1.subtitle": "கொழும்பின் பரபரப்பான வீதிகள் முதல் கண்டியின் வரலாற்று சிறப்புமிக்க கோவில்கள் வரை பாதுகாப்பாக பயணம் செய்யுங்கள்.",
+
+    "hero.slide2.badge": "மலைப்பகுதி பயணங்கள்",
+    "hero.slide2.title": "பனிமூட்டமான மலைகள் மற்றும் தேயிலை தோட்டங்களை ரசியுங்கள்.",
+    "hero.slide2.subtitle": "எல்ல மற்றும் நுவரெலியாவின் மூச்சடைக்கக் கூடிய காட்சிகளை அனுபவியுங்கள்.",
+
+    "hero.slide3.badge": "தீவு முழுவதும் சேவை",
+    "hero.slide3.title": "வெப்பமண்டல கடற்கரைகளில் ஓய்வெடுங்கள்.",
+    "hero.slide3.subtitle": "காலி, மிரிஸ்ஸ மற்றும் திருகோணமலைக்கான நேரடி போக்குவரத்து சேவைகள்.",
+
+    "hero.slide4.badge": "வனவிலங்கு சஃபாரி",
+    "hero.slide4.title": "இயற்கையின் அழகை அனுபவியுங்கள்.",
+    "hero.slide4.subtitle": "யாலா மற்றும் மின்னேரியாவிற்கு பாதுகாப்பாக பயணம் செய்யுங்கள்.",
+
+    "hero.slide5.badge": "ஆடம்பர வாகனங்கள்",
+    "hero.slide5.title": "ஆடம்பர போக்குவரத்து சேவைகள்.",
+    "hero.slide5.subtitle": "திருமணங்கள் மற்றும் பெருநிறுவன பயணங்களுக்கான Benz மற்றும் BMW வாகனங்கள்.",
 
     "form.taxi": "டாக்ஸி",
     "form.hotels": "ஹோட்டல்கள்",

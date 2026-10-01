@@ -130,19 +130,24 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             
             {/* Left text */}
-            <div className="text-left lg:col-span-7 animate-in fade-in slide-in-from-bottom-8 duration-700">
+            <div key={currentImage % 6} className="text-left lg:col-span-7 animate-in fade-in slide-in-from-bottom-4 duration-1000">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md text-white border border-white/20 mb-8 text-sm font-bold shadow-lg">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-yellow-500"></span>
                 </span>
-                {t('hero.badge')}
+                {t(`hero.slide${currentImage % 6}.badge` as any)}
               </div>
               <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] mb-6 tracking-tight drop-shadow-lg">
-                {t('hero.title').split(',')[0]}<span className="text-yellow-400 block mt-2">{t('hero.title').includes(',') ? t('hero.title').split(',')[1].trim() : ''}</span>
+                {t(`hero.slide${currentImage % 6}.title` as any).split(',')[0]}
+                {t(`hero.slide${currentImage % 6}.title` as any).includes(',') && (
+                  <span className="text-yellow-400 block mt-2">
+                    {t(`hero.slide${currentImage % 6}.title` as any).split(',')[1]?.trim()}
+                  </span>
+                )}
               </h1>
               <p className="text-lg md:text-xl text-slate-200 mb-10 max-w-xl leading-relaxed font-medium">
-                {t('hero.subtitle')}
+                {t(`hero.slide${currentImage % 6}.subtitle` as any)}
               </p>
               
               <div className="flex flex-wrap gap-4 mt-8 hidden md:flex">
