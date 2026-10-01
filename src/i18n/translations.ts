@@ -27,11 +27,22 @@ export const translations = {
     "form.name": "Your Name",
     "form.phone": "WhatsApp / Phone",
     "form.note": "Additional Note (Optional)",
-    "form.processing": "Processing Booking...",
+    "form.processing": "Processing...",
     "form.book": "Calculate Fare & Book",
     "form.quote": "Request Custom Quote",
     "form.confirm": "Confirm & Book Ride",
-    "form.transparent": "100% Transparent Meter-Based Pricing"
+    "form.transparent": "100% Transparent Meter-Based Pricing",
+
+    "form.hotelDest": "Destination City or Hotel",
+    "form.checkIn": "Check-in",
+    "form.checkOut": "Check-out",
+    "form.guests": "Guests",
+    "form.searchHotels": "Search Hotels",
+    "form.flightOrigin": "From (Origin)",
+    "form.flightDest": "To (Destination)",
+    "form.departDate": "Departure",
+    "form.returnDate": "Return",
+    "form.searchFlights": "Search Flights"
   },
   si: {
     "nav.home": "මුල් පිටුව",
@@ -61,11 +72,22 @@ export const translations = {
     "form.name": "ඔබගේ නම",
     "form.phone": "දුරකථන අංකය / WhatsApp",
     "form.note": "අමතර විස්තර (විකල්ප)",
-    "form.processing": "ඔබගේ ඉල්ලීම සැකසෙමින් පවතී...",
+    "form.processing": "සැකසෙමින් පවතී...",
     "form.book": "ගාස්තුව බලා වෙන්කරන්න",
     "form.quote": "ගාස්තු විමසන්න",
     "form.confirm": "තහවුරු කර වෙන්කරන්න",
-    "form.transparent": "100% ක් නිවැරදි මීටර් ගාස්තු පමණි"
+    "form.transparent": "100% ක් නිවැරදි මීටර් ගාස්තු පමණි",
+
+    "form.hotelDest": "ගමනාන්තය හෝ හෝටලය",
+    "form.checkIn": "පැමිණෙන දිනය",
+    "form.checkOut": "පිටවන දිනය",
+    "form.guests": "අමුත්තන් ගණන",
+    "form.searchHotels": "හෝටල් සොයන්න",
+    "form.flightOrigin": "පිටත්වෙන ස්ථානය",
+    "form.flightDest": "ගමනාන්තය",
+    "form.departDate": "පිටත්වන දිනය",
+    "form.returnDate": "ආපසු එන දිනය",
+    "form.searchFlights": "ගුවන් ගමන් සොයන්න"
   },
   ta: {
     "nav.home": "முகப்பு",
@@ -95,10 +117,21 @@ export const translations = {
     "form.name": "உங்கள் பெயர்",
     "form.phone": "தொலைபேசி / WhatsApp",
     "form.note": "கூடுதல் விவரங்கள் (விருப்பமானவை)",
-    "form.processing": "முன்பதிவு செயலில் உள்ளது...",
+    "form.processing": "செயலில் உள்ளது...",
     "form.book": "கட்டணத்தை கணக்கிட்டு முன்பதிவு செய்",
     "form.quote": "கட்டணத்தை விசாரிக்கவும்",
     "form.confirm": "உறுதிப்படுத்தி முன்பதிவு செய்",
-    "form.transparent": "100% துல்லியமான கட்டணங்கள்"
+    "form.transparent": "100% துல்லியமான கட்டணங்கள்",
+
+    "form.hotelDest": "செல்லும் நகரம் / ஹோட்டல்",
+    "form.checkIn": "உள்நுழையும் தேதி",
+    "form.checkOut": "வெளியேறும் தேதி",
+    "form.guests": "விருந்தினர்கள்",
+    "form.searchHotels": "ஹோட்டல்களை தேடுங்கள்",
+    "form.flightOrigin": "புறப்படும் இடம்",
+    "form.flightDest": "செல்லும் இடம்",
+    "form.departDate": "புறப்படும் தேதி",
+    "form.returnDate": "திரும்பும் தேதி",
+    "form.searchFlights": "விமானங்களை தேடுங்கள்"
   }
 };
