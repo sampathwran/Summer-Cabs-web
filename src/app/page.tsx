@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plane, Car, Hotel, MapPin, Calendar, Clock, ArrowRight, ShieldCheck, CreditCard, Clock4, CheckCircle2, Plus, X, ChevronDown, Users, Star, MessageCircle, UserCheck, Smile } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
@@ -7,8 +7,15 @@ import { db } from '@/lib/firebase';
 import Autocomplete from "react-google-autocomplete";
 import { useLanguage } from '@/i18n/LanguageContext';
 
+const heroImages = [
+  "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop", // Taxi
+  "https://images.unsplash.com/photo-1546874177-9e664ce7eb52?q=80&w=2069&auto=format&fit=crop", // Nine Arches Bridge SL
+  "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?q=80&w=2070&auto=format&fit=crop", // SL Beach/Tropical
+];
+
 export default function Home() {
   const { t } = useLanguage();
+  const [currentImage, setCurrentImage] = useState(0);
   const [activeTab, setActiveTab] = useState<'taxi' | 'hotels' | 'flights'>('taxi');
   const [dropoffs, setDropoffs] = useState(['']);
   const [selectedService, setSelectedService] = useState<{title: string, img: string, longDesc: string} | null>(null);
@@ -23,6 +30,13 @@ export default function Home() {
   const [bookingStep, setBookingStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   const addDropoff = () => {
     setDropoffs([...dropoffs, '']);
@@ -89,14 +103,20 @@ export default function Home() {
 
       {/* Hero Section */}
       <div className="relative pt-40 pb-24 lg:pt-48 lg:pb-32 overflow-hidden flex items-center min-h-[90vh]">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop" 
-            alt="Taxi Background" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-slate-900/60" />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-transparent" />
+        <div className="absolute inset-0 z-0 bg-slate-900">
+          {heroImages.map((src, index) => (
+            <img 
+              key={src}
+              src={src} 
+              alt={`Sri Lanka Background ${index + 1}`} 
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                index === currentImage ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          ))}
+          {/* Much lighter gradient that only darkens the left side for text readability */}
+          <div className="absolute inset-0 bg-slate-900/10" />
+          <div className="absolute inset-0 w-full lg:w-2/3 bg-gradient-to-r from-slate-900/95 via-slate-900/50 to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
