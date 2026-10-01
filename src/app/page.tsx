@@ -4,6 +4,8 @@ import { Plane, Car, Hotel, MapPin, Calendar, Clock, ArrowRight, ShieldCheck, Cr
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
+import Autocomplete from "react-google-autocomplete";
+
 export default function Home() {
   const [dropoffs, setDropoffs] = useState(['']);
   const [selectedService, setSelectedService] = useState<{title: string, img: string, longDesc: string} | null>(null);
@@ -180,11 +182,12 @@ export default function Home() {
                       <label className="text-white text-sm font-medium mb-1 block">Pickup Location</label>
                       <div className="relative">
                         <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                        <input 
-                          type="text" 
-                          required
-                          value={pickupLocation}
-                          onChange={(e) => setPickupLocation(e.target.value)}
+                        <Autocomplete 
+                          apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+                          onPlaceSelected={(place) => setPickupLocation(place.formatted_address || place.name || '')}
+                          options={{ types: ["geocode", "establishment"], componentRestrictions: { country: "lk" } }}
+                          defaultValue={pickupLocation}
+                          onChange={(e: any) => setPickupLocation(e.target.value)}
                           placeholder="Bandaranaike International Airport (CMB)"
                           className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
                         />
@@ -210,11 +213,12 @@ export default function Home() {
                           </div>
                           <div className="relative">
                             <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                            <input 
-                              type="text" 
-                              required={index === 0}
-                              value={drop}
-                              onChange={(e) => handleDropoffChange(index, e.target.value)}
+                            <Autocomplete 
+                              apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+                              onPlaceSelected={(place) => handleDropoffChange(index, place.formatted_address || place.name || '')}
+                              options={{ types: ["geocode", "establishment"], componentRestrictions: { country: "lk" } }}
+                              defaultValue={drop}
+                              onChange={(e: any) => handleDropoffChange(index, e.target.value)}
                               placeholder="Enter destination (e.g. Colombo, Kandy)"
                               className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
                             />
