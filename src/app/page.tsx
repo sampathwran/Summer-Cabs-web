@@ -187,7 +187,7 @@ export default function Home() {
                           onPlaceSelected={(place) => setPickupLocation(place.formatted_address || place.name || '')}
                           options={{ types: ["geocode", "establishment"], componentRestrictions: { country: "lk" } }}
                           defaultValue={pickupLocation}
-                          onChange={(e: any) => setPickupLocation(e.target.value)}
+                          onBlur={(e: any) => setPickupLocation(e.target.value)}
                           placeholder="Bandaranaike International Airport (CMB)"
                           className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
                         />
@@ -218,7 +218,7 @@ export default function Home() {
                               onPlaceSelected={(place) => handleDropoffChange(index, place.formatted_address || place.name || '')}
                               options={{ types: ["geocode", "establishment"], componentRestrictions: { country: "lk" } }}
                               defaultValue={drop}
-                              onChange={(e: any) => handleDropoffChange(index, e.target.value)}
+                              onBlur={(e: any) => handleDropoffChange(index, e.target.value)}
                               placeholder="Enter destination (e.g. Colombo, Kandy)"
                               className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
                             />
