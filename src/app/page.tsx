@@ -1,12 +1,20 @@
 "use client";
 import React, { useState } from 'react';
 import { Plane, Car, Hotel, MapPin, Calendar, Clock, ArrowRight, ShieldCheck, CreditCard, Clock4, CheckCircle2, Plus, X, ChevronDown, Users, Star, MessageCircle, UserCheck, Smile } from 'lucide-react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 export default function Home() {
   const [dropoffs, setDropoffs] = useState(['']);
   const [selectedService, setSelectedService] = useState<{title: string, img: string, longDesc: string} | null>(null);
   const [bookingServiceType, setBookingServiceType] = useState('Airport Transfers');
   const [bookingVehicle, setBookingVehicle] = useState('Standard Car (Prius/Axio)');
+  const [pickupLocation, setPickupLocation] = useState('Bandaranaike International Airport (CMB)');
+  const [dateTime, setDateTime] = useState('');
+  const [passengerCount, setPassengerCount] = useState('');
+  const [customerName, setCustomerName] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const addDropoff = () => {
@@ -22,6 +30,43 @@ export default function Home() {
     const newDrops = [...dropoffs];
     newDrops[index] = value;
     setDropoffs(newDrops);
+  };
+
+  const handleBookingSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if(!customerName || !customerPhone || !dateTime || !pickupLocation) {
+      alert('Please fill all required fields');
+      return;
+    }
+    
+    setIsSubmitting(true);
+    try {
+      await addDoc(collection(db, 'bookings'), {
+        serviceType: bookingServiceType,
+        vehicleType: bookingVehicle,
+        pickupLocation: pickupLocation,
+        dropoffs: dropoffs.filter(d => d.trim() !== ''),
+        dateTime: dateTime,
+        passengerCount: bookingVehicle === 'Bus / Coach' ? passengerCount : null,
+        customerName: customerName,
+        customerPhone: customerPhone,
+        status: 'pending',
+        createdAt: serverTimestamp()
+      });
+      alert('Booking successfully requested! We will contact you shortly.');
+      
+      // Reset form
+      setCustomerName('');
+      setCustomerPhone('');
+      setDateTime('');
+      setDropoffs(['']);
+      setPassengerCount('');
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      alert('Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -85,7 +130,7 @@ export default function Home() {
               </div>
 
               {/* Booking Form */}
-              <div className="space-y-4">
+              <form onSubmit={handleBookingSubmit} className="space-y-4">
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="relative">
@@ -124,13 +169,41 @@ export default function Home() {
                   </div>
                 </div>
 
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="relative">
+                    <label className="text-white text-sm font-medium mb-1 block">Your Name</label>
+                    <input 
+                      type="text" 
+                      required
+                      value={customerName}
+                      onChange={(e) => setCustomerName(e.target.value)}
+                      placeholder="John Doe"
+                      className="w-full bg-slate-900/60 border border-slate-600 text-white px-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
+                    />
+                  </div>
+                  <div className="relative">
+                    <label className="text-white text-sm font-medium mb-1 block">WhatsApp / Phone</label>
+                    <input 
+                      type="tel" 
+                      required
+                      value={customerPhone}
+                      onChange={(e) => setCustomerPhone(e.target.value)}
+                      placeholder="+94 7X XXX XXXX"
+                      className="w-full bg-slate-900/60 border border-slate-600 text-white px-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
+                    />
+                  </div>
+                </div>
+
                 <div className="relative">
                   <label className="text-white text-sm font-medium mb-1 block">Pickup Location</label>
                   <div className="relative">
                     <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                     <input 
                       type="text" 
-                      defaultValue="Bandaranaike International Airport (CMB)"
+                      required
+                      value={pickupLocation}
+                      onChange={(e) => setPickupLocation(e.target.value)}
+                      placeholder="Bandaranaike International Airport (CMB)"
                       className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
                     />
                   </div>
@@ -157,6 +230,7 @@ export default function Home() {
                         <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                         <input 
                           type="text" 
+                          required={index === 0}
                           value={drop}
                           onChange={(e) => handleDropoffChange(index, e.target.value)}
                           placeholder="Enter destination (e.g. Colombo, Kandy)"
@@ -183,6 +257,9 @@ export default function Home() {
                     <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                     <input 
                       type="datetime-local" 
+                      required
+                      value={dateTime}
+                      onChange={(e) => setDateTime(e.target.value)}
                       className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer"
                     />
                   </div>
@@ -197,6 +274,9 @@ export default function Home() {
                       <input 
                         type="number" 
                         min="1"
+                        required
+                        value={passengerCount}
+                        onChange={(e) => setPassengerCount(e.target.value)}
                         placeholder="Enter total passengers"
                         className="w-full bg-slate-900/60 border border-slate-600 text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition placeholder:text-slate-400"
                       />
@@ -204,8 +284,14 @@ export default function Home() {
                   </div>
                 )}
 
-                <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20">
-                  {bookingVehicle === 'Bus / Coach' ? (
+                <button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? (
+                    'Processing Booking...'
+                  ) : bookingVehicle === 'Bus / Coach' ? (
                     <>Request Custom Quote <ArrowRight size={20} /></>
                   ) : (
                     <>Calculate Fare & Book <ArrowRight size={20} /></>
@@ -214,7 +300,7 @@ export default function Home() {
                 <div className="mt-4 flex items-center justify-center gap-2 text-sm font-bold text-yellow-400 bg-yellow-400/10 py-2.5 rounded-lg border border-yellow-400/20">
                   <ShieldCheck size={18} /> 100% Transparent Meter-Based Pricing
                 </div>
-              </div>
+              </form>
 
             </div>
           </div>
