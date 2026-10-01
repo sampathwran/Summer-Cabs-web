@@ -11,6 +11,13 @@ const heroImages = [
   "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop", // Taxi
   "https://images.unsplash.com/photo-1546874177-9e664ce7eb52?q=80&w=2069&auto=format&fit=crop", // Nine Arches Bridge SL
   "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?q=80&w=2070&auto=format&fit=crop", // SL Beach/Tropical
+  "https://images.unsplash.com/photo-1588614959060-4d144f28b207?q=80&w=2070&auto=format&fit=crop", // Sigiriya Rock
+  "https://images.unsplash.com/photo-1563499737522-38b8209804c8?q=80&w=2070&auto=format&fit=crop", // Elephants/Wildlife
+  "https://images.unsplash.com/photo-1580979870817-1849a9fb1fb6?q=80&w=2070&auto=format&fit=crop", // Tea Plantation
+  "https://images.unsplash.com/photo-1620025424750-b851c518b10b?q=80&w=2070&auto=format&fit=crop", // Galle Coast/Ocean
+  "https://images.unsplash.com/photo-1579697096985-41fe1430e5df?q=80&w=2072&auto=format&fit=crop", // Colombo City
+  "https://images.unsplash.com/photo-1541336032412-2048a678540d?q=80&w=2070&auto=format&fit=crop", // Safari/Leopard
+  "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2070&auto=format&fit=crop", // Scenic Road Trip
 ];
 
 export default function Home() {
@@ -102,7 +109,7 @@ export default function Home() {
     <main className="min-h-screen bg-slate-50 font-sans relative">
 
       {/* Hero Section */}
-      <div className="relative pt-40 pb-24 lg:pt-48 lg:pb-32 overflow-hidden flex items-center min-h-[90vh]">
+      <div className="relative pt-32 pb-16 lg:pt-36 lg:pb-20 overflow-hidden flex items-center min-h-[75vh]">
         <div className="absolute inset-0 z-0 bg-slate-900">
           {heroImages.map((src, index) => (
             <img 
