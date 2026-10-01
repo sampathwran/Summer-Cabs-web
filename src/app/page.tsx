@@ -524,8 +524,8 @@ export default function Home() {
                   </div>
                 )}
                 
-                {activeTab === 'taxi' && (
-                  <div className="mt-4 flex items-center justify-center gap-2 text-xs font-bold text-slate-500 bg-slate-50 py-3 rounded-xl border border-slate-100">
+                {activeTab === 'taxi' && bookingStep === 2 && (
+                  <div className="mt-4 flex items-center justify-center gap-2 text-xs font-bold text-slate-500 bg-slate-50 py-3 rounded-xl border border-slate-100 animate-in fade-in duration-300">
                     <ShieldCheck size={16} className="text-yellow-500" /> {t('form.transparent')}
                   </div>
                 )}
