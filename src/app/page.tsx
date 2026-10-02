@@ -42,8 +42,10 @@ export default function Home() {
   const [flashDeals, setFlashDeals] = useState<any[]>([]);
   const [services, setServices] = useState<any[]>([]);
   const [vehicles, setVehicles] = useState<any[]>([]);
+  const [rideTab, setRideTab] = useState<'One Way' | 'Hourly' | 'Day'>('One Way');
   
   const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 3500, stopOnInteraction: true })]);
+  const [vehiclesEmblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 4000, stopOnInteraction: true })]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -769,58 +771,100 @@ export default function Home() {
       {/* Vehicle Fleet Section */}
       <section className="py-24 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <h2 className="text-3xl font-extrabold text-slate-900">Choose Your Ride</h2>
             <p className="mt-4 text-slate-500 max-w-2xl mx-auto text-lg">From economical minis to luxury coaches, we have a vehicle for every journey.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {vehicles.length > 0 ? vehicles.map((vehicle, idx) => (
-              <div key={vehicle.id || idx} className="bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 hover:shadow-2xl hover:shadow-slate-200 transition duration-300 flex flex-col group">
-                <div className="h-56 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition z-10"/>
-                  <img src={vehicle.imageUrl || vehicle.img} alt={vehicle.name} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-slate-900 z-20">
-                    Popular
-                  </div>
-                </div>
-                <div className="p-8 flex-1 flex flex-col">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-4">{vehicle.name}</h3>
-                  <div className="flex gap-6 mb-6 text-sm text-slate-600 font-medium">
-                    <span className="flex items-center gap-2"><CheckCircle2 size={18} className="text-green-500"/> {vehicle.pax}</span>
-                    <span className="flex items-center gap-2"><CheckCircle2 size={18} className="text-green-500"/> {vehicle.bags}</span>
-                  </div>
-                  <div className="mt-auto flex flex-col gap-5 pt-6 border-t border-slate-200">
-                    <div className="flex justify-between items-end">
-                      <div>
-                        <span className="text-[10px] text-slate-400 block mb-1 uppercase tracking-wider font-extrabold">Base Fare</span>
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-xl font-black text-slate-900">{vehicle.basePrice}</span>
-                          <span className="text-xs text-slate-500 font-bold">/ {vehicle.baseKm}</span>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-[10px] text-slate-400 block mb-1 uppercase tracking-wider font-extrabold">Additional</span>
-                        <span className="text-sm font-bold text-slate-700">{vehicle.perKm}</span>
+          {/* Ride Tabs */}
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
+            {['One Way Transfers', 'Hourly Package', 'Day Package'].map(tab => (
+              <button
+                key={tab}
+                onClick={() => setRideTab(tab as any)}
+                className={`px-6 py-2.5 rounded-full font-bold transition-all duration-300 ${
+                  rideTab === tab 
+                  ? 'bg-slate-900 text-yellow-400 shadow-lg shadow-slate-900/20' 
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
+          <div className="overflow-hidden" ref={vehiclesEmblaRef}>
+            <div className="flex -ml-6 pb-8">
+              {vehicles.length > 0 ? vehicles.map((vehicle, idx) => (
+                <div key={vehicle.id || idx} className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 pl-6">
+                  <div className="bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 hover:shadow-2xl hover:shadow-slate-200 transition duration-300 flex flex-col group h-full">
+                    <div className="h-44 overflow-hidden relative shrink-0">
+                      <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition z-10"/>
+                      <img src={vehicle.imageUrl || vehicle.img} alt={vehicle.name} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
+                      <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] uppercase font-bold text-slate-900 z-20 shadow-sm">
+                        Popular
                       </div>
                     </div>
-                    <button 
-                      onClick={() => {
-                        setBookingVehicle(vehicle.name);
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
-                      className="w-full bg-slate-900 hover:bg-yellow-400 hover:text-slate-900 text-white px-6 py-3.5 rounded-xl font-bold transition shadow-lg hover:shadow-yellow-400/30"
-                    >
-                      Book Now
-                    </button>
+                    <div className="p-6 flex-1 flex flex-col">
+                      <h3 className="text-xl font-bold text-slate-900 mb-3 line-clamp-1">{vehicle.name}</h3>
+                      <div className="flex gap-4 mb-5 text-sm text-slate-600 font-medium">
+                        <span className="flex items-center gap-1.5"><CheckCircle2 size={16} className="text-green-500"/> {vehicle.pax}</span>
+                        <span className="flex items-center gap-1.5"><CheckCircle2 size={16} className="text-green-500"/> {vehicle.bags}</span>
+                      </div>
+                      
+                      <div className="mt-auto flex flex-col gap-4 pt-5 border-t border-slate-200">
+                        {rideTab === 'One Way Transfers' && (
+                          <div className="flex justify-between items-end">
+                            <div>
+                              <span className="text-[10px] text-slate-400 block mb-1 uppercase tracking-wider font-extrabold">Starting From</span>
+                              <div className="flex items-baseline gap-1">
+                                <span className="text-lg font-black text-slate-900">{vehicle.basePrice}</span>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <span className="text-[10px] text-slate-400 block mb-1 uppercase tracking-wider font-extrabold">After {vehicle.baseKm}</span>
+                              <span className="text-sm font-bold text-slate-700">{vehicle.perKm}</span>
+                            </div>
+                          </div>
+                        )}
+                        
+                        {rideTab === 'Hourly Package' && (
+                          <div className="bg-slate-100 rounded-xl p-3 text-center">
+                            <span className="text-[10px] text-slate-500 block mb-1 uppercase tracking-wider font-extrabold">Hourly Rate</span>
+                            <span className="text-lg font-black text-slate-900">{vehicle.hourlyPrice || 'Contact Us'}</span>
+                          </div>
+                        )}
+
+                        {rideTab === 'Day Package' && (
+                          <div className="bg-slate-100 rounded-xl p-3 text-center">
+                            <span className="text-[10px] text-slate-500 block mb-1 uppercase tracking-wider font-extrabold">Per Day</span>
+                            <span className="text-lg font-black text-slate-900">{vehicle.dayPrice || 'Contact Us'}</span>
+                          </div>
+                        )}
+
+                        <button 
+                          onClick={() => {
+                            setBookingVehicle(vehicle.name);
+                            setBookingServiceType(
+                              rideTab === 'One Way Transfers' ? 'Airport Transfers' :
+                              rideTab === 'Hourly Package' ? 'City Tours' : 'Multi-day Tours'
+                            );
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
+                          className="w-full bg-slate-900 hover:bg-yellow-400 hover:text-slate-900 text-white px-5 py-3 rounded-xl font-bold transition shadow-lg hover:shadow-yellow-400/30 text-sm"
+                        >
+                          Book Now
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )) : (
-              <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12 text-slate-500 font-medium">
-                 Loading vehicles...
-              </div>
-            )}
+              )) : (
+                <div className="w-full text-center py-12 text-slate-500 font-medium pl-6">
+                   Loading vehicles...
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
