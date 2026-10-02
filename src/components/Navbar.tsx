@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { useLanguage, Language } from '@/i18n/LanguageContext';
-import { Globe, ChevronDown, Menu, X } from 'lucide-react';
+import { Globe, ChevronDown, Menu, X, User } from 'lucide-react';
 
 export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
@@ -73,18 +73,16 @@ export default function Navbar() {
               )}
             </div>
 
-            <button 
-              onClick={() => {
-                if(window.location.pathname === '/') {
-                  document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                  window.location.href = '/#booking-form';
-                }
-              }}
-              className="hidden sm:block bg-slate-900 hover:bg-yellow-400 hover:text-slate-900 text-white px-6 py-2.5 rounded-full font-bold transition shadow-md hover:shadow-lg text-sm ml-1"
+            {/* Login Button */}
+            <a 
+              href="https://admin.summercabs.lk"
+              target="_blank"
+              rel="noreferrer"
+              className="hidden sm:flex items-center gap-2 bg-slate-900 hover:bg-yellow-400 hover:text-slate-900 text-white px-6 py-2.5 rounded-full font-bold transition shadow-md hover:shadow-lg text-sm ml-1"
             >
-              {t('nav.bookNow')}
-            </button>
+              <User size={16} />
+              Login
+            </a>
 
             {/* Mobile Menu Toggle */}
             <button 
@@ -103,19 +101,16 @@ export default function Navbar() {
               <a href="/" className="hover:text-yellow-600 transition pb-3 border-b border-slate-50">{t('nav.home')}</a>
               <a href="/services" className="hover:text-yellow-600 transition pb-3 border-b border-slate-50">{t('nav.services')}</a>
               <a href="/fleet" className="hover:text-yellow-600 transition pb-3 border-b border-slate-50">{t('nav.fleet')}</a>
-              <button 
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if(window.location.pathname === '/') {
-                    document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' });
-                  } else {
-                    window.location.href = '/#booking-form';
-                  }
-                }}
-                className="bg-yellow-400 text-slate-900 py-3.5 rounded-xl mt-2 w-full shadow-lg shadow-yellow-400/20 text-center"
+              
+              <a 
+                href="https://admin.summercabs.lk"
+                target="_blank"
+                rel="noreferrer"
+                className="flex justify-center items-center gap-2 bg-yellow-400 text-slate-900 py-3.5 rounded-xl mt-2 w-full shadow-lg shadow-yellow-400/20 text-center"
               >
-                {t('nav.bookNow')}
-              </button>
+                <User size={18} />
+                Login
+              </a>
             </div>
           </div>
         )}
