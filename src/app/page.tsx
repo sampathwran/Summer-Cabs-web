@@ -1094,6 +1094,8 @@ export default function Home() {
         </div>
       )}
 
+      <LatestBlogs />
+
       {/* WhatsApp Float Button */}
       <a 
         href="https://wa.me/94771234567" 
