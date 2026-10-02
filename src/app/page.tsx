@@ -42,6 +42,8 @@ export default function Home() {
   const [flashDeals, setFlashDeals] = useState<any[]>([]);
   const [services, setServices] = useState<any[]>([]);
   const [vehicles, setVehicles] = useState<any[]>([]);
+  const [hourlyPackages, setHourlyPackages] = useState<any[]>([]);
+  const [dayPackages, setDayPackages] = useState<any[]>([]);
   const [rideTab, setRideTab] = useState<'One Way Transfers' | 'Hourly Package' | 'Day Package'>('One Way Transfers');
   
   const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 3500, stopOnInteraction: true })]);
@@ -66,10 +68,20 @@ export default function Home() {
         const servicesSnap = await getDocs(servicesQ);
         setServices(servicesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 
-        // Fetch Vehicles
+        // Fetch Vehicles (One Way)
         const vehiclesQ = query(collection(db, 'vehicles'), orderBy('createdAt', 'desc'));
         const vehiclesSnap = await getDocs(vehiclesQ);
         setVehicles(vehiclesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+
+        // Fetch Hourly Packages
+        const hourlyQ = query(collection(db, 'hourly_packages'), orderBy('createdAt', 'desc'));
+        const hourlySnap = await getDocs(hourlyQ);
+        setHourlyPackages(hourlySnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+
+        // Fetch Day Packages
+        const dayQ = query(collection(db, 'day_packages'), orderBy('createdAt', 'desc'));
+        const daySnap = await getDocs(dayQ);
+        setDayPackages(daySnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
         
       } catch (err) {
         console.error("Failed to fetch data", err);
@@ -795,75 +807,85 @@ export default function Home() {
 
           <div className="overflow-hidden" ref={vehiclesEmblaRef}>
             <div className="flex -ml-4 pb-4">
-              {vehicles.length > 0 ? vehicles.map((vehicle, idx) => (
-                <div key={vehicle.id || idx} className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 pl-4">
-                  <div className="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 hover:shadow-xl hover:shadow-slate-200 transition duration-300 flex flex-col group h-full">
-                    <div className="h-36 overflow-hidden relative shrink-0">
-                      <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition z-10"/>
-                      <img src={vehicle.imageUrl || vehicle.img} alt={vehicle.name} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
-                      <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-0.5 rounded-full text-[9px] uppercase font-bold text-slate-900 z-20 shadow-sm">
-                        Popular
-                      </div>
+              {(() => {
+                const activeData = rideTab === 'One Way Transfers' ? vehicles :
+                                  rideTab === 'Hourly Package' ? hourlyPackages :
+                                  dayPackages;
+                
+                if (activeData.length === 0) {
+                  return (
+                    <div className="w-full text-center py-8 text-slate-500 font-medium pl-4">
+                      No packages available.
                     </div>
-                    <div className="p-4 flex-1 flex flex-col">
-                      <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-1">{vehicle.name}</h3>
-                      <div className="flex gap-3 mb-4 text-xs text-slate-600 font-medium">
-                        <span className="flex items-center gap-1"><CheckCircle2 size={14} className="text-green-500"/> {vehicle.pax}</span>
-                        <span className="flex items-center gap-1"><CheckCircle2 size={14} className="text-green-500"/> {vehicle.bags}</span>
+                  );
+                }
+
+                return activeData.map((vehicle, idx) => (
+                  <div key={vehicle.id || idx} className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 pl-4">
+                    <div className="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 hover:shadow-xl hover:shadow-slate-200 transition duration-300 flex flex-col group h-full">
+                      <div className="h-36 overflow-hidden relative shrink-0">
+                        <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition z-10"/>
+                        <img src={vehicle.imageUrl || vehicle.img} alt={vehicle.name} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
+                        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-0.5 rounded-full text-[9px] uppercase font-bold text-slate-900 z-20 shadow-sm">
+                          Popular
+                        </div>
                       </div>
-                      
-                      <div className="mt-auto flex flex-col gap-3 pt-4 border-t border-slate-200">
-                        {rideTab === 'One Way Transfers' && (
-                          <div className="flex justify-between items-end">
-                            <div>
-                              <span className="text-[9px] text-slate-400 block mb-0.5 uppercase tracking-wider font-extrabold">Starting From</span>
-                              <div className="flex items-baseline gap-1">
-                                <span className="text-base font-black text-slate-900">{vehicle.basePrice}</span>
+                      <div className="p-4 flex-1 flex flex-col">
+                        <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-1">{vehicle.name}</h3>
+                        <div className="flex gap-3 mb-4 text-xs text-slate-600 font-medium">
+                          <span className="flex items-center gap-1"><CheckCircle2 size={14} className="text-green-500"/> {vehicle.pax}</span>
+                          <span className="flex items-center gap-1"><CheckCircle2 size={14} className="text-green-500"/> {vehicle.bags}</span>
+                        </div>
+                        
+                        <div className="mt-auto flex flex-col gap-3 pt-4 border-t border-slate-200">
+                          {rideTab === 'One Way Transfers' && (
+                            <div className="flex justify-between items-end">
+                              <div>
+                                <span className="text-[9px] text-slate-400 block mb-0.5 uppercase tracking-wider font-extrabold">Starting From</span>
+                                <div className="flex items-baseline gap-1">
+                                  <span className="text-base font-black text-slate-900">{vehicle.basePrice}</span>
+                                </div>
+                              </div>
+                              <div className="text-right">
+                                <span className="text-[9px] text-slate-400 block mb-0.5 uppercase tracking-wider font-extrabold">After {vehicle.baseKm}</span>
+                                <span className="text-xs font-bold text-slate-700">{vehicle.perKm}</span>
                               </div>
                             </div>
-                            <div className="text-right">
-                              <span className="text-[9px] text-slate-400 block mb-0.5 uppercase tracking-wider font-extrabold">After {vehicle.baseKm}</span>
-                              <span className="text-xs font-bold text-slate-700">{vehicle.perKm}</span>
+                          )}
+                          
+                          {rideTab === 'Hourly Package' && (
+                            <div className="bg-slate-100 rounded-lg p-2 text-center">
+                              <span className="text-[9px] text-slate-500 block mb-0.5 uppercase tracking-wider font-extrabold">Hourly Rate</span>
+                              <span className="text-base font-black text-slate-900">{vehicle.hourlyPrice || 'Contact Us'}</span>
                             </div>
-                          </div>
-                        )}
-                        
-                        {rideTab === 'Hourly Package' && (
-                          <div className="bg-slate-100 rounded-lg p-2 text-center">
-                            <span className="text-[9px] text-slate-500 block mb-0.5 uppercase tracking-wider font-extrabold">Hourly Rate</span>
-                            <span className="text-base font-black text-slate-900">{vehicle.hourlyPrice || 'Contact Us'}</span>
-                          </div>
-                        )}
+                          )}
 
-                        {rideTab === 'Day Package' && (
-                          <div className="bg-slate-100 rounded-lg p-2 text-center">
-                            <span className="text-[9px] text-slate-500 block mb-0.5 uppercase tracking-wider font-extrabold">Per Day</span>
-                            <span className="text-base font-black text-slate-900">{vehicle.dayPrice || 'Contact Us'}</span>
-                          </div>
-                        )}
+                          {rideTab === 'Day Package' && (
+                            <div className="bg-slate-100 rounded-lg p-2 text-center">
+                              <span className="text-[9px] text-slate-500 block mb-0.5 uppercase tracking-wider font-extrabold">Per Day</span>
+                              <span className="text-base font-black text-slate-900">{vehicle.dayPrice || 'Contact Us'}</span>
+                            </div>
+                          )}
 
-                        <button 
-                          onClick={() => {
-                            setBookingVehicle(vehicle.name);
-                            setBookingServiceType(
-                              rideTab === 'One Way Transfers' ? 'Airport Transfers' :
-                              rideTab === 'Hourly Package' ? 'City Tours' : 'Multi-day Tours'
-                            );
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                          }}
-                          className="w-full bg-slate-900 hover:bg-yellow-400 hover:text-slate-900 text-white px-4 py-2 rounded-lg font-bold transition shadow-md hover:shadow-yellow-400/30 text-sm"
-                        >
-                          Book Now
-                        </button>
+                          <button 
+                            onClick={() => {
+                              setBookingVehicle(vehicle.name);
+                              setBookingServiceType(
+                                rideTab === 'One Way Transfers' ? 'Airport Transfers' :
+                                rideTab === 'Hourly Package' ? 'City Tours' : 'Multi-day Tours'
+                              );
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                            className="w-full bg-slate-900 hover:bg-yellow-400 hover:text-slate-900 text-white px-4 py-2 rounded-lg font-bold transition shadow-md hover:shadow-yellow-400/30 text-sm"
+                          >
+                            Book Now
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )) : (
-                <div className="w-full text-center py-8 text-slate-500 font-medium pl-4">
-                   Loading vehicles...
-                </div>
-              )}
+                ));
+              })()}
             </div>
           </div>
         </div>
