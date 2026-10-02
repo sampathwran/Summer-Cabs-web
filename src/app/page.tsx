@@ -41,6 +41,7 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [flashDeals, setFlashDeals] = useState<any[]>([]);
   const [services, setServices] = useState<any[]>([]);
+  const [vehicles, setVehicles] = useState<any[]>([]);
   
   const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 3500, stopOnInteraction: true })]);
 
@@ -62,6 +63,11 @@ export default function Home() {
         const servicesQ = query(collection(db, 'services'), orderBy('createdAt', 'desc'));
         const servicesSnap = await getDocs(servicesQ);
         setServices(servicesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+
+        // Fetch Vehicles
+        const vehiclesQ = query(collection(db, 'vehicles'), orderBy('createdAt', 'desc'));
+        const vehiclesSnap = await getDocs(vehiclesQ);
+        setVehicles(vehiclesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
         
       } catch (err) {
         console.error("Failed to fetch data", err);
@@ -769,18 +775,11 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { name: 'Mini (Alto/Kwid)', pax: '3 Pax', bags: '2 Bags', basePrice: 'Rs. 500', baseKm: 'first 3 km', perKm: 'Rs. 100 / km', img: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=600&auto=format&fit=crop' },
-              { name: 'Standard Car (Prius/Axio)', pax: '4 Pax', bags: '3 Bags', basePrice: 'Rs. 800', baseKm: 'first 4 km', perKm: 'Rs. 140 / km', img: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=600&auto=format&fit=crop' },
-              { name: 'Minivan (KDH)', pax: '7-9 Pax', bags: '6 Bags', basePrice: 'Rs. 1,500', baseKm: 'first 5 km', perKm: 'Rs. 180 / km', img: 'https://images.unsplash.com/photo-1520627977056-c307aebc8aca?q=80&w=600&auto=format&fit=crop' },
-              { name: 'Mini Van (5-6 Pax)', pax: '5-6 Pax', bags: '4 Bags', basePrice: 'Rs. 2,000', baseKm: 'first 5 km', perKm: 'Rs. 200 / km', img: 'https://images.unsplash.com/photo-1520627977056-c307aebc8aca?q=80&w=600&auto=format&fit=crop' },
-              { name: 'Luxury (Benz/BMW)', pax: '3 Pax', bags: '2 Bags', basePrice: 'Rs. 5,000', baseKm: 'first 10 km', perKm: 'Rs. 400 / km', img: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=600&auto=format&fit=crop' },
-              { name: 'Bus / Coach', pax: '29-45 Pax', bags: '30 Bags', basePrice: 'Custom', baseKm: 'Quote', perKm: 'Contact Us', img: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=600&auto=format&fit=crop' },
-            ].map((vehicle, idx) => (
-              <div key={idx} className="bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 hover:shadow-2xl hover:shadow-slate-200 transition duration-300 flex flex-col group">
+            {vehicles.length > 0 ? vehicles.map((vehicle, idx) => (
+              <div key={vehicle.id || idx} className="bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 hover:shadow-2xl hover:shadow-slate-200 transition duration-300 flex flex-col group">
                 <div className="h-56 overflow-hidden relative">
                   <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition z-10"/>
-                  <img src={vehicle.img} alt={vehicle.name} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
+                  <img src={vehicle.imageUrl || vehicle.img} alt={vehicle.name} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-slate-900 z-20">
                     Popular
                   </div>
@@ -817,7 +816,11 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            ))}
+            )) : (
+              <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12 text-slate-500 font-medium">
+                 Loading vehicles...
+              </div>
+            )}
           </div>
         </div>
       </section>
