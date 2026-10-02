@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { db } from '@/lib/firebase';
-import { collection, query, where, orderBy, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -12,20 +12,29 @@ export default function BlogList() {
   const { t } = useLanguage();
   const [blogs, setBlogs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         const q = query(
           collection(db, 'blogs'),
-          where('published', '==', true),
-          orderBy('createdAt', 'desc')
+          where('published', '==', true)
         );
         const snapshot = await getDocs(q);
         const blogData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        
+        // Sort in JavaScript to avoid Firestore index requirement
+        blogData.sort((a: any, b: any) => {
+          const dateA = a.createdAt?.toMillis() || 0;
+          const dateB = b.createdAt?.toMillis() || 0;
+          return dateB - dateA; // Descending
+        });
+
         setBlogs(blogData);
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error fetching blogs:", error);
+        setErrorMsg(error.message);
       } finally {
         setLoading(false);
       }
@@ -50,6 +59,12 @@ export default function BlogList() {
 
       {/* Blog List */}
       <div className="flex-1 max-w-7xl mx-auto w-full px-6 py-16">
+        {errorMsg && (
+          <div className="bg-red-100 text-red-700 p-4 rounded-lg mb-8">
+            <p className="font-bold">Error loading blogs:</p>
+            <p>{errorMsg}</p>
+          </div>
+        )}
         {loading ? (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500"></div>
