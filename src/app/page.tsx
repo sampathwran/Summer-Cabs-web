@@ -42,7 +42,7 @@ export default function Home() {
   const [flashDeals, setFlashDeals] = useState<any[]>([]);
   const [services, setServices] = useState<any[]>([]);
   const [vehicles, setVehicles] = useState<any[]>([]);
-  const [rideTab, setRideTab] = useState<'One Way' | 'Hourly' | 'Day'>('One Way');
+  const [rideTab, setRideTab] = useState<'One Way Transfers' | 'Hourly Package' | 'Day Package'>('One Way Transfers');
   
   const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 3500, stopOnInteraction: true })]);
   const [vehiclesEmblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 4000, stopOnInteraction: true })]);
