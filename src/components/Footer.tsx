@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { MapPin, Mail, Phone } from 'lucide-react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
@@ -34,20 +35,20 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-bold text-lg mb-6">Quick Links</h4>
           <ul className="space-y-3 text-sm">
-            <li><a href="/" className="hover:text-yellow-400 transition">Home</a></li>
-            <li><a href="/services" className="hover:text-yellow-400 transition">Our Services</a></li>
-            <li><a href="/fleet" className="hover:text-yellow-400 transition">Vehicle Fleet</a></li>
-            <li><a href="/privacy" className="hover:text-yellow-400 transition">Privacy Policy</a></li>
-            <li><a href="/terms" className="hover:text-yellow-400 transition">Terms of Service</a></li>
+            <li><Link href="/" className="hover:text-yellow-400 transition">Home</Link></li>
+            <li><Link href="/about" className="hover:text-yellow-400 transition">About Us</Link></li>
+            <li><Link href="/services" className="hover:text-yellow-400 transition">Our Services</Link></li>
+            <li><Link href="/fleet" className="hover:text-yellow-400 transition">Vehicle Fleet</Link></li>
+            <li><Link href="/contact" className="hover:text-yellow-400 transition">Contact Us</Link></li>
+            <li><Link href="/help-center" className="hover:text-yellow-400 transition">Help Center</Link></li>
           </ul>
         </div>
         <div>
-          <h4 className="text-white font-bold text-lg mb-6">Airport Routes</h4>
+          <h4 className="text-white font-bold text-lg mb-6">Legal & Policies</h4>
           <ul className="space-y-3 text-sm">
-            <li><a href="#" className="hover:text-white transition">BIA to Colombo</a></li>
-            <li><a href="#" className="hover:text-white transition">BIA to Kandy</a></li>
-            <li><a href="#" className="hover:text-white transition">BIA to Galle / Unawatuna</a></li>
-            <li><a href="#" className="hover:text-white transition">BIA to Ella</a></li>
+            <li><Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link></li>
+            <li><Link href="/terms" className="hover:text-white transition">Terms of Service</Link></li>
+            <li><Link href="/cookie-policy" className="hover:text-white transition">Cookie Policy</Link></li>
           </ul>
         </div>
         <div>
