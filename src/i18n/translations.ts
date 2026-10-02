@@ -1,5 +1,7 @@
 export const translations = {
   en: {
+    "nav.blog": "Travel Blog",
+
     "footer.desc": "Your premium transport partner in Sri Lanka. Reliable, safe, and transparent airport transfers and tours.",
     "footer.quickLinks": "Quick Links",
     "footer.legal": "Legal & Policies",
@@ -113,6 +115,8 @@ export const translations = {
     "form.searchFlights": "Search Flights"
   },
   si: {
+    "nav.blog": "සංචාරක බ්ලොග්",
+
     "footer.desc": "ශ්‍රී ලංකාවේ ඔබේ ප්‍රිමියම් ප්‍රවාහන සහකරුවා. විශ්වාසදායක, ආරක්ෂිත සහ විනිවිදභාවයෙන් යුත් ගුවන් තොටුපළ ප්‍රවාහන සේවා සහ සංචාර.",
     "footer.quickLinks": "ඉක්මන් සබැඳි (Quick Links)",
     "footer.legal": "නීතිමය සහ ප්‍රතිපත්ති",
@@ -226,6 +230,8 @@ export const translations = {
     "form.searchFlights": "ගුවන් ගමන් සොයන්න"
   },
   ta: {
+    "nav.blog": "பயண வலைப்பதிவு",
+
     "footer.desc": "இலங்கையில் உங்களின் பிரீமியம் போக்குவரத்து கூட்டாளர். பாதுகாப்பான மற்றும் நம்பகமான விமான நிலைய பயணங்கள் மற்றும் சுற்றுப்பயணங்கள்.",
     "footer.quickLinks": "விரைவு இணைப்புகள்",
     "footer.legal": "சட்ட மற்றும் கொள்கைகள்",
