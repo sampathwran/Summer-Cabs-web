@@ -923,27 +923,27 @@ export default function Home() {
       </section>
 
       {/* Popular Routes */}
-      <section className="py-24 bg-slate-50 border-b border-slate-100">
+      <section className="py-16 bg-slate-50 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <h2 className="text-3xl font-extrabold text-slate-900">Popular Airport Transfers</h2>
-            <p className="mt-4 text-slate-500 max-w-2xl mx-auto text-lg">Top destinations directly from Bandaranaike International Airport (CMB)</p>
+            <p className="mt-2 text-slate-500 max-w-2xl mx-auto text-base">Top destinations directly from Bandaranaike International Airport (CMB)</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {routes.length > 0 ? routes.map((route, i) => (
-              <div key={route.id || i} className="group relative rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition duration-300 h-[320px]">
+              <div key={route.id || i} className="group relative rounded-2xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition duration-300 h-[220px]">
                 <img src={route.imageUrl || 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?q=80&w=600&auto=format&fit=crop'} alt={route.title} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent z-10" />
-                <div className="absolute bottom-0 left-0 p-6 z-20 w-full transform group-hover:-translate-y-2 transition duration-300">
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition">{route.title}</h3>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-slate-300 bg-white/10 px-3 py-1 rounded-full backdrop-blur-md">{route.duration}</span>
-                    <span className="text-yellow-400 font-extrabold bg-slate-900/60 px-3 py-1 rounded-full backdrop-blur-md">{route.price}</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent z-10" />
+                <div className="absolute bottom-0 left-0 p-5 z-20 w-full transform group-hover:-translate-y-1 transition duration-300">
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-yellow-400 transition line-clamp-1">{route.title}</h3>
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-slate-200 bg-white/20 px-2.5 py-1 rounded-full backdrop-blur-md">{route.duration}</span>
+                    <span className="text-yellow-400 font-black bg-slate-900/80 px-2.5 py-1 rounded-full backdrop-blur-md">{route.price}</span>
                   </div>
                 </div>
               </div>
             )) : (
-              <div className="col-span-1 md:col-span-2 lg:col-span-4 text-center py-12 text-slate-500 font-medium">
+              <div className="col-span-1 md:col-span-2 lg:col-span-4 text-center py-8 text-slate-500 font-medium">
                  Loading routes...
               </div>
             )}
