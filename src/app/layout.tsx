@@ -19,6 +19,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  verification: {
+    google: "rzzxIT6bTvMvpV4t_jlY8_QPkig_PPjjckLIcDeIrko",
+  },
   metadataBase: new URL("https://www.summercabs.lk"),
   title: "Summer Cabs | Premium Airport Transfers & Tours in Sri Lanka",
   description: "Book reliable, safe, and transparent airport transfers, taxi services, and island-wide tours in Sri Lanka. 24/7 Availability with zero hidden fees.",
