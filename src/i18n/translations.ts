@@ -81,6 +81,9 @@ export const translations = {
     "hero.slide5.title": "Executive transport and luxury rides.",
     "hero.slide5.subtitle": "Luxury Benz and BMW fleets for weddings, corporate events, and VIP airport meet-and-greet services.",
 
+    "home.blogTitle": "Travel Guides",
+    "home.blogDesc": "Discover Sri Lanka’s most beautiful destinations and learn why traveling with a private cab is the best choice.",
+    "home.viewAllPosts": "View All Posts",
     "form.taxi": "Taxi",
     "form.hotels": "Hotels",
     "form.flights": "Flights",
@@ -169,6 +172,9 @@ export const translations = {
     "nav.services": "සේවාවන්",
     "nav.fleet": "වාහන",
     "nav.tours": "සංචාරක පැකේජ",
+    "home.blogTitle": "සංචාරක මාර්ගෝපදේශ",
+    "home.blogDesc": "ශ්‍රී ලංකාවේ සුන්දරම ස්ථාන සොයා යන්න. ඔබේ ගමනට පුද්ගලික ටැක්සියක් හොඳම තේරීම වන්නේ ඇයිදැයි දැනගන්න.",
+    "home.viewAllPosts": "සියලුම ලිපි බලන්න",
     "nav.contact": "අපව අමතන්න",
     "nav.bookNow": "වෙන්කරන්න",
 
@@ -284,6 +290,9 @@ export const translations = {
     "nav.services": "சேவைகள்",
     "nav.fleet": "வாகனங்கள்",
     "nav.tours": "சுற்றுலாப் பொதிகள்",
+    "home.blogTitle": "பயண வழிகாட்டிகள்",
+    "home.blogDesc": "இலங்கையின் அழகிய இடங்களை கண்டறியுங்கள். உங்கள் பயணத்திற்கு தனிப்பட்ட டாக்ஸி ஏன் சிறந்த தேர்வு என்பதை அறியுங்கள்.",
+    "home.viewAllPosts": "அனைத்து கட்டுரைகளையும் காண்க",
     "nav.contact": "தொடர்புகளுக்கு",
     "nav.bookNow": "முன்பதிவு",
 
