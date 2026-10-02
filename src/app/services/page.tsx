@@ -1,10 +1,13 @@
 "use client";
+import { useLanguage } from '@/i18n/LanguageContext';
 import { useEffect, useState } from 'react';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function ServicesPage() {
+  const { t } = useLanguage();
+
   const [services, setServices] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,9 +33,9 @@ export default function ServicesPage() {
       <div className="bg-slate-900 py-20 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20"></div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-6">Our Premium Services</h1>
+          <h1 className="text-4xl md:text-5xl font-black text-white mb-6">{t('services.premium')}</h1>
           <p className="text-slate-300 text-lg md:text-xl leading-relaxed">
-            From seamless airport transfers to multi-day island tours, we provide safe, comfortable, and reliable transport solutions tailored to your needs.
+            {t('services.premium.desc')}
           </p>
         </div>
       </div>

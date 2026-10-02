@@ -1,10 +1,13 @@
 "use client";
+import { useLanguage } from '@/i18n/LanguageContext';
 import { useEffect, useState } from 'react';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { Users, Briefcase, Car, ArrowRight } from 'lucide-react';
 
 export default function FleetPage() {
+  const { t } = useLanguage();
+
   const [vehicles, setVehicles] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,9 +33,9 @@ export default function FleetPage() {
       <div className="bg-slate-900 py-20 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20"></div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-6">Our Vehicle Fleet</h1>
+          <h1 className="text-4xl md:text-5xl font-black text-white mb-6">{t('fleet.title')}</h1>
           <p className="text-slate-300 text-lg md:text-xl leading-relaxed">
-            From economical sedans to luxury coaches, explore our diverse range of fully-insured, well-maintained vehicles.
+            {t('fleet.desc')}
           </p>
         </div>
       </div>

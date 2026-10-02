@@ -1,4 +1,5 @@
 "use client";
+import { useLanguage } from '@/i18n/LanguageContext';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { MapPin, Mail, Phone } from 'lucide-react';
@@ -6,6 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 export default function Footer() {
+  const { t } = useLanguage();
   const [socials, setSocials] = useState<any>({});
 
   useEffect(() => {
@@ -30,10 +32,10 @@ export default function Footer() {
           <div className="mb-6 bg-white inline-block p-3 rounded-2xl">
             <img src="/logo.png" alt="Summer Cabs Logo" className="h-12 object-contain" />
           </div>
-          <p className="text-sm leading-relaxed mb-6">Your premium transport partner in Sri Lanka. Reliable, safe, and transparent airport transfers and tours.</p>
+          <p className="text-sm leading-relaxed mb-6">{t('footer.desc')}</p>
         </div>
         <div>
-          <h4 className="text-white font-bold text-lg mb-6">Quick Links</h4>
+          <h4 className="text-white font-bold text-lg mb-6">{t('footer.quickLinks')}</h4>
           <ul className="space-y-3 text-sm">
             <li><Link href="/" className="hover:text-yellow-400 transition">Home</Link></li>
             <li><Link href="/about" className="hover:text-yellow-400 transition">About Us</Link></li>
@@ -44,7 +46,7 @@ export default function Footer() {
           </ul>
         </div>
         <div>
-          <h4 className="text-white font-bold text-lg mb-6">Legal & Policies</h4>
+          <h4 className="text-white font-bold text-lg mb-6">{t('footer.legal')}</h4>
           <ul className="space-y-3 text-sm">
             <li><Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link></li>
             <li><Link href="/terms" className="hover:text-white transition">Terms of Service</Link></li>

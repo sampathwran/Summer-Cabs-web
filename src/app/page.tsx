@@ -65,7 +65,7 @@ export default function Home() {
       try {
         const { getDocs, query, orderBy, collection, addDoc, serverTimestamp } = await import('firebase/firestore');
         
-        // Fetch Flash Deals
+        // Fetch {t('deals.flash')}
         const dealsQ = query(collection(db, 'flash_deals'), orderBy('createdAt', 'desc'));
         const dealsSnap = await getDocs(dealsQ);
         setFlashDeals(dealsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
@@ -666,8 +666,8 @@ export default function Home() {
                 <Clock4 className="text-yellow-600" size={24} />
               </div>
               <div>
-                <h3 className="text-base font-bold text-slate-900">24/7 Availability</h3>
-                <p className="text-sm text-slate-500 mt-1">Our fleet is on standby around the clock.</p>
+                <h3 className="text-base font-bold text-slate-900">{t('features.247')}</h3>
+                <p className="text-sm text-slate-500 mt-1">{t('features.247.desc')}</p>
               </div>
             </div>
             <div className="flex items-center gap-4 p-5 rounded-2xl border border-yellow-300 bg-yellow-50 hover:shadow-md transition relative overflow-hidden">
@@ -676,8 +676,8 @@ export default function Home() {
                 <Car className="text-slate-900" size={24} />
               </div>
               <div>
-                <h3 className="text-base font-extrabold text-slate-900">Meter-Based Pricing</h3>
-                <p className="text-sm text-slate-700 mt-1 font-medium">Calculated strictly per km. Zero hidden fees.</p>
+                <h3 className="text-base font-extrabold text-slate-900">{t('features.guaranteed')}</h3>
+                <p className="text-sm text-slate-700 mt-1 font-medium">{t('features.guaranteed.desc')}</p>
               </div>
             </div>
             <div className="flex items-center gap-4 p-5 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-md transition">
@@ -685,26 +685,26 @@ export default function Home() {
                 <ShieldCheck className="text-yellow-600" size={24} />
               </div>
               <div>
-                <h3 className="text-base font-bold text-slate-900">Verified Drivers</h3>
-                <p className="text-sm text-slate-500 mt-1">Strict background checks for your safety.</p>
+                <h3 className="text-base font-bold text-slate-900">{t('features.verified')}</h3>
+                <p className="text-sm text-slate-500 mt-1">{t('features.verified.desc')}</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Flash Deals Section */}
+      {/* {t('deals.flash')} Section */}
       <section className="py-8 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
               <h2 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
-                <span className="text-red-500 animate-pulse">🔥</span> Flash Deals
+                <span className="text-red-500 animate-pulse">🔥</span> {t('deals.flash')}
               </h2>
-              <span className="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded-full border border-red-200">Limited Time</span>
+              <span className="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded-full border border-red-200">{t('deals.limited')}</span>
             </div>
             <button className="text-xs font-bold text-slate-600 hover:text-slate-900 transition flex items-center gap-1">
-              View All <ArrowRight size={14} />
+              {t('deals.viewAll')} <ArrowRight size={14} />
             </button>
           </div>
           
@@ -760,19 +760,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How It Works Section */}
+      {/* {t('how.title')} Section */}
       <section className="pt-10 pb-20 bg-slate-50 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-extrabold text-slate-900">How It Works</h2>
-            <p className="mt-4 text-slate-500 max-w-2xl mx-auto text-lg">Book your ride in 3 simple steps</p>
+            <h2 className="text-3xl font-extrabold text-slate-900">{t('how.title')}</h2>
+            <p className="mt-4 text-slate-500 max-w-2xl mx-auto text-lg">{t('how.subtitle')}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative mt-16">
             <div className="hidden md:block absolute top-1/2 left-[16%] right-[16%] h-0.5 bg-slate-200 -z-0"></div>
             {[
-              { step: '01', title: 'Book Online', desc: 'Fill the form and select your preferred vehicle and route.', icon: <MapPin className="text-yellow-500" size={32} /> },
-              { step: '02', title: 'Meet Driver', desc: 'Our driver will wait for you at the arrivals with a name board.', icon: <UserCheck className="text-yellow-500" size={32} /> },
-              { step: '03', title: 'Enjoy Ride', desc: 'Travel safely to your destination and pay directly to the driver.', icon: <Smile className="text-yellow-500" size={32} /> },
+              { step: '01', title: t('how.step1'), desc: t('how.step1.desc'), icon: <MapPin className="text-yellow-500" size={32} /> },
+              { step: '02', title: t('how.step2'), desc: t('how.step2.desc'), icon: <UserCheck className="text-yellow-500" size={32} /> },
+              { step: '03', title: t('how.step3'), desc: t('how.step3.desc'), icon: <Smile className="text-yellow-500" size={32} /> },
             ].map((item, idx) => (
               <div key={idx} className="relative bg-white pt-12 pb-14 px-6 rounded-3xl border border-slate-200 shadow-xl shadow-slate-100/50 text-center z-10 flex flex-col justify-center min-h-[220px]">
                 <div className="w-20 h-20 bg-white border border-slate-100 shadow-md rounded-full flex items-center justify-center mx-auto mb-6 -mt-24 relative shrink-0">
@@ -792,11 +792,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div>
-              <h2 className="text-3xl font-extrabold text-white">Our Services</h2>
-              <p className="mt-4 text-slate-400 max-w-2xl text-lg">Tailored transportation solutions for every need. Manageable via Admin Panel.</p>
+              <h2 className="text-3xl font-extrabold text-white">{t('services.title')}</h2>
+              <p className="mt-4 text-slate-400 max-w-2xl text-lg">{t('services.desc')}</p>
             </div>
             <button className="flex items-center gap-2 text-yellow-400 hover:text-yellow-300 font-bold transition">
-              View All Services <ArrowRight size={20} />
+              {t('services.viewAll')} <ArrowRight size={20} />
             </button>
           </div>
           
@@ -836,8 +836,8 @@ export default function Home() {
       <section className="py-12 bg-white border-b border-slate-100" id="fleet">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-extrabold text-slate-900">Choose Your Ride</h2>
-            <p className="mt-2 text-slate-500 max-w-2xl mx-auto text-base">From economical minis to luxury coaches, we have a vehicle for every journey.</p>
+            <h2 className="text-2xl font-extrabold text-slate-900">{t('ride.title')}</h2>
+            <p className="mt-2 text-slate-500 max-w-2xl mx-auto text-base">{t('ride.desc')}</p>
           </div>
 
           <div className="overflow-hidden" ref={vehiclesEmblaRef}>
@@ -913,8 +913,8 @@ export default function Home() {
       <section className="py-16 bg-slate-50 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-extrabold text-slate-900">Popular Airport Transfers</h2>
-            <p className="mt-2 text-slate-500 max-w-2xl mx-auto text-base">Top destinations directly from Bandaranaike International Airport (CMB)</p>
+            <h2 className="text-3xl font-extrabold text-slate-900">{t('transfers.title')}</h2>
+            <p className="mt-2 text-slate-500 max-w-2xl mx-auto text-base">{t('transfers.desc')}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {routes.length > 0 ? routes.map((route, i) => (
@@ -942,8 +942,8 @@ export default function Home() {
       <section className="py-16 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-extrabold text-slate-900">What Our Clients Say</h2>
-            <p className="mt-2 text-slate-500 max-w-2xl mx-auto text-lg">Trusted by thousands of travelers worldwide</p>
+            <h2 className="text-3xl font-extrabold text-slate-900">{t('clients.title')}</h2>
+            <p className="mt-2 text-slate-500 max-w-2xl mx-auto text-lg">{t('clients.desc')}</p>
           </div>
           
           <div className="overflow-hidden -ml-6" ref={reviewsEmblaRef}>
@@ -988,17 +988,17 @@ export default function Home() {
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <span className="text-yellow-500 font-bold tracking-wider uppercase text-sm mb-3 block">Support</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">Frequently Asked Questions</h2>
-            <p className="mt-4 text-slate-500 text-lg">Everything you need to know about booking with Summer Cabs.</p>
+            <span className="text-yellow-500 font-bold tracking-wider uppercase text-sm mb-3 block">{t('support.title')}</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">{t('faq.title')}</h2>
+            <p className="mt-4 text-slate-500 text-lg">{t('faq.desc')}</p>
           </div>
 
           <div className="space-y-4">
             {[
-              { q: 'Do you charge extra for flight delays?', a: 'Not at all! We actively monitor your flight status using real-time trackers. Our driver will be there exactly when you land, with absolutely no extra waiting charges for delayed flights.' },
-              { q: 'How do I find my driver at the airport?', a: 'Your dedicated chauffeur will be waiting in the arrival hall, holding a personalized name board. If you have any trouble finding them, you can always contact our 24/7 support line.' },
-              { q: 'Can I pay by credit card?', a: 'Currently, we accept Cash (LKR, USD, EUR, GBP) directly to the driver at the end of your trip. Online secure card payments are being developed and will be introduced very soon!' },
-              { q: 'Are your vehicles air-conditioned?', a: 'Yes, 100%. All our vehicles are modern, strictly maintained, and fully air-conditioned to ensure you have a highly comfortable journey in Sri Lanka.' }
+              { q: t('faq.q1'), a: t('faq.a1') },
+              { q: t('faq.q2'), a: t('faq.a2') },
+              { q: t('faq.q3'), a: t('faq.a3') },
+              { q: t('faq.q4'), a: t('faq.a4') }
             ].map((faq, i) => {
               const isOpen = openFaq === i;
               return (
@@ -1036,8 +1036,8 @@ export default function Home() {
           <div className="mt-16 text-center bg-slate-900 rounded-3xl p-8 md:p-10 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-slate-900 to-slate-800 z-0"></div>
             <div className="text-left relative z-10">
-              <h3 className="text-2xl font-bold text-white mb-2">Still have questions?</h3>
-              <p className="text-slate-400">Can't find the answer you're looking for? Please chat to our friendly team.</p>
+              <h3 className="text-2xl font-bold text-white mb-2">{t('faq.stillQ')}</h3>
+              <p className="text-slate-400">{t('faq.stillDesc')}</p>
             </div>
             <a href="https://wa.me/94707001001" target="_blank" rel="noreferrer" className="shrink-0 bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold px-8 py-4 rounded-xl transition shadow-lg shadow-yellow-400/20 whitespace-nowrap flex items-center gap-2 relative z-10 hover:scale-105 transform duration-300">
               <MessageCircle size={20} /> Chat on WhatsApp
@@ -1075,7 +1075,7 @@ export default function Home() {
                     <CheckCircle2 size={18} className="text-green-500" /> Professional Chauffeurs
                   </li>
                   <li className="flex items-center gap-2 font-medium text-slate-700">
-                    <CheckCircle2 size={18} className="text-green-500" /> 24/7 Customer Support
+                    <CheckCircle2 size={18} className="text-green-500" /> 24/7 Customer {t('support.title')}
                   </li>
                 </ul>
               </div>
