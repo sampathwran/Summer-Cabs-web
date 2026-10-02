@@ -3,9 +3,18 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
+const getAuthDomain = () => {
+  if (typeof window !== "undefined") {
+    // If running in browser (Vercel or custom domain), use the current domain.
+    // Ensure the domain is added to Firebase Authorized Domains!
+    return window.location.host;
+  }
+  return "summer-cabs-9ccec.firebaseapp.com";
+};
+
 const firebaseConfig = {
   apiKey: "AIzaSyDl672PcL-Iqa88e1_e412fLnlEOvSV9zU",
-  authDomain: "summer-cabs-9ccec.firebaseapp.com",
+  authDomain: getAuthDomain(),
   projectId: "summer-cabs-9ccec",
   storageBucket: "summer-cabs-9ccec.firebasestorage.app",
   messagingSenderId: "754196637666",
