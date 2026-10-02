@@ -839,16 +839,18 @@ export default function Home() {
                         
                         <div className="mt-auto flex flex-col gap-3 pt-4 border-t border-slate-200">
                           {rideTab === 'One Way Transfers' && (
-                            <div className="flex justify-between items-end">
-                              <div>
-                                <span className="text-[9px] text-slate-400 block mb-0.5 uppercase tracking-wider font-extrabold">Starting From</span>
-                                <div className="flex items-baseline gap-1">
-                                  <span className="text-base font-black text-slate-900">{vehicle.basePrice}</span>
+                            <div className="flex flex-col gap-1.5 bg-slate-100 rounded-lg p-2.5">
+                              <div className="flex justify-between items-center">
+                                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Starting From</span>
+                                <div className="text-right">
+                                  <span className="text-sm font-black text-slate-900">{vehicle.basePrice}</span>
+                                  <span className="text-[10px] font-bold text-slate-500 ml-1">({vehicle.baseKm})</span>
                                 </div>
                               </div>
-                              <div className="text-right">
-                                <span className="text-[9px] text-slate-400 block mb-0.5 uppercase tracking-wider font-extrabold">After {vehicle.baseKm}</span>
-                                <span className="text-xs font-bold text-slate-700">{vehicle.perKm}</span>
+                              <div className="h-px w-full bg-slate-200"></div>
+                              <div className="flex justify-between items-center">
+                                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">After {vehicle.baseKm}</span>
+                                <span className="text-sm font-black text-slate-900">{vehicle.perKm}</span>
                               </div>
                             </div>
                           )}
