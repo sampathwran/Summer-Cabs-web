@@ -685,33 +685,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section className="pt-10 pb-20 bg-slate-50 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-extrabold text-slate-900">How It Works</h2>
-            <p className="mt-4 text-slate-500 max-w-2xl mx-auto text-lg">Book your ride in 3 simple steps</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative mt-16">
-            <div className="hidden md:block absolute top-1/2 left-[16%] right-[16%] h-0.5 bg-slate-200 -z-0"></div>
-            {[
-              { step: '01', title: 'Book Online', desc: 'Fill the form and select your preferred vehicle and route.', icon: <MapPin className="text-yellow-500" size={32} /> },
-              { step: '02', title: 'Meet Driver', desc: 'Our driver will wait for you at the arrivals with a name board.', icon: <UserCheck className="text-yellow-500" size={32} /> },
-              { step: '03', title: 'Enjoy Ride', desc: 'Travel safely to your destination and pay directly to the driver.', icon: <Smile className="text-yellow-500" size={32} /> },
-            ].map((item, idx) => (
-              <div key={idx} className="relative bg-white pt-12 pb-14 px-6 rounded-3xl border border-slate-200 shadow-xl shadow-slate-100/50 text-center z-10 flex flex-col justify-center min-h-[220px]">
-                <div className="w-20 h-20 bg-white border border-slate-100 shadow-md rounded-full flex items-center justify-center mx-auto mb-6 -mt-24 relative shrink-0">
-                  {item.icon}
-                  <div className="absolute -top-2 -right-2 bg-slate-900 text-yellow-400 text-xs font-black w-7 h-7 rounded-full flex items-center justify-center">{item.step}</div>
-                </div>
-                <h3 className="text-xl font-bold mb-3 text-slate-900">{item.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Flash Deals Section */}
       <section className="py-16 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -775,6 +748,33 @@ export default function Home() {
                  Loading deals...
               </div>
             )}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="pt-10 pb-20 bg-slate-50 border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-extrabold text-slate-900">How It Works</h2>
+            <p className="mt-4 text-slate-500 max-w-2xl mx-auto text-lg">Book your ride in 3 simple steps</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative mt-16">
+            <div className="hidden md:block absolute top-1/2 left-[16%] right-[16%] h-0.5 bg-slate-200 -z-0"></div>
+            {[
+              { step: '01', title: 'Book Online', desc: 'Fill the form and select your preferred vehicle and route.', icon: <MapPin className="text-yellow-500" size={32} /> },
+              { step: '02', title: 'Meet Driver', desc: 'Our driver will wait for you at the arrivals with a name board.', icon: <UserCheck className="text-yellow-500" size={32} /> },
+              { step: '03', title: 'Enjoy Ride', desc: 'Travel safely to your destination and pay directly to the driver.', icon: <Smile className="text-yellow-500" size={32} /> },
+            ].map((item, idx) => (
+              <div key={idx} className="relative bg-white pt-12 pb-14 px-6 rounded-3xl border border-slate-200 shadow-xl shadow-slate-100/50 text-center z-10 flex flex-col justify-center min-h-[220px]">
+                <div className="w-20 h-20 bg-white border border-slate-100 shadow-md rounded-full flex items-center justify-center mx-auto mb-6 -mt-24 relative shrink-0">
+                  {item.icon}
+                  <div className="absolute -top-2 -right-2 bg-slate-900 text-yellow-400 text-xs font-black w-7 h-7 rounded-full flex items-center justify-center">{item.step}</div>
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-slate-900">{item.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
