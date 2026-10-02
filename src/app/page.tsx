@@ -130,6 +130,28 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-slate-50 font-sans relative">
+      {services.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": services.map(s => ({
+                "@type": "Service",
+                "serviceType": s.title,
+                "name": s.seoTitle || s.title,
+                "description": s.metaDesc || s.description || s.longDesc,
+                "image": s.imageUrl || s.img,
+                "provider": {
+                  "@type": "LocalBusiness",
+                  "name": "Summer Cabs Sri Lanka"
+                },
+                "keywords": s.metaKeywords || s.focusKey || s.title
+              }))
+            })
+          }}
+        />
+      )}
 
       {/* Hero Section */}
       <div className="relative pt-32 pb-12 lg:pt-36 lg:pb-16 overflow-hidden flex items-center min-h-[70vh]">
