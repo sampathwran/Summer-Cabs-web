@@ -859,15 +859,23 @@ export default function Home() {
                           <div className="flex flex-col gap-1.5 bg-slate-100 rounded-lg p-2.5">
                             <div className="flex justify-between items-center">
                               <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Starting From</span>
-                              <div className="text-right">
-                                <span className="text-sm font-black text-slate-900">{vehicle.basePrice}</span>
-                                <span className="text-[10px] font-bold text-slate-500 ml-1">({vehicle.baseKm})</span>
+                              <div className="text-right flex items-baseline gap-1">
+                                <span className="text-sm font-black text-slate-900">
+                                  {vehicle.basePrice?.toString().toLowerCase().includes('rs') ? vehicle.basePrice : `Rs. ${vehicle.basePrice}/-`}
+                                </span>
+                                <span className="text-[10px] font-bold text-slate-500">
+                                  ({vehicle.baseKm?.toString().toLowerCase().includes('km') ? vehicle.baseKm : `${vehicle.baseKm}kms`})
+                                </span>
                               </div>
                             </div>
                             <div className="h-px w-full bg-slate-200"></div>
                             <div className="flex justify-between items-center">
-                              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">After {vehicle.baseKm}</span>
-                              <span className="text-sm font-black text-slate-900">{vehicle.perKm}</span>
+                              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+                                After {vehicle.baseKm?.toString().toLowerCase().includes('km') ? vehicle.baseKm : `${vehicle.baseKm}kms`}
+                              </span>
+                              <span className="text-sm font-black text-slate-900">
+                                {vehicle.perKm?.toString().toLowerCase().includes('rs') ? vehicle.perKm : `Rs. ${vehicle.perKm}/-`}
+                              </span>
                             </div>
                           </div>
 
