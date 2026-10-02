@@ -25,7 +25,7 @@ export default function Home() {
   const [currentImage, setCurrentImage] = useState(0);
   const [activeTab, setActiveTab] = useState<'taxi' | 'hotels' | 'flights'>('taxi');
   const [dropoffs, setDropoffs] = useState(['']);
-  const [selectedService, setSelectedService] = useState<{title: string, img: string, longDesc: string} | null>(null);
+  const [selectedService, setSelectedService] = useState<{title: string, img?: string, imageUrl?: string, longDesc?: string, description?: string} | null>(null);
   const [bookingServiceType, setBookingServiceType] = useState('Airport Transfers');
   const [bookingVehicle, setBookingVehicle] = useState('Standard Car (Prius/Axio)');
   const [pickupLocation, setPickupLocation] = useState('Bandaranaike International Airport (CMB)');
@@ -38,24 +38,32 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [flashDeals, setFlashDeals] = useState<any[]>([]);
+  const [services, setServices] = useState<any[]>([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % heroImages.length);
     }, 5000);
 
-    const fetchDeals = async () => {
+    const fetchData = async () => {
       try {
         const { getDocs, query, orderBy, collection } = await import('firebase/firestore');
-        const q = query(collection(db, 'flash_deals'), orderBy('createdAt', 'desc'));
-        const querySnapshot = await getDocs(q);
-        const deals = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setFlashDeals(deals);
+        
+        // Fetch Flash Deals
+        const dealsQ = query(collection(db, 'flash_deals'), orderBy('createdAt', 'desc'));
+        const dealsSnap = await getDocs(dealsQ);
+        setFlashDeals(dealsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        
+        // Fetch Services
+        const servicesQ = query(collection(db, 'services'), orderBy('createdAt', 'desc'));
+        const servicesSnap = await getDocs(servicesQ);
+        setServices(servicesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        
       } catch (err) {
-        console.error("Failed to fetch flash deals", err);
+        console.error("Failed to fetch data", err);
       }
     };
-    fetchDeals();
+    fetchData();
 
     return () => clearInterval(interval);
   }, []);
@@ -695,36 +703,15 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { 
-                title: 'Airport Transfers', 
-                img: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop', 
-                longDesc: 'Start your journey in Sri Lanka stress-free with our premium airport transfer service. We provide 24/7 pick-up and drop-off at Bandaranaike International Airport (BIA). Our drivers monitor your flight status to ensure timely pickups even if your flight is delayed. Enjoy a comfortable ride in our modern, air-conditioned vehicles.' 
-              },
-              { 
-                title: 'City Tours', 
-                img: 'https://images.unsplash.com/photo-1575986767340-5d17ae767ab0?q=80&w=800&auto=format&fit=crop', 
-                longDesc: 'Discover the hidden gems and popular landmarks of Sri Lanka with our customizable city tours. From the bustling streets of Colombo to the historic temples of Kandy, our knowledgeable local drivers act as your personal guides. We offer flexible itineraries, allowing you to explore at your own pace.' 
-              },
-              { 
-                title: 'Wedding Hires', 
-                img: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop', 
-                longDesc: 'Make your special day unforgettable with our luxury wedding car hires. We offer a fleet of premium vehicles, beautifully decorated to match your theme. Our professional, well-dressed chauffeurs ensure you arrive in style and comfort, providing a VIP experience for the bride, groom, and family members.' 
-              },
-              { 
-                title: 'Corporate Travel', 
-                img: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=800&auto=format&fit=crop', 
-                longDesc: 'Reliable and professional transportation for your business needs. We cater to corporate clients with executive vehicles, ensuring you reach your meetings, conferences, and corporate events on time. We offer customized billing, dedicated account managers, and strict confidentiality for all our corporate partners.' 
-              }
-            ].map((service, i) => (
-              <div key={i} className="bg-slate-800 rounded-3xl overflow-hidden border border-slate-700 hover:shadow-2xl hover:shadow-slate-900/50 transition duration-300 flex flex-col group">
+            {services.length > 0 ? services.map((service, i) => (
+              <div key={service.id || i} className="bg-slate-800 rounded-3xl overflow-hidden border border-slate-700 hover:shadow-2xl hover:shadow-slate-900/50 transition duration-300 flex flex-col group">
                 <div className="h-48 shrink-0 overflow-hidden relative">
-                  <img src={service.img} alt={service.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100" />
+                  <img src={service.img || service.imageUrl} alt={service.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100" />
                 </div>
                 <div className="p-6 flex flex-col flex-1">
                   <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
                   <p className="text-sm text-slate-400 leading-relaxed line-clamp-3 mb-6">
-                    {service.longDesc}
+                    {service.longDesc || service.description}
                   </p>
                   <button 
                     onClick={() => setSelectedService(service)}
@@ -734,7 +721,11 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-            ))}
+            )) : (
+              <div className="col-span-1 sm:col-span-2 lg:col-span-4 text-center py-12 text-slate-500 font-medium">
+                 Loading services...
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -943,12 +934,12 @@ export default function Home() {
               <X size={16} />
             </button>
             <div className="md:w-5/12 h-64 md:h-auto">
-              <img src={selectedService.img} alt={selectedService.title} className="w-full h-full object-cover" />
+              <img src={selectedService.img || selectedService.imageUrl} alt={selectedService.title} className="w-full h-full object-cover" />
             </div>
             <div className="md:w-7/12 p-8 flex flex-col">
               <h3 className="text-2xl font-extrabold text-slate-900 mb-4">{selectedService.title}</h3>
               <div className="flex-1 overflow-y-auto max-h-[50vh] pr-2 text-slate-600 leading-relaxed text-sm">
-                <p className="mb-4">{selectedService.longDesc}</p>
+                <p className="mb-4">{selectedService.longDesc || selectedService.description}</p>
                 <ul className="space-y-3 border-t border-slate-100 pt-4 mt-4">
                   <li className="flex items-center gap-2 font-medium text-slate-700">
                     <CheckCircle2 size={18} className="text-green-500" /> Fully Air-conditioned Vehicles
