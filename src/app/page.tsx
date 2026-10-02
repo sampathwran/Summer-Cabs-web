@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Plane, Car, Hotel, MapPin, Calendar, Clock, ArrowRight, ShieldCheck, CreditCard, Clock4, CheckCircle2, Plus, X, ChevronDown, Users, Star, MessageCircle, UserCheck, Smile, Luggage } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import TravelPayoutsWidget from '@/components/TravelPayoutsWidget';
 import { useAuth } from '@/context/AuthContext';
 
 import Autocomplete from "react-google-autocomplete";
@@ -639,64 +640,11 @@ export default function Home() {
                 )}
 
                 {activeTab === 'flights' && (
-                  <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-4">
-                    <div className="relative">
-                      <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.flightOrigin')}</label>
-                      <div className="relative">
-                        <Plane className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                        <input 
-                          type="text" 
-                          placeholder="e.g. London (LHR)"
-                          className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/20 transition placeholder:text-slate-400 font-medium"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="relative">
-                      <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.flightDest')}</label>
-                      <div className="relative">
-                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                        <input 
-                          type="text" 
-                          placeholder="e.g. Colombo (CMB)"
-                          defaultValue="Colombo (CMB)"
-                          className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/20 transition placeholder:text-slate-400 font-medium"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="relative">
-                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.departDate')}</label>
-                        <div className="relative">
-                          <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                          <input 
-                            type="date" 
-                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/20 transition cursor-pointer font-medium"
-                          />
-                        </div>
-                      </div>
-                      <div className="relative">
-                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.returnDate')}</label>
-                        <div className="relative">
-                          <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                          <input 
-                            type="date" 
-                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/20 transition cursor-pointer font-medium"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <button 
-                      type="submit" 
-                      className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-lg py-4 rounded-xl mt-8 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-indigo-600/20"
-                    >
-                      {t('form.searchFlights')} <ArrowRight size={20} />
-                    </button>
+                  <div className="animate-in fade-in slide-in-from-right-4 duration-300">
+                    <TravelPayoutsWidget />
                   </div>
                 )}
-                
+
                 {activeTab === 'taxi' && bookingStep === 2 && (
                   <div className="mt-4 flex items-center justify-center gap-2 text-xs font-bold text-slate-500 bg-slate-50 py-3 rounded-xl border border-slate-100 animate-in fade-in duration-300">
                     <ShieldCheck size={16} className="text-yellow-500" /> {t('form.transparent')}
