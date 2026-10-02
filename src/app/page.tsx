@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { Plane, Car, Hotel, MapPin, Calendar, Clock, ArrowRight, ShieldCheck, CreditCard, Clock4, CheckCircle2, Plus, X, ChevronDown, Users, Star, MessageCircle, UserCheck, Smile } from 'lucide-react';
+import { Plane, Car, Hotel, MapPin, Calendar, Clock, ArrowRight, ShieldCheck, CreditCard, Clock4, CheckCircle2, Plus, X, ChevronDown, Users, Star, MessageCircle, UserCheck, Smile, Luggage } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useAuth } from '@/context/AuthContext';
@@ -909,8 +909,8 @@ export default function Home() {
                       <div className="p-4 flex-1 flex flex-col">
                         <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-1">{vehicle.name}</h3>
                         <div className="flex gap-3 mb-4 text-xs text-slate-600 font-medium">
-                          <span className="flex items-center gap-1"><CheckCircle2 size={14} className="text-green-500"/> {vehicle.pax}</span>
-                          <span className="flex items-center gap-1"><CheckCircle2 size={14} className="text-green-500"/> {vehicle.bags}</span>
+                          <span className="flex items-center gap-1"><Users size={14} className="text-yellow-500"/> {vehicle.pax}</span>
+                          <span className="flex items-center gap-1"><Luggage size={14} className="text-yellow-500"/> {vehicle.bags}</span>
                         </div>
                         
                         <div className="mt-auto flex flex-col gap-3 pt-4 border-t border-slate-200">
