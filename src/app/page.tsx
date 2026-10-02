@@ -138,7 +138,7 @@ export default function Home() {
                 </span>
                 {t(`hero.slide${currentImage % 6}.badge` as any)}
               </div>
-              <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] mb-6 tracking-tight drop-shadow-lg">
+              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-white leading-[1.15] sm:leading-[1.1] mb-4 sm:mb-6 tracking-tight drop-shadow-lg">
                 {t(`hero.slide${currentImage % 6}.title` as any).split(',')[0]}
                 {t(`hero.slide${currentImage % 6}.title` as any).includes(',') && (
                   <span className="text-yellow-400 block mt-2">
@@ -146,25 +146,25 @@ export default function Home() {
                   </span>
                 )}
               </h1>
-              <p className="text-lg md:text-xl text-slate-200 mb-10 max-w-xl leading-relaxed font-medium">
+              <p className="text-base sm:text-lg md:text-xl text-slate-200 mb-8 sm:mb-10 max-w-xl leading-relaxed font-medium">
                 {t(`hero.slide${currentImage % 6}.subtitle` as any)}
               </p>
               
-              <div className="flex flex-wrap gap-4 mt-8 hidden md:flex">
-                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl text-white text-sm font-semibold border border-white/20 shadow-lg">
-                  <Car className="text-yellow-400" size={20} /> Modern Fleet
+              <div className="flex flex-wrap gap-3 sm:gap-4 mt-6 sm:mt-8 hidden md:flex">
+                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl text-white text-xs sm:text-sm font-semibold border border-white/20 shadow-lg">
+                  <Car className="text-yellow-400" size={18} /> Modern Fleet
                 </div>
-                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl text-white text-sm font-semibold border border-white/20 shadow-lg">
-                  <Plane className="text-yellow-400" size={20} /> Flight Tracking
+                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl text-white text-xs sm:text-sm font-semibold border border-white/20 shadow-lg">
+                  <Plane className="text-yellow-400" size={18} /> Flight Tracking
                 </div>
-                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl text-white text-sm font-semibold border border-white/20 shadow-lg">
-                  <Clock4 className="text-yellow-400" size={20} /> On-Time Guarantee
+                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl text-white text-xs sm:text-sm font-semibold border border-white/20 shadow-lg">
+                  <Clock4 className="text-yellow-400" size={18} /> On-Time Guarantee
                 </div>
               </div>
             </div>
 
             {/* Right Booking Widget */}
-            <div id="booking-form" className="lg:col-span-5 bg-white p-8 rounded-[2rem] shadow-2xl relative overflow-hidden animate-in fade-in slide-in-from-right-8 duration-700">
+            <div id="booking-form" className="lg:col-span-5 bg-white p-5 sm:p-8 rounded-3xl sm:rounded-[2rem] shadow-2xl relative overflow-hidden animate-in fade-in slide-in-from-right-8 duration-700">
               
               <div className="flex bg-slate-100 rounded-xl p-1.5 mb-8 shadow-inner">
                 <button 
@@ -296,7 +296,7 @@ export default function Home() {
                         {t('form.back')}
                       </button>
 
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="relative">
                           <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.serviceType')}</label>
                           <div className="relative">
@@ -351,7 +351,7 @@ export default function Home() {
                         </div>
                       )}
 
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="relative">
                           <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.name')}</label>
                           <input 
@@ -419,7 +419,7 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="relative">
                         <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.checkIn')}</label>
                         <div className="relative">
@@ -492,7 +492,7 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="relative">
                         <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.departDate')}</label>
                         <div className="relative">
