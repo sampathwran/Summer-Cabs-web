@@ -45,6 +45,7 @@ export default function Home() {
   const [vehicles, setVehicles] = useState<any[]>([]);
   const [hourlyPackages, setHourlyPackages] = useState<any[]>([]);
   const [dayPackages, setDayPackages] = useState<any[]>([]);
+  const [routes, setRoutes] = useState<any[]>([]);
   const [rideTab, setRideTab] = useState<'One Way Transfers' | 'Hourly Package' | 'Day Package'>('One Way Transfers');
   
   const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 3500, stopOnInteraction: true })]);
@@ -57,7 +58,7 @@ export default function Home() {
 
     const fetchData = async () => {
       try {
-        const { getDocs, query, orderBy, collection } = await import('firebase/firestore');
+        const { getDocs, query, orderBy, collection, addDoc, serverTimestamp } = await import('firebase/firestore');
         
         // Fetch Flash Deals
         const dealsQ = query(collection(db, 'flash_deals'), orderBy('createdAt', 'desc'));
@@ -84,6 +85,26 @@ export default function Home() {
         const daySnap = await getDocs(dayQ);
         setDayPackages(daySnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
         
+        // Fetch Routes
+        const routesQ = query(collection(db, 'popular_routes'), orderBy('createdAt', 'desc'));
+        const routesSnap = await getDocs(routesQ);
+        
+        if (routesSnap.empty) {
+          const defaultRoutes = [
+            { title: 'Airport to Colombo', price: 'Rs. 7,500', duration: '45 Mins', imageUrl: 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?q=80&w=600&auto=format&fit=crop' },
+            { title: 'Airport to Kandy', price: 'Rs. 21,000', duration: '3 Hours', imageUrl: 'https://images.unsplash.com/photo-1588661609117-7a5e1eb4b0b1?q=80&w=600&auto=format&fit=crop' },
+            { title: 'Airport to Galle', price: 'Rs. 22,000', duration: '2.5 Hours', imageUrl: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=600&auto=format&fit=crop' },
+            { title: 'Airport to Ella', price: 'Rs. 35,000', duration: '5 Hours', imageUrl: 'https://images.unsplash.com/photo-1606708687440-59bf6a8c2f16?q=80&w=600&auto=format&fit=crop' }
+          ];
+          for (const route of defaultRoutes) {
+            await addDoc(collection(db, 'popular_routes'), { ...route, createdAt: serverTimestamp() });
+          }
+          const retrySnap = await getDocs(routesQ);
+          setRoutes(retrySnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        } else {
+          setRoutes(routesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        }
+
       } catch (err) {
         console.error("Failed to fetch data", err);
       }
@@ -909,24 +930,23 @@ export default function Home() {
             <p className="mt-4 text-slate-500 max-w-2xl mx-auto text-lg">Top destinations directly from Bandaranaike International Airport (CMB)</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { route: 'Airport to Colombo', price: 'Rs. 7,500', time: '45 Mins', img: 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?q=80&w=600&auto=format&fit=crop' },
-              { route: 'Airport to Kandy', price: 'Rs. 21,000', time: '3 Hours', img: 'https://images.unsplash.com/photo-1588661609117-7a5e1eb4b0b1?q=80&w=600&auto=format&fit=crop' },
-              { route: 'Airport to Galle', price: 'Rs. 22,000', time: '2.5 Hours', img: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=600&auto=format&fit=crop' },
-              { route: 'Airport to Ella', price: 'Rs. 35,000', time: '5 Hours', img: 'https://images.unsplash.com/photo-1606708687440-59bf6a8c2f16?q=80&w=600&auto=format&fit=crop' }
-            ].map((route, i) => (
-              <div key={i} className="group relative rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition duration-300 h-[320px]">
-                <img src={route.img} alt={route.route} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
+            {routes.length > 0 ? routes.map((route, i) => (
+              <div key={route.id || i} className="group relative rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition duration-300 h-[320px]">
+                <img src={route.imageUrl || 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?q=80&w=600&auto=format&fit=crop'} alt={route.title} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent z-10" />
                 <div className="absolute bottom-0 left-0 p-6 z-20 w-full transform group-hover:-translate-y-2 transition duration-300">
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition">{route.route}</h3>
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition">{route.title}</h3>
                   <div className="flex justify-between items-center text-sm">
-                    <span className="text-slate-300 bg-white/10 px-3 py-1 rounded-full backdrop-blur-md">{route.time}</span>
+                    <span className="text-slate-300 bg-white/10 px-3 py-1 rounded-full backdrop-blur-md">{route.duration}</span>
                     <span className="text-yellow-400 font-extrabold bg-slate-900/60 px-3 py-1 rounded-full backdrop-blur-md">{route.price}</span>
                   </div>
                 </div>
               </div>
-            ))}
+            )) : (
+              <div className="col-span-1 md:col-span-2 lg:col-span-4 text-center py-12 text-slate-500 font-medium">
+                 Loading routes...
+              </div>
+            )}
           </div>
         </div>
       </section>
