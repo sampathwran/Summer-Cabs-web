@@ -333,6 +333,7 @@ export default function Home() {
                               }}
                               className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
                             >
+                              <option value="One-way transfer">One-way transfer</option>
                               <option value="Airport Transfers">Airport Transfers</option>
                               <option value="City Tours">City Tours (Hourly Package)</option>
                               <option value="Multi-day Tours">Multi-day Tours (Day Package)</option>
