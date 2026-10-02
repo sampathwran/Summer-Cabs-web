@@ -988,7 +988,9 @@ export default function Home() {
                     <div className="flex gap-1 text-yellow-400 mb-6">
                       {[...Array(5)].map((_, j) => <Star key={j} size={18} fill="currentColor" />)}
                     </div>
-                    <p className="text-slate-700 text-sm leading-relaxed mb-8 italic flex-grow">"{review.text}"</p>
+                    <div className="overflow-y-auto pr-2 mb-8 h-[120px] custom-scrollbar">
+                      <p className="text-slate-700 text-sm leading-relaxed italic">"{review.text}"</p>
+                    </div>
                     <div className="flex items-center gap-4 mt-auto">
                       {review.profilePhoto ? (
                         <img src={review.profilePhoto} alt={review.name} className="w-12 h-12 rounded-full object-cover shadow-sm" />
