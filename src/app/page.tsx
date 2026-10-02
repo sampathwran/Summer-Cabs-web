@@ -46,6 +46,7 @@ export default function Home() {
   const [hourlyPackages, setHourlyPackages] = useState<any[]>([]);
   const [dayPackages, setDayPackages] = useState<any[]>([]);
   const [routes, setRoutes] = useState<any[]>([]);
+  const [reviews, setReviews] = useState<any[]>([]);
   const [rideTab, setRideTab] = useState<'One Way Transfers' | 'Hourly Package' | 'Day Package'>('One Way Transfers');
   
   const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 3500, stopOnInteraction: true })]);
@@ -103,6 +104,25 @@ export default function Home() {
           setRoutes(retrySnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
         } else {
           setRoutes(routesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        }
+
+        // Fetch Reviews
+        const reviewsQ = query(collection(db, 'customer_reviews'), orderBy('createdAt', 'desc'));
+        const reviewsSnap = await getDocs(reviewsQ);
+        
+        if (reviewsSnap.empty) {
+          const defaultReviews = [
+            { name: 'Sarah Jenkins', country: 'United Kingdom', text: 'Highly recommend Summer Cabs! Our flight was delayed by 2 hours, but our driver was still waiting for us with a smile. The van was very clean and comfortable.', date: 'Oct 2025' },
+            { name: 'Markus Müller', country: 'Germany', text: 'Excellent service from Airport to Mirissa. The driver drove safely and gave us great tips for our holiday. Booking was incredibly easy.', date: 'Sep 2025' },
+            { name: 'Anjali Sharma', country: 'India', text: 'Used them for a 3-day cultural triangle tour. Very professional, transparent pricing, and zero hassle. Will definitely book again.', date: 'Aug 2025' }
+          ];
+          for (const rev of defaultReviews) {
+            await addDoc(collection(db, 'customer_reviews'), { ...rev, createdAt: serverTimestamp() });
+          }
+          const retryRevSnap = await getDocs(reviewsQ);
+          setReviews(retryRevSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        } else {
+          setReviews(reviewsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
         }
 
       } catch (err) {
@@ -959,25 +979,25 @@ export default function Home() {
             <p className="mt-4 text-slate-500 max-w-2xl mx-auto text-lg">Trusted by thousands of travelers worldwide</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { name: 'Sarah Jenkins', country: 'United Kingdom', text: 'Highly recommend Summer Cabs! Our flight was delayed by 2 hours, but our driver was still waiting for us with a smile. The van was very clean and comfortable.', date: 'Oct 2025' },
-              { name: 'Markus Müller', country: 'Germany', text: 'Excellent service from Airport to Mirissa. The driver drove safely and gave us great tips for our holiday. Booking was incredibly easy.', date: 'Sep 2025' },
-              { name: 'Anjali Sharma', country: 'India', text: 'Used them for a 3-day cultural triangle tour. Very professional, transparent pricing, and zero hassle. Will definitely book again.', date: 'Aug 2025' }
-            ].map((review, i) => (
-              <div key={i} className="bg-slate-50 p-8 rounded-3xl border border-slate-200 shadow-sm relative hover:-translate-y-1 transition duration-300">
+            {reviews.length > 0 ? reviews.map((review, i) => (
+              <div key={review.id || i} className="bg-slate-50 p-8 rounded-3xl border border-slate-200 shadow-sm relative hover:-translate-y-1 transition duration-300">
                 <div className="flex gap-1 text-yellow-400 mb-6">
                   {[...Array(5)].map((_, j) => <Star key={j} size={18} fill="currentColor" />)}
                 </div>
                 <p className="text-slate-700 text-sm leading-relaxed mb-8 italic">"{review.text}"</p>
                 <div className="flex items-center gap-4 mt-auto">
-                  <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 text-lg">{review.name.charAt(0)}</div>
+                  <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 text-lg">{review.name?.charAt(0) || 'C'}</div>
                   <div>
                     <h4 className="font-bold text-slate-900 text-sm">{review.name}</h4>
                     <span className="text-xs text-slate-500 font-medium">{review.country} • {review.date}</span>
                   </div>
                 </div>
               </div>
-            ))}
+            )) : (
+              <div className="col-span-1 md:col-span-3 text-center py-12 text-slate-500 font-medium">
+                 Loading reviews...
+              </div>
+            )}
           </div>
         </div>
       </section>
