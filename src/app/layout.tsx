@@ -21,6 +21,8 @@ export const metadata: Metadata = {
   description: "Reliable and affordable airport transfers, city tours, and wedding hires in Sri Lanka.",
 };
 
+import Script from "next/script";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,6 +30,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+      <head>
+        <Script
+          id="travel-payouts-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                  var script = document.createElement("script");
+                  script.async = 1;
+                  script.setAttribute("data-cmp-ab","2");
+                  script.src = 'https://emrldco.com/NTgwNjI2.js?t=580626';
+                  document.head.appendChild(script);
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col relative">
         <LanguageProvider>
           <Navbar />
