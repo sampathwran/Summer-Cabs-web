@@ -78,10 +78,10 @@ export default function Navbar() {
             {/* Login / Profile Button */}
             {user ? (
               <div className="hidden sm:flex items-center gap-3 ml-2 border-l border-slate-200 pl-4">
-                <img src={user.photoURL || 'https://via.placeholder.com/40'} alt="Profile" className="w-8 h-8 rounded-full shadow-sm" />
-                <button onClick={() => logout()} className="text-slate-500 hover:text-red-500 transition" title="Logout">
-                  <LogOut size={18} />
-                </button>
+                <a href="/profile" className="flex items-center gap-2 hover:opacity-80 transition cursor-pointer" title="Go to Profile">
+                  <img src={user.photoURL || 'https://via.placeholder.com/40'} alt="Profile" className="w-8 h-8 rounded-full shadow-sm ring-2 ring-yellow-400/50" />
+                  <span className="font-bold text-slate-800 text-sm max-w-[100px] truncate">{user.displayName?.split(' ')[0] || 'Profile'}</span>
+                </a>
               </div>
             ) : (
               <button 
@@ -112,14 +112,14 @@ export default function Navbar() {
               <a href="/fleet" className="hover:text-yellow-600 transition pb-3 border-b border-slate-50">{t('nav.fleet')}</a>
               
               {user ? (
-                <div className="flex justify-between items-center bg-slate-50 p-4 rounded-xl mt-2 border border-slate-100">
-                  <div className="flex items-center gap-3">
-                    <img src={user.photoURL || 'https://via.placeholder.com/40'} alt="Profile" className="w-10 h-10 rounded-full shadow-sm" />
-                    <span className="font-bold text-slate-800 text-sm truncate max-w-[120px]">{user.displayName || user.email}</span>
-                  </div>
-                  <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="text-slate-500 hover:text-red-500 transition px-3 py-2">
-                    <LogOut size={20} />
-                  </button>
+                <div className="flex flex-col gap-2 mt-2">
+                  <a href="/profile" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 bg-yellow-50 p-4 rounded-xl border border-yellow-100 hover:bg-yellow-100 transition">
+                    <img src={user.photoURL || 'https://via.placeholder.com/40'} alt="Profile" className="w-10 h-10 rounded-full shadow-sm ring-2 ring-yellow-400" />
+                    <div>
+                      <div className="font-bold text-slate-800 text-sm truncate max-w-[150px]">{user.displayName || user.email}</div>
+                      <div className="text-xs text-slate-500 font-medium">View Profile & Offers</div>
+                    </div>
+                  </a>
                 </div>
               ) : (
                 <button 
