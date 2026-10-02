@@ -29,8 +29,6 @@ export default function Navbar() {
             <a href="/" className="hover:text-yellow-600 transition">{t('nav.home')}</a>
             <a href="/services" className="hover:text-yellow-600 transition">{t('nav.services')}</a>
             <a href="/fleet" className="hover:text-yellow-600 transition">{t('nav.fleet')}</a>
-            <a href="/tours" className="hover:text-yellow-600 transition">{t('nav.tours')}</a>
-            <a href="/contact" className="hover:text-yellow-600 transition">{t('nav.contact')}</a>
           </div>
 
           <div className="flex items-center gap-1 sm:gap-3">
@@ -105,8 +103,6 @@ export default function Navbar() {
               <a href="/" className="hover:text-yellow-600 transition pb-3 border-b border-slate-50">{t('nav.home')}</a>
               <a href="/services" className="hover:text-yellow-600 transition pb-3 border-b border-slate-50">{t('nav.services')}</a>
               <a href="/fleet" className="hover:text-yellow-600 transition pb-3 border-b border-slate-50">{t('nav.fleet')}</a>
-              <a href="/tours" className="hover:text-yellow-600 transition pb-3 border-b border-slate-50">{t('nav.tours')}</a>
-              <a href="/contact" className="hover:text-yellow-600 transition pb-3 border-b border-slate-50">{t('nav.contact')}</a>
               <button 
                 onClick={() => {
                   setMobileMenuOpen(false);
