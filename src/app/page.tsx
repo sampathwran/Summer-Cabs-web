@@ -1073,7 +1073,7 @@ export default function Home() {
               <h3 className="text-2xl font-bold text-white mb-2">Still have questions?</h3>
               <p className="text-slate-400">Can't find the answer you're looking for? Please chat to our friendly team.</p>
             </div>
-            <a href="https://wa.me/94771234567" target="_blank" rel="noreferrer" className="shrink-0 bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold px-8 py-4 rounded-xl transition shadow-lg shadow-yellow-400/20 whitespace-nowrap flex items-center gap-2 relative z-10 hover:scale-105 transform duration-300">
+            <a href="https://wa.me/94707001001" target="_blank" rel="noreferrer" className="shrink-0 bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold px-8 py-4 rounded-xl transition shadow-lg shadow-yellow-400/20 whitespace-nowrap flex items-center gap-2 relative z-10 hover:scale-105 transform duration-300">
               <MessageCircle size={20} /> Chat on WhatsApp
             </a>
           </div>
