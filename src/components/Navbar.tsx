@@ -1,10 +1,12 @@
 "use client";
 import React, { useState } from 'react';
 import { useLanguage, Language } from '@/i18n/LanguageContext';
-import { Globe, ChevronDown, Menu, X, User } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
+import { Globe, ChevronDown, Menu, X, User, LogOut } from 'lucide-react';
 
 export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
+  const { user, logout, signInWithGoogle } = useAuth();
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -73,16 +75,23 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* Login Button */}
-            <a 
-              href="https://admin.summercabs.lk"
-              target="_blank"
-              rel="noreferrer"
-              className="hidden sm:flex items-center gap-2 bg-slate-900 hover:bg-yellow-400 hover:text-slate-900 text-white px-6 py-2.5 rounded-full font-bold transition shadow-md hover:shadow-lg text-sm ml-1"
-            >
-              <User size={16} />
-              Login
-            </a>
+            {/* Login / Profile Button */}
+            {user ? (
+              <div className="hidden sm:flex items-center gap-3 ml-2 border-l border-slate-200 pl-4">
+                <img src={user.photoURL || 'https://via.placeholder.com/40'} alt="Profile" className="w-8 h-8 rounded-full shadow-sm" />
+                <button onClick={() => logout()} className="text-slate-500 hover:text-red-500 transition" title="Logout">
+                  <LogOut size={18} />
+                </button>
+              </div>
+            ) : (
+              <button 
+                onClick={() => signInWithGoogle()}
+                className="hidden sm:flex items-center gap-2 bg-slate-900 hover:bg-yellow-400 hover:text-slate-900 text-white px-6 py-2.5 rounded-full font-bold transition shadow-md hover:shadow-lg text-sm ml-1"
+              >
+                <User size={16} />
+                Login
+              </button>
+            )}
 
             {/* Mobile Menu Toggle */}
             <button 
@@ -102,15 +111,25 @@ export default function Navbar() {
               <a href="/services" className="hover:text-yellow-600 transition pb-3 border-b border-slate-50">{t('nav.services')}</a>
               <a href="/fleet" className="hover:text-yellow-600 transition pb-3 border-b border-slate-50">{t('nav.fleet')}</a>
               
-              <a 
-                href="https://admin.summercabs.lk"
-                target="_blank"
-                rel="noreferrer"
-                className="flex justify-center items-center gap-2 bg-yellow-400 text-slate-900 py-3.5 rounded-xl mt-2 w-full shadow-lg shadow-yellow-400/20 text-center"
-              >
-                <User size={18} />
-                Login
-              </a>
+              {user ? (
+                <div className="flex justify-between items-center bg-slate-50 p-4 rounded-xl mt-2 border border-slate-100">
+                  <div className="flex items-center gap-3">
+                    <img src={user.photoURL || 'https://via.placeholder.com/40'} alt="Profile" className="w-10 h-10 rounded-full shadow-sm" />
+                    <span className="font-bold text-slate-800 text-sm truncate max-w-[120px]">{user.displayName || user.email}</span>
+                  </div>
+                  <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="text-slate-500 hover:text-red-500 transition px-3 py-2">
+                    <LogOut size={20} />
+                  </button>
+                </div>
+              ) : (
+                <button 
+                  onClick={() => { setMobileMenuOpen(false); signInWithGoogle(); }}
+                  className="flex justify-center items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-slate-900 py-3.5 rounded-xl mt-2 w-full shadow-lg shadow-yellow-400/20 text-center transition font-bold"
+                >
+                  <User size={18} />
+                  Login
+                </button>
+              )}
             </div>
           </div>
         )}

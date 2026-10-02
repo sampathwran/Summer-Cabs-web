@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Plane, Car, Hotel, MapPin, Calendar, Clock, ArrowRight, ShieldCheck, CreditCard, Clock4, CheckCircle2, Plus, X, ChevronDown, Users, Star, MessageCircle, UserCheck, Smile } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { useAuth } from '@/context/AuthContext';
 
 import Autocomplete from "react-google-autocomplete";
 import { useLanguage } from '@/i18n/LanguageContext';
@@ -24,6 +25,7 @@ const heroImages = [
 
 export default function Home() {
   const { t } = useLanguage();
+  const { user, signInWithGoogle } = useAuth();
   const [currentImage, setCurrentImage] = useState(0);
   const [activeTab, setActiveTab] = useState<'taxi' | 'hotels' | 'flights'>('taxi');
   const [dropoffs, setDropoffs] = useState(['']);
@@ -157,6 +159,17 @@ export default function Home() {
       return;
     }
     
+    // Require Login for Booking
+    if (!user) {
+      alert('Please log in to make a booking.');
+      try {
+        await signInWithGoogle();
+        return; // After login, they can submit again
+      } catch (err) {
+        return;
+      }
+    }
+    
     if(!customerName || !customerPhone || !dateTime || !pickupLocation) {
       alert('Please fill all required fields');
       return;
@@ -174,6 +187,8 @@ export default function Home() {
         passengerCount: bookingVehicle === 'Bus / Coach' ? passengerCount : null,
         customerName: customerName,
         customerPhone: customerPhone,
+        customerEmail: user.email, // Save logged in user's email
+        customerId: user.uid,
         additionalNote: additionalNote,
         status: 'pending',
         createdAt: serverTimestamp()

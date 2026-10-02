@@ -5,6 +5,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { LanguageProvider } from "@/i18n/LanguageContext";
+import { AuthProvider } from "@/context/AuthContext";
+import LoginPromptModal from "@/components/LoginPromptModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,12 +50,15 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col relative">
-        <LanguageProvider>
-          <Navbar />
-          {children}
-          <Footer />
-          <WhatsAppButton />
-        </LanguageProvider>
+        <AuthProvider>
+          <LanguageProvider>
+            <Navbar />
+            {children}
+            <Footer />
+            <WhatsAppButton />
+            <LoginPromptModal />
+          </LanguageProvider>
+        </AuthProvider>
       </body>
     </html>
   );
