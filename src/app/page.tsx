@@ -6,6 +6,8 @@ import { db } from '@/lib/firebase';
 
 import Autocomplete from "react-google-autocomplete";
 import { useLanguage } from '@/i18n/LanguageContext';
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 
 const heroImages = [
   "https://images.unsplash.com/photo-1566296314736-6eaac1ca0cb9?q=80&w=2070&auto=format&fit=crop",
@@ -39,6 +41,8 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [flashDeals, setFlashDeals] = useState<any[]>([]);
   const [services, setServices] = useState<any[]>([]);
+  
+  const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 3500, stopOnInteraction: true })]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -724,30 +728,34 @@ export default function Home() {
             </button>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.length > 0 ? services.map((service, i) => (
-              <div key={service.id || i} className="bg-slate-800 rounded-3xl overflow-hidden border border-slate-700 hover:shadow-2xl hover:shadow-slate-900/50 transition duration-300 flex flex-col group">
-                <div className="h-48 shrink-0 overflow-hidden relative">
-                  <img src={service.img || service.imageUrl} alt={service.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100" />
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex -ml-6">
+              {services.length > 0 ? services.map((service, i) => (
+                <div key={service.id || i} className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_25%] min-w-0 pl-6">
+                  <div className="bg-slate-800 rounded-3xl overflow-hidden border border-slate-700 hover:shadow-2xl hover:shadow-slate-900/50 transition duration-300 flex flex-col group h-full">
+                    <div className="h-48 shrink-0 overflow-hidden relative">
+                      <img src={service.img || service.imageUrl} alt={service.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100" />
+                    </div>
+                    <div className="p-6 flex flex-col flex-1">
+                      <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
+                      <p className="text-sm text-slate-400 leading-relaxed line-clamp-3 mb-6">
+                        {service.longDesc || service.description}
+                      </p>
+                      <button 
+                        onClick={() => setSelectedService(service)}
+                        className="text-yellow-400 hover:text-yellow-300 font-bold text-sm flex items-center gap-1 mt-auto transition"
+                      >
+                        Read More <ArrowRight size={16} />
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div className="p-6 flex flex-col flex-1">
-                  <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
-                  <p className="text-sm text-slate-400 leading-relaxed line-clamp-3 mb-6">
-                    {service.longDesc || service.description}
-                  </p>
-                  <button 
-                    onClick={() => setSelectedService(service)}
-                    className="text-yellow-400 hover:text-yellow-300 font-bold text-sm flex items-center gap-1 mt-auto transition"
-                  >
-                    Read More <ArrowRight size={16} />
-                  </button>
+              )) : (
+                <div className="w-full text-center py-12 text-slate-500 font-medium pl-6">
+                   Loading services...
                 </div>
-              </div>
-            )) : (
-              <div className="col-span-1 sm:col-span-2 lg:col-span-4 text-center py-12 text-slate-500 font-medium">
-                 Loading services...
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </section>
