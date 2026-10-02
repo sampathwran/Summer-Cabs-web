@@ -30,6 +30,7 @@ export default function Home() {
   const [selectedService, setSelectedService] = useState<{title: string, img?: string, imageUrl?: string, longDesc?: string, description?: string} | null>(null);
   const [bookingServiceType, setBookingServiceType] = useState('Airport Transfers');
   const [bookingVehicle, setBookingVehicle] = useState('Standard Car (Prius/Axio)');
+  const [bookingPackage, setBookingPackage] = useState('');
   const [pickupLocation, setPickupLocation] = useState('Bandaranaike International Airport (CMB)');
   const [dateTime, setDateTime] = useState('');
   const [passengerCount, setPassengerCount] = useState('');
@@ -124,6 +125,7 @@ export default function Home() {
       await addDoc(collection(db, 'bookings'), {
         serviceType: bookingServiceType,
         vehicleType: bookingVehicle,
+        packageDetails: bookingPackage,
         pickupLocation: pickupLocation,
         dropoffs: dropoffs.filter(d => d.trim() !== ''),
         dateTime: dateTime,
@@ -365,17 +367,21 @@ export default function Home() {
                         {t('form.back')}
                       </button>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                         <div className="relative">
                           <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.serviceType')}</label>
                           <div className="relative">
                             <select 
                               value={bookingServiceType}
-                              onChange={(e) => setBookingServiceType(e.target.value)}
+                              onChange={(e) => {
+                                setBookingServiceType(e.target.value);
+                                setBookingPackage(''); // Reset package selection
+                              }}
                               className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
                             >
                               <option value="Airport Transfers">Airport Transfers</option>
-                              <option value="City Tours">City Tours</option>
+                              <option value="City Tours">City Tours (Hourly Package)</option>
+                              <option value="Multi-day Tours">Multi-day Tours (Day Package)</option>
                               <option value="Wedding Hires">Wedding Hires</option>
                               <option value="Corporate Travel">Corporate Travel</option>
                             </select>
@@ -387,19 +393,56 @@ export default function Home() {
                           <div className="relative">
                             <select 
                               value={bookingVehicle}
-                              onChange={(e) => setBookingVehicle(e.target.value)}
+                              onChange={(e) => {
+                                setBookingVehicle(e.target.value);
+                                setBookingPackage(''); // Reset package selection
+                              }}
                               className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
                             >
-                              <option value="Mini (Alto/Kwid)">Mini (Alto/Kwid)</option>
-                              <option value="Standard Car (Prius/Axio)">Standard Car</option>
-                              <option value="Minivan (KDH)">Minivan (KDH)</option>
-                              <option value="Mini Van (5-6 Pax)">Mini Van (5-6 Pax)</option>
-                              <option value="Luxury (Benz/BMW)">Luxury (Benz/BMW)</option>
-                              <option value="Bus / Coach">Bus / Coach</option>
+                              {vehicles.length > 0 ? vehicles.map((v, i) => (
+                                <option key={i} value={v.name}>{v.name}</option>
+                              )) : (
+                                <option value="Standard Car">Standard Car</option>
+                              )}
                             </select>
                             <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={20} />
                           </div>
                         </div>
+
+                        {(bookingServiceType === 'City Tours' || bookingServiceType === 'Multi-day Tours') && (
+                          <div className="relative sm:col-span-2">
+                            <label className="text-slate-700 text-sm font-bold mb-1.5 block">Select Package</label>
+                            <div className="relative">
+                              <select 
+                                value={bookingPackage}
+                                onChange={(e) => setBookingPackage(e.target.value)}
+                                className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
+                              >
+                                <option value="">-- Choose a Package --</option>
+                                {bookingServiceType === 'City Tours' && hourlyPackages
+                                  .filter(p => p.vehicleName === bookingVehicle)
+                                  .map((pkg, idx) => (
+                                    <option key={idx} value={`${pkg.packageName} - ${pkg.price}`}>
+                                      {pkg.packageName} - {pkg.price}
+                                    </option>
+                                ))}
+                                {bookingServiceType === 'Multi-day Tours' && dayPackages
+                                  .filter(p => p.vehicleName === bookingVehicle)
+                                  .map((pkg, idx) => (
+                                    <option key={idx} value={`${pkg.packageName} - ${pkg.price}`}>
+                                      {pkg.packageName} - {pkg.price}
+                                    </option>
+                                ))}
+                              </select>
+                              <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={20} />
+                            </div>
+                            {/* If there are no packages for this vehicle */}
+                            {(bookingServiceType === 'City Tours' && hourlyPackages.filter(p => p.vehicleName === bookingVehicle).length === 0) || 
+                             (bookingServiceType === 'Multi-day Tours' && dayPackages.filter(p => p.vehicleName === bookingVehicle).length === 0) ? (
+                              <p className="text-xs text-red-500 mt-2 font-medium">No packages available for the selected vehicle. Please choose another vehicle.</p>
+                            ) : null}
+                          </div>
+                        )}
                       </div>
 
                       {bookingVehicle === 'Bus / Coach' && (
@@ -781,46 +824,21 @@ export default function Home() {
       </section>
 
       {/* Vehicle Fleet Section */}
-      <section className="py-12 bg-white border-b border-slate-100">
+      <section className="py-12 bg-white border-b border-slate-100" id="fleet">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6">
+          <div className="text-center mb-8">
             <h2 className="text-2xl font-extrabold text-slate-900">Choose Your Ride</h2>
             <p className="mt-2 text-slate-500 max-w-2xl mx-auto text-base">From economical minis to luxury coaches, we have a vehicle for every journey.</p>
           </div>
 
-          {/* Ride Tabs */}
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
-            {['One Way Transfers', 'Hourly Package', 'Day Package'].map(tab => (
-              <button
-                key={tab}
-                onClick={() => setRideTab(tab as any)}
-                className={`px-5 py-2 rounded-full font-bold text-sm transition-all duration-300 ${
-                  rideTab === tab 
-                  ? 'bg-slate-900 text-yellow-400 shadow-md shadow-slate-900/20' 
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-
           <div className="overflow-hidden" ref={vehiclesEmblaRef}>
             <div className="flex -ml-4 pb-4">
-              {(() => {
-                const activeData = rideTab === 'One Way Transfers' ? vehicles :
-                                  rideTab === 'Hourly Package' ? hourlyPackages :
-                                  dayPackages;
-                
-                if (activeData.length === 0) {
-                  return (
-                    <div className="w-full text-center py-8 text-slate-500 font-medium pl-4">
-                      No packages available.
-                    </div>
-                  );
-                }
-
-                return activeData.map((vehicle, idx) => (
+              {vehicles.length === 0 ? (
+                <div className="w-full text-center py-8 text-slate-500 font-medium pl-4">
+                  Loading vehicles...
+                </div>
+              ) : (
+                vehicles.map((vehicle, idx) => (
                   <div key={vehicle.id || idx} className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 pl-4">
                     <div className="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 hover:shadow-xl hover:shadow-slate-200 transition duration-300 flex flex-col group h-full">
                       <div className="h-36 overflow-hidden relative shrink-0">
@@ -838,44 +856,25 @@ export default function Home() {
                         </div>
                         
                         <div className="mt-auto flex flex-col gap-3 pt-4 border-t border-slate-200">
-                          {rideTab === 'One Way Transfers' && (
-                            <div className="flex flex-col gap-1.5 bg-slate-100 rounded-lg p-2.5">
-                              <div className="flex justify-between items-center">
-                                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Starting From</span>
-                                <div className="text-right">
-                                  <span className="text-sm font-black text-slate-900">{vehicle.basePrice}</span>
-                                  <span className="text-[10px] font-bold text-slate-500 ml-1">({vehicle.baseKm})</span>
-                                </div>
-                              </div>
-                              <div className="h-px w-full bg-slate-200"></div>
-                              <div className="flex justify-between items-center">
-                                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">After {vehicle.baseKm}</span>
-                                <span className="text-sm font-black text-slate-900">{vehicle.perKm}</span>
+                          <div className="flex flex-col gap-1.5 bg-slate-100 rounded-lg p-2.5">
+                            <div className="flex justify-between items-center">
+                              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Starting From</span>
+                              <div className="text-right">
+                                <span className="text-sm font-black text-slate-900">{vehicle.basePrice}</span>
+                                <span className="text-[10px] font-bold text-slate-500 ml-1">({vehicle.baseKm})</span>
                               </div>
                             </div>
-                          )}
-                          
-                          {rideTab === 'Hourly Package' && (
-                            <div className="bg-slate-100 rounded-lg p-2 text-center">
-                              <span className="text-[9px] text-slate-500 block mb-0.5 uppercase tracking-wider font-extrabold">Hourly Rate</span>
-                              <span className="text-base font-black text-slate-900">{vehicle.hourlyPrice || 'Contact Us'}</span>
+                            <div className="h-px w-full bg-slate-200"></div>
+                            <div className="flex justify-between items-center">
+                              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">After {vehicle.baseKm}</span>
+                              <span className="text-sm font-black text-slate-900">{vehicle.perKm}</span>
                             </div>
-                          )}
-
-                          {rideTab === 'Day Package' && (
-                            <div className="bg-slate-100 rounded-lg p-2 text-center">
-                              <span className="text-[9px] text-slate-500 block mb-0.5 uppercase tracking-wider font-extrabold">Per Day</span>
-                              <span className="text-base font-black text-slate-900">{vehicle.dayPrice || 'Contact Us'}</span>
-                            </div>
-                          )}
+                          </div>
 
                           <button 
                             onClick={() => {
                               setBookingVehicle(vehicle.name);
-                              setBookingServiceType(
-                                rideTab === 'One Way Transfers' ? 'Airport Transfers' :
-                                rideTab === 'Hourly Package' ? 'City Tours' : 'Multi-day Tours'
-                              );
+                              setBookingServiceType('Airport Transfers'); // Defaulting to something related
                               window.scrollTo({ top: 0, behavior: 'smooth' });
                             }}
                             className="w-full bg-slate-900 hover:bg-yellow-400 hover:text-slate-900 text-white px-4 py-2 rounded-lg font-bold transition shadow-md hover:shadow-yellow-400/30 text-sm"
@@ -886,8 +885,8 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                ));
-              })()}
+                ))
+              )}
             </div>
           </div>
         </div>
