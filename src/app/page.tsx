@@ -51,6 +51,7 @@ export default function Home() {
   
   const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 3500, stopOnInteraction: true })]);
   const [vehiclesEmblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 4000, stopOnInteraction: true })]);
+  const [reviewsEmblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 4500, stopOnInteraction: true })]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -972,32 +973,37 @@ export default function Home() {
       </section>
 
       {/* Customer Reviews Section */}
-      <section className="py-24 bg-white border-b border-slate-100">
+      <section className="py-16 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <h2 className="text-3xl font-extrabold text-slate-900">What Our Clients Say</h2>
-            <p className="mt-4 text-slate-500 max-w-2xl mx-auto text-lg">Trusted by thousands of travelers worldwide</p>
+            <p className="mt-2 text-slate-500 max-w-2xl mx-auto text-lg">Trusted by thousands of travelers worldwide</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {reviews.length > 0 ? reviews.map((review, i) => (
-              <div key={review.id || i} className="bg-slate-50 p-8 rounded-3xl border border-slate-200 shadow-sm relative hover:-translate-y-1 transition duration-300">
-                <div className="flex gap-1 text-yellow-400 mb-6">
-                  {[...Array(5)].map((_, j) => <Star key={j} size={18} fill="currentColor" />)}
-                </div>
-                <p className="text-slate-700 text-sm leading-relaxed mb-8 italic">"{review.text}"</p>
-                <div className="flex items-center gap-4 mt-auto">
-                  <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 text-lg">{review.name?.charAt(0) || 'C'}</div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-sm">{review.name}</h4>
-                    <span className="text-xs text-slate-500 font-medium">{review.country} • {review.date}</span>
+          
+          <div className="overflow-hidden -ml-6" ref={reviewsEmblaRef}>
+            <div className="flex">
+              {reviews.length > 0 ? reviews.map((review, i) => (
+                <div key={review.id || i} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] pl-6">
+                  <div className="bg-slate-50 p-8 rounded-3xl border border-slate-200 shadow-sm relative hover:-translate-y-1 transition duration-300 h-full flex flex-col">
+                    <div className="flex gap-1 text-yellow-400 mb-6">
+                      {[...Array(5)].map((_, j) => <Star key={j} size={18} fill="currentColor" />)}
+                    </div>
+                    <p className="text-slate-700 text-sm leading-relaxed mb-8 italic flex-grow">"{review.text}"</p>
+                    <div className="flex items-center gap-4 mt-auto">
+                      <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 text-lg">{review.name?.charAt(0) || 'C'}</div>
+                      <div>
+                        <h4 className="font-bold text-slate-900 text-sm">{review.name}</h4>
+                        <span className="text-xs text-slate-500 font-medium">{review.country} • {review.date}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )) : (
-              <div className="col-span-1 md:col-span-3 text-center py-12 text-slate-500 font-medium">
-                 Loading reviews...
-              </div>
-            )}
+              )) : (
+                <div className="w-full text-center py-12 text-slate-500 font-medium">
+                   Loading reviews...
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
