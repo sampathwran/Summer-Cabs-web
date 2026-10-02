@@ -113,9 +113,14 @@ export default function Footer() {
         )}
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-slate-800 text-sm text-center flex flex-col md:flex-row justify-between items-center gap-4">
-        <p>&copy; {new Date().getFullYear()} Summer Cabs. All rights reserved.</p>
-        <div className="flex gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-slate-800 text-sm text-center flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="text-left flex-1">
+          <p className="mb-2">&copy; {new Date().getFullYear()} Summer Cabs. All rights reserved.</p>
+          <p className="text-xs text-slate-500 max-w-2xl leading-relaxed">
+            Disclosure: Some of the links for Flights and Hotels on this website are affiliate links via the TravelPayouts network. This means we may earn a small commission if you make a booking through these links, at no extra cost to you.
+          </p>
+        </div>
+        <div className="flex gap-4 shrink-0">
           <a href="#" className="hover:text-white transition">Privacy Policy</a>
           <a href="#" className="hover:text-white transition">Terms of Service</a>
         </div>
