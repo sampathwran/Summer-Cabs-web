@@ -112,17 +112,17 @@ export default function Home() {
         
         if (reviewsSnap.empty) {
           const defaultReviews = [
-            { name: 'Sarah Jenkins', country: 'United Kingdom', text: 'Highly recommend Summer Cabs! Our flight was delayed by 2 hours, but our driver was still waiting for us with a smile. The van was very clean and comfortable.', date: 'Oct 2025' },
-            { name: 'Markus Müller', country: 'Germany', text: 'Excellent service from Airport to Mirissa. The driver drove safely and gave us great tips for our holiday. Booking was incredibly easy.', date: 'Sep 2025' },
-            { name: 'Anjali Sharma', country: 'India', text: 'Used them for a 3-day cultural triangle tour. Very professional, transparent pricing, and zero hassle. Will definitely book again.', date: 'Aug 2025' }
+            { name: 'Sarah Jenkins', country: 'United Kingdom', text: 'Highly recommend Summer Cabs! Our flight was delayed by 2 hours, but our driver was still waiting for us with a smile. The van was very clean and comfortable.', date: 'Oct 2025', isApproved: true },
+            { name: 'Markus Müller', country: 'Germany', text: 'Excellent service from Airport to Mirissa. The driver drove safely and gave us great tips for our holiday. Booking was incredibly easy.', date: 'Sep 2025', isApproved: true },
+            { name: 'Anjali Sharma', country: 'India', text: 'Used them for a 3-day cultural triangle tour. Very professional, transparent pricing, and zero hassle. Will definitely book again.', date: 'Aug 2025', isApproved: true }
           ];
           for (const rev of defaultReviews) {
             await addDoc(collection(db, 'customer_reviews'), { ...rev, createdAt: serverTimestamp() });
           }
           const retryRevSnap = await getDocs(reviewsQ);
-          setReviews(retryRevSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+          setReviews(retryRevSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })).filter((r: any) => r.isApproved === true));
         } else {
-          setReviews(reviewsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+          setReviews(reviewsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })).filter((r: any) => r.isApproved === true));
         }
 
       } catch (err) {
