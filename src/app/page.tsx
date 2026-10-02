@@ -30,10 +30,10 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<'taxi' | 'hotels' | 'flights'>('taxi');
   const [dropoffs, setDropoffs] = useState(['']);
   const [selectedService, setSelectedService] = useState<{title: string, img?: string, imageUrl?: string, longDesc?: string, description?: string} | null>(null);
-  const [bookingServiceType, setBookingServiceType] = useState('Airport Transfers');
+  const [bookingServiceType, setBookingServiceType] = useState('One-way transfer');
   const [bookingVehicle, setBookingVehicle] = useState('Standard Car (Prius/Axio)');
   const [bookingPackage, setBookingPackage] = useState('');
-  const [pickupLocation, setPickupLocation] = useState('Bandaranaike International Airport (CMB)');
+  const [pickupLocation, setPickupLocation] = useState('');
   const [dateTime, setDateTime] = useState('');
   const [passengerCount, setPassengerCount] = useState('');
   const [customerName, setCustomerName] = useState('');
@@ -321,110 +321,7 @@ export default function Home() {
                 {activeTab === 'taxi' && (
                   bookingStep === 1 ? (
                     <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-4">
-                      <div className="relative">
-                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.pickup')}</label>
-                        <div className="relative">
-                          <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                          <Autocomplete 
-                            apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
-                            onPlaceSelected={(place) => setPickupLocation(place.formatted_address || place.name || '')}
-                            options={{ types: ["geocode", "establishment"], componentRestrictions: { country: "lk" } }}
-                            defaultValue={pickupLocation}
-                            onBlur={(e: any) => {
-                              const val = e.target.value;
-                              setTimeout(() => setPickupLocation(val), 200);
-                            }}
-                            placeholder="Bandaranaike International Airport (CMB)"
-                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-3">
-                        {dropoffs.map((drop, index) => (
-                          <div key={index} className="relative">
-                            <div className="flex justify-between items-end mb-1.5">
-                              <label className="text-slate-700 text-sm font-bold">
-                                {index === 0 ? t('form.dropoff') : `Stop ${index}`}
-                              </label>
-                              {index > 0 && (
-                                <button 
-                                  type="button" 
-                                  onClick={() => removeDropoff(index)}
-                                  className="text-red-500 hover:text-red-600 text-xs flex items-center gap-1 transition font-bold"
-                                >
-                                  <X size={12} /> {t('form.remove')}
-                                </button>
-                              )}
-                            </div>
-                            <div className="relative">
-                              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                              <Autocomplete 
-                                apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
-                                onPlaceSelected={(place) => handleDropoffChange(index, place.formatted_address || place.name || '')}
-                                options={{ types: ["geocode", "establishment"], componentRestrictions: { country: "lk" } }}
-                                defaultValue={drop}
-                                onBlur={(e: any) => {
-                                  const val = e.target.value;
-                                  setTimeout(() => handleDropoffChange(index, val), 200);
-                                }}
-                                placeholder="Enter destination (e.g. Colombo, Kandy)"
-                                className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
-                              />
-                            </div>
-                          </div>
-                        ))}
-                        
-                        {dropoffs.length < 4 && (
-                          <button 
-                            type="button" 
-                            onClick={addDropoff}
-                            className="text-yellow-600 hover:text-yellow-700 text-sm font-bold flex items-center gap-1 transition pt-1"
-                          >
-                            <Plus size={16} /> {t('form.addStop')}
-                          </button>
-                        )}
-                      </div>
-
-                      <div className="relative mt-4">
-                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.date')}</label>
-                        <div className="relative">
-                          <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                          <input 
-                            type="datetime-local" 
-                            required
-                            value={dateTime}
-                            onChange={(e) => setDateTime(e.target.value)}
-                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition cursor-pointer font-medium"
-                          />
-                        </div>
-                      </div>
-
-                      <button 
-                        type="button" 
-                        onClick={() => {
-                          if(pickupLocation && dropoffs[0] && dateTime) {
-                            setBookingStep(2);
-                          } else {
-                            alert("Please fill in pickup, drop-off, and date/time first.");
-                          }
-                        }}
-                        className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-8 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20"
-                      >
-                        {t('form.next')} <ArrowRight size={20} />
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-4">
-                      <button 
-                        type="button"
-                        onClick={() => setBookingStep(1)}
-                        className="text-yellow-600 hover:text-yellow-700 text-sm font-bold flex items-center gap-1 mb-2 transition"
-                      >
-                        {t('form.back')}
-                      </button>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                         <div className="relative">
                           <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.serviceType')}</label>
                           <div className="relative">
@@ -520,6 +417,111 @@ export default function Home() {
                           </div>
                         </div>
                       )}
+
+                      
+
+                      <div className="relative">
+                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.pickup')}</label>
+                        <div className="relative">
+                          <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                          <Autocomplete 
+                            apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+                            onPlaceSelected={(place) => setPickupLocation(place.formatted_address || place.name || '')}
+                            options={{ types: ["geocode", "establishment"], componentRestrictions: { country: "lk" } }}
+                            defaultValue={pickupLocation}
+                            onBlur={(e: any) => {
+                              const val = e.target.value;
+                              setTimeout(() => setPickupLocation(val), 200);
+                            }}
+                            placeholder={bookingServiceType === "Airport Transfers" ? "Bandaranaike International Airport (CMB)" : "e.g. 123 Galle Road, Colombo"}
+                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-3">
+                        {dropoffs.map((drop, index) => (
+                          <div key={index} className="relative">
+                            <div className="flex justify-between items-end mb-1.5">
+                              <label className="text-slate-700 text-sm font-bold">
+                                {index === 0 ? t('form.dropoff') : `Stop ${index}`}
+                              </label>
+                              {index > 0 && (
+                                <button 
+                                  type="button" 
+                                  onClick={() => removeDropoff(index)}
+                                  className="text-red-500 hover:text-red-600 text-xs flex items-center gap-1 transition font-bold"
+                                >
+                                  <X size={12} /> {t('form.remove')}
+                                </button>
+                              )}
+                            </div>
+                            <div className="relative">
+                              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                              <Autocomplete 
+                                apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+                                onPlaceSelected={(place) => handleDropoffChange(index, place.formatted_address || place.name || '')}
+                                options={{ types: ["geocode", "establishment"], componentRestrictions: { country: "lk" } }}
+                                defaultValue={drop}
+                                onBlur={(e: any) => {
+                                  const val = e.target.value;
+                                  setTimeout(() => handleDropoffChange(index, val), 200);
+                                }}
+                                placeholder="Enter destination (e.g. Colombo, Kandy)"
+                                className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
+                              />
+                            </div>
+                          </div>
+                        ))}
+                        
+                        {dropoffs.length < 4 && (
+                          <button 
+                            type="button" 
+                            onClick={addDropoff}
+                            className="text-yellow-600 hover:text-yellow-700 text-sm font-bold flex items-center gap-1 transition pt-1"
+                          >
+                            <Plus size={16} /> {t('form.addStop')}
+                          </button>
+                        )}
+                      </div>
+
+                      <div className="relative mt-4">
+                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.date')}</label>
+                        <div className="relative">
+                          <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                          <input 
+                            type="datetime-local" 
+                            required
+                            value={dateTime}
+                            onChange={(e) => setDateTime(e.target.value)}
+                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition cursor-pointer font-medium"
+                          />
+                        </div>
+                      </div>
+
+                      <button 
+                        type="button" 
+                        onClick={() => {
+                          if(pickupLocation && dropoffs[0] && dateTime) {
+                            setBookingStep(2);
+                          } else {
+                            alert("Please fill in pickup, drop-off, and date/time first.");
+                          }
+                        }}
+                        className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-8 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20"
+                      >
+                        {t('form.next')} <ArrowRight size={20} />
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-4">
+                      <button 
+                        type="button"
+                        onClick={() => setBookingStep(1)}
+                        className="text-yellow-600 hover:text-yellow-700 text-sm font-bold flex items-center gap-1 mb-2 transition"
+                      >
+                        {t('form.back')}
+                      </button>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="relative">
