@@ -29,7 +29,9 @@ export default function ProfilePage() {
 
     // Listen to promotions in real-time
     const unsubPromotions = onSnapshot(query(collection(db, 'promotions'), orderBy('createdAt', 'desc')), (snapshot) => {
-      const pData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      let pData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() as any }));
+      // Filter targeted notifications
+      pData = pData.filter(p => !p.targetEmails || p.targetEmails.includes(user.email));
       setPromotions(pData);
     }, (err) => {
       console.error('Error fetching promotions:', err);
