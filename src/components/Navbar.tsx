@@ -31,6 +31,7 @@ export default function Navbar() {
             <a href="/" className="hover:text-yellow-600 transition">{t('nav.home')}</a>
             <a href="/services" className="hover:text-yellow-600 transition">{t('nav.services')}</a>
             <a href="/fleet" className="hover:text-yellow-600 transition">{t('nav.fleet')}</a>
+            <a href="/blog" className="hover:text-yellow-600 transition">{t('nav.blog')}</a>
           </div>
 
           <div className="flex items-center gap-1 sm:gap-3">
@@ -110,6 +111,7 @@ export default function Navbar() {
               <a href="/" className="hover:text-yellow-600 transition pb-3 border-b border-slate-50">{t('nav.home')}</a>
               <a href="/services" className="hover:text-yellow-600 transition pb-3 border-b border-slate-50">{t('nav.services')}</a>
               <a href="/fleet" className="hover:text-yellow-600 transition pb-3 border-b border-slate-50">{t('nav.fleet')}</a>
+              <a href="/blog" className="hover:text-yellow-600 transition pb-3 border-b border-slate-50">{t('nav.blog')}</a>
               
               {user ? (
                 <div className="flex flex-col gap-2 mt-2">
