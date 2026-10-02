@@ -19,8 +19,35 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Summer Cabs | Airport Transfers & Tours in Sri Lanka",
-  description: "Reliable and affordable airport transfers, city tours, and wedding hires in Sri Lanka.",
+  title: "Summer Cabs | Premium Airport Transfers & Tours in Sri Lanka",
+  description: "Book reliable, safe, and transparent airport transfers, taxi services, and island-wide tours in Sri Lanka. 24/7 Availability with zero hidden fees.",
+  keywords: ["Summer Cabs", "Sri Lanka Taxi", "Airport Transfers Colombo", "Bandaranaike International Airport Taxi", "Sri Lanka Tours", "Colombo Cab Service"],
+  openGraph: {
+    title: "Summer Cabs | Premium Airport Transfers",
+    description: "Your premium transport partner in Sri Lanka. Reliable, safe, and transparent airport transfers and tours.",
+    url: "https://www.summercabs.lk",
+    siteName: "Summer Cabs",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Summer Cabs Logo",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Summer Cabs | Premium Airport Transfers",
+    description: "Book reliable and safe airport transfers and island-wide tours in Sri Lanka.",
+    images: ["/opengraph-image.png"],
+  },
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  }
 };
 
 import Script from "next/script";
