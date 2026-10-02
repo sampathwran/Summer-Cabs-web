@@ -123,7 +123,7 @@ export default function ProfilePage() {
                       <h3 className="font-bold text-slate-800">{b.serviceType}</h3>
                       <p className="text-sm text-slate-500 font-medium">{b.vehicleType}</p>
                     </div>
-                    <span className={\	ext-xs font-bold px-3 py-1 rounded-full \\}>
+                    <span className={`text-xs font-bold px-3 py-1 rounded-full ${b.status === 'pending' ? 'bg-orange-100 text-orange-600' : b.status === 'confirmed' ? 'bg-green-100 text-green-600' : 'bg-slate-100 text-slate-600'}`}>
                       {b.status ? b.status.toUpperCase() : 'PENDING'}
                     </span>
                   </div>
