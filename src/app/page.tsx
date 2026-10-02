@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import LatestBlogs from '@/components/LatestBlogs';
 import { Plane, Car, Hotel, MapPin, Calendar, Clock, ArrowRight, ShieldCheck, CreditCard, Clock4, CheckCircle2, Plus, X, ChevronDown, Users, Star, MessageCircle, UserCheck, Smile, Luggage } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
