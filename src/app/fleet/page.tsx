@@ -65,11 +65,11 @@ export default function FleetPage() {
                   <div className="grid grid-cols-3 gap-2 mb-8 bg-slate-50 p-4 rounded-2xl">
                     <div className="flex flex-col items-center justify-center text-center">
                       <Users size={20} className="text-slate-400 mb-1" />
-                      <span className="text-sm font-bold text-slate-700">{vehicle.passengers} <span className="text-xs font-normal text-slate-500 block">Seats</span></span>
+                      <span className="text-sm font-bold text-slate-700">{vehicle.pax} <span className="text-xs font-normal text-slate-500 block">Seats</span></span>
                     </div>
                     <div className="flex flex-col items-center justify-center text-center border-x border-slate-200">
                       <Briefcase size={20} className="text-slate-400 mb-1" />
-                      <span className="text-sm font-bold text-slate-700">{vehicle.luggage} <span className="text-xs font-normal text-slate-500 block">Bags</span></span>
+                      <span className="text-sm font-bold text-slate-700">{vehicle.bags} <span className="text-xs font-normal text-slate-500 block">Bags</span></span>
                     </div>
                     <div className="flex flex-col items-center justify-center text-center">
                       <Car size={20} className="text-slate-400 mb-1" />
@@ -79,7 +79,7 @@ export default function FleetPage() {
 
                   <div className="mt-auto">
                     <a href={`/#booking-form`} className="w-full bg-slate-900 hover:bg-yellow-400 text-white hover:text-slate-900 font-bold py-3.5 rounded-xl transition flex justify-center items-center gap-2 group/btn">
-                      Book {vehicle.name} <ArrowRight size={18} className="group-hover/btn:translate-x-1 transition" />
+                      Book Now <ArrowRight size={18} className="group-hover/btn:translate-x-1 transition" />
                     </a>
                   </div>
                 </div>
