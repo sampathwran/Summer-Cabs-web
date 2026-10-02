@@ -184,7 +184,7 @@ export default function Home() {
         pickupLocation: pickupLocation,
         dropoffs: dropoffs.filter(d => d.trim() !== ''),
         dateTime: dateTime,
-        passengerCount: bookingVehicle === 'Bus / Coach' ? passengerCount : null,
+        passengerCount: (bookingVehicle.toLowerCase().includes('coach') || bookingVehicle.toLowerCase().includes('bus')) ? passengerCount : null,
         customerName: customerName,
         customerPhone: customerPhone,
         customerEmail: user.email, // Save logged in user's email
@@ -401,7 +401,7 @@ export default function Home() {
                         )}
                       </div>
 
-                      {bookingVehicle === 'Bus / Coach' && (
+                      {(bookingVehicle.toLowerCase().includes('coach') || bookingVehicle.toLowerCase().includes('bus')) && (
                         <div className="relative animate-in fade-in slide-in-from-top-2 duration-300">
                           <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.passengers')}</label>
                           <div className="relative">
