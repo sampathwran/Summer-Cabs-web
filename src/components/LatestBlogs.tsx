@@ -47,14 +47,14 @@ export default function LatestBlogs() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
-              {t('nav.blog')} & Travel Guides
+              {t('nav.blog')} & {t('home.blogTitle')}
             </h2>
             <p className="text-lg text-slate-500 max-w-2xl">
-              Discover Sri Lanka’s most beautiful destinations and learn why traveling with a private cab is the best choice.
+              {t('home.blogDesc')}
             </p>
           </div>
           <Link href="/blog" className="inline-flex items-center gap-2 font-bold text-yellow-600 hover:text-yellow-700 transition">
-            View All Posts <ArrowRight size={20} />
+            {t('home.viewAllPosts')} <ArrowRight size={20} />
           </Link>
         </div>
 

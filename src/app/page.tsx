@@ -981,6 +981,8 @@ export default function Home() {
         </div>
       </section>
 
+      <LatestBlogs />
+
       {/* FAQ Section */}
       <section className="py-24 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
         {/* Background Decorative Elements */}
@@ -1094,8 +1096,6 @@ export default function Home() {
           </div>
         </div>
       )}
-
-      <LatestBlogs />
 
       {/* WhatsApp Float Button */}
       <a 
