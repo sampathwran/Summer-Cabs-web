@@ -37,11 +37,26 @@ export default function Home() {
   const [bookingStep, setBookingStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [flashDeals, setFlashDeals] = useState<any[]>([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % heroImages.length);
     }, 5000);
+
+    const fetchDeals = async () => {
+      try {
+        const { getDocs, query, orderBy, collection } = await import('firebase/firestore');
+        const q = query(collection(db, 'flash_deals'), orderBy('createdAt', 'desc'));
+        const querySnapshot = await getDocs(q);
+        const deals = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setFlashDeals(deals);
+      } catch (err) {
+        console.error("Failed to fetch flash deals", err);
+      }
+    };
+    fetchDeals();
+
     return () => clearInterval(interval);
   }, []);
 
@@ -615,30 +630,53 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { title: 'Colombo to Airport', oldPrice: 'Rs. 9,500', newPrice: 'Rs. 7,500', vehicle: 'Standard Car (4 Pax)', tag: 'Save 21%' },
-              { title: 'Airport to Kandy', oldPrice: 'Rs. 25,000', newPrice: 'Rs. 21,000', vehicle: 'Minivan (7 Pax)', tag: 'Save 16%' },
-              { title: 'Galle Day Tour', oldPrice: 'Rs. 35,000', newPrice: 'Rs. 28,000', vehicle: 'SUV (5 Pax)', tag: 'Save 20%' },
-            ].map((deal, idx) => (
-              <div key={idx} className="bg-slate-50 rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 relative overflow-hidden transition duration-300">
-                <div className="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-wider z-10">
-                  {deal.tag}
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2 pr-16">{deal.title}</h3>
-                <div className="flex items-center gap-2 text-sm text-slate-500 mb-6 font-medium">
-                  <Car size={16} className="text-slate-400" /> {deal.vehicle}
-                </div>
-                <div className="flex items-end justify-between border-t border-slate-200 pt-4">
-                  <div>
-                    <span className="text-xs text-slate-400 line-through block mb-0.5">{deal.oldPrice}</span>
-                    <span className="text-2xl font-extrabold text-red-600">{deal.newPrice}</span>
+            {flashDeals.length > 0 ? flashDeals.map((deal, idx) => (
+              <div key={deal.id || idx} className="bg-slate-50 rounded-2xl p-0 border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 relative overflow-hidden transition duration-300 flex flex-col h-full">
+                {deal.imageUrl && (
+                  <div className="h-40 w-full relative">
+                    <img src={deal.imageUrl} alt={deal.title} className="w-full h-full object-cover" />
+                    <div className="absolute top-0 left-0 bg-red-500 text-white text-[10px] font-black px-3 py-1 rounded-br-lg uppercase tracking-wider z-10">
+                      {deal.discount}
+                    </div>
+                    <div className="absolute top-0 right-0 bg-slate-900/80 backdrop-blur-sm text-yellow-400 text-[10px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-wider z-10">
+                      {deal.category}
+                    </div>
                   </div>
-                  <button className="bg-red-50 text-red-600 hover:bg-red-600 hover:text-white px-5 py-2.5 rounded-xl font-bold transition text-sm">
-                    Claim Deal
-                  </button>
+                )}
+                
+                <div className="p-5 flex-1 flex flex-col">
+                  {!deal.imageUrl && (
+                     <div className="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-wider z-10">
+                        {deal.discount}
+                     </div>
+                  )}
+                  <h3 className="text-lg font-bold text-slate-900 mb-2 pr-12">{deal.title}</h3>
+                  <div className="flex items-center gap-2 text-sm text-slate-500 mb-6 font-medium">
+                    {deal.category === 'Taxi' ? <Car size={16} /> : deal.category === 'Hotel' ? <Hotel size={16} /> : <Plane size={16} />} 
+                    <span className="ml-1">{deal.category} Offer</span>
+                  </div>
+                  
+                  <div className="mt-auto border-t border-slate-200 pt-4 flex items-center justify-between">
+                     <span className="text-xs font-bold text-slate-400">
+                        Ends: {deal.endDate ? new Date(deal.endDate.seconds * 1000).toLocaleDateString() : ''}
+                     </span>
+                     {deal.actionUrl ? (
+                       <a href={deal.actionUrl} target="_blank" rel="noreferrer" className="bg-red-50 text-red-600 hover:bg-red-600 hover:text-white px-5 py-2.5 rounded-xl font-bold transition text-sm text-center inline-block">
+                         Claim Deal
+                       </a>
+                     ) : (
+                       <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="bg-red-50 text-red-600 hover:bg-red-600 hover:text-white px-5 py-2.5 rounded-xl font-bold transition text-sm">
+                         Book Now
+                       </button>
+                     )}
+                  </div>
                 </div>
               </div>
-            ))}
+            )) : (
+              <div className="col-span-3 text-center py-12 text-slate-500 font-medium">
+                 Loading deals...
+              </div>
+            )}
           </div>
         </div>
       </section>

@@ -4,13 +4,13 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCpxghyRnm5Uxzz11xxHyJuMLE4lUWIe68",
-  authDomain: "summer-cabs-7da05.firebaseapp.com",
-  projectId: "summer-cabs-7da05",
-  storageBucket: "summer-cabs-7da05.firebasestorage.app",
-  messagingSenderId: "204939198802",
-  appId: "1:204939198802:web:8878975302bd18b4d3fa8b",
-  measurementId: "G-N7Z6P4LBYK"
+  apiKey: "AIzaSyDl672PcL-Iqa88e1_e412fLnlEOvSV9zU",
+  authDomain: "summer-cabs-9ccec.firebaseapp.com",
+  projectId: "summer-cabs-9ccec",
+  storageBucket: "summer-cabs-9ccec.firebasestorage.app",
+  messagingSenderId: "754196637666",
+  appId: "1:754196637666:web:d7346415b48a03dbefbbbb",
+  measurementId: "G-CWL2T5LE3K"
 };
 
 // Initialize Firebase securely for Next.js SSR
