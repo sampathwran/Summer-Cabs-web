@@ -433,13 +433,14 @@ export default function Home() {
                                       {pkg.packageName} - {pkg.price}
                                     </option>
                                 ))}
+                                <option value="Custom Package">Custom Package (Discuss details later)</option>
                               </select>
                               <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={20} />
                             </div>
-                            {/* If there are no packages for this vehicle */}
+                            {/* If there are no fixed packages, the custom option is still available */}
                             {(bookingServiceType === 'City Tours' && hourlyPackages.filter(p => p.vehicleName === bookingVehicle).length === 0) || 
                              (bookingServiceType === 'Multi-day Tours' && dayPackages.filter(p => p.vehicleName === bookingVehicle).length === 0) ? (
-                              <p className="text-xs text-red-500 mt-2 font-medium">No packages available for the selected vehicle. Please choose another vehicle.</p>
+                              <p className="text-xs text-yellow-600 mt-2 font-medium">No fixed packages found. You can select "Custom Package".</p>
                             ) : null}
                           </div>
                         )}
