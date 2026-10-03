@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import LatestBlogs from '@/components/LatestBlogs';
 import { Plane, Car, Hotel, MapPin, Calendar, Clock, ArrowRight, ShieldCheck, CreditCard, Clock4, CheckCircle2, Plus, X, ChevronDown, Users, Star, MessageCircle, UserCheck, Smile, Luggage } from 'lucide-react';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, doc, setDoc, increment } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import TravelPayoutsWidget from '@/components/TravelPayoutsWidget';
 import { useAuth } from '@/context/AuthContext';
@@ -56,6 +56,45 @@ export default function Home() {
   const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 3500, stopOnInteraction: true })]);
   const [vehiclesEmblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 4000, stopOnInteraction: true })]);
   const [reviewsEmblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 4500, stopOnInteraction: true })]);
+
+  // Analytics Tracking (Immediate for demonstration/testing)
+  useEffect(() => {
+    const trackAnalytics = async () => {
+      try {
+        // Use local time date string for consistency
+        const date = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD
+        const docRef = doc(db, 'analytics_daily', date);
+
+        // Track Visit immediately on mount (removed sessionStorage lock for testing)
+        // In production, you might want to restore the sessionStorage check.
+        await setDoc(docRef, { visitors: increment(1), date: date }, { merge: true });
+
+        // Track Clicks (Fast Batching every 2 seconds for testing)
+        let clickCount = 0;
+        const handleGlobalClick = () => {
+          clickCount++;
+        };
+        document.addEventListener('click', handleGlobalClick);
+
+        const clickSyncInterval = setInterval(async () => {
+          if (clickCount > 0) {
+            const currentClicks = clickCount;
+            clickCount = 0;
+            await setDoc(docRef, { clicks: increment(currentClicks), date: date }, { merge: true });
+          }
+        }, 2000);
+
+        return () => {
+          document.removeEventListener('click', handleGlobalClick);
+          clearInterval(clickSyncInterval);
+        };
+      } catch (err) {
+        console.error("Analytics error:", err);
+      }
+    };
+    trackAnalytics();
+  }, []);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
