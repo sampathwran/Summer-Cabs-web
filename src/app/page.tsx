@@ -917,9 +917,9 @@ export default function Home() {
             <h2 className="text-3xl font-extrabold text-slate-900">{t('transfers.title')}</h2>
             <p className="mt-2 text-slate-500 max-w-2xl mx-auto text-base">{t('transfers.desc')}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
             {routes.length > 0 ? routes.map((route, i) => (
-              <div key={route.id || i} className="group relative rounded-2xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition duration-300 h-[220px]">
+              <div key={route.id || i} className="w-[85vw] shrink-0 snap-center md:w-auto group relative rounded-2xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition duration-300 h-[220px]">
                 <img src={route.imageUrl || 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?q=80&w=600&auto=format&fit=crop'} alt={route.title} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent z-10" />
                 <div className="absolute bottom-0 left-0 p-5 z-20 w-full transform group-hover:-translate-y-1 transition duration-300">
@@ -943,30 +943,30 @@ export default function Home() {
       <section className="py-16 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-extrabold text-slate-900">{t('clients.title')}</h2>
-            <p className="mt-2 text-slate-500 max-w-2xl mx-auto text-lg">{t('clients.desc')}</p>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900">{t('clients.title')}</h2>
+            <p className="mt-2 text-slate-500 max-w-2xl mx-auto text-sm md:text-lg">{t('clients.desc')}</p>
           </div>
           
           <div className="overflow-hidden -ml-6" ref={reviewsEmblaRef}>
             <div className="flex">
               {reviews.length > 0 ? reviews.map((review, i) => (
                 <div key={review.id || i} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] pl-6">
-                  <div className="bg-slate-50 p-8 rounded-3xl border border-slate-200 shadow-sm relative hover:-translate-y-1 transition duration-300 h-full flex flex-col">
-                    <div className="flex gap-1 text-yellow-400 mb-6">
-                      {[...Array(5)].map((_, j) => <Star key={j} size={18} fill="currentColor" />)}
+                  <div className="bg-slate-50 p-5 md:p-8 rounded-2xl md:rounded-3xl border border-slate-200 shadow-sm relative hover:-translate-y-1 transition duration-300 h-full flex flex-col">
+                    <div className="flex gap-1 text-yellow-400 mb-3 md:mb-6">
+                      {[...Array(5)].map((_, j) => <Star key={j} className="w-3.5 h-3.5 md:w-4 md:h-4 lg:w-5 lg:h-5" fill="currentColor" />)}
                     </div>
-                    <div className="overflow-y-auto pr-2 mb-8 h-[120px] custom-scrollbar">
-                      <p className="text-slate-700 text-sm leading-relaxed italic">"{review.text}"</p>
+                    <div className="overflow-y-auto pr-2 mb-4 md:mb-8 h-[80px] md:h-[120px] custom-scrollbar">
+                      <p className="text-slate-700 text-xs md:text-sm leading-relaxed italic">"{review.text}"</p>
                     </div>
-                    <div className="flex items-center gap-4 mt-auto">
+                    <div className="flex items-center gap-3 md:gap-4 mt-auto">
                       {review.profilePhoto ? (
-                        <img src={review.profilePhoto} alt={review.name} className="w-12 h-12 rounded-full object-cover shadow-sm" />
+                        <img src={review.profilePhoto} alt={review.name} className="w-8 h-8 md:w-12 md:h-12 rounded-full object-cover shadow-sm" />
                       ) : (
-                        <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 text-lg">{review.name?.charAt(0) || 'C'}</div>
+                        <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 text-sm md:text-lg">{review.name?.charAt(0) || 'C'}</div>
                       )}
                       <div>
-                        <h4 className="font-bold text-slate-900 text-sm">{review.name}</h4>
-                        <span className="text-xs text-slate-500 font-medium">{review.country} • {review.date}</span>
+                        <h4 className="font-bold text-slate-900 text-xs md:text-sm">{review.name}</h4>
+                        <span className="text-[10px] md:text-xs text-slate-500 font-medium">{review.country} • {review.date}</span>
                       </div>
                     </div>
                   </div>

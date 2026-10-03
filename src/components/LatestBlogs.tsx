@@ -58,9 +58,9 @@ export default function LatestBlogs() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 md:grid md:grid-cols-3 md:gap-8 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
           {blogs.map((blog) => (
-            <Link key={blog.id} href={`/blog/${blog.slug}`} className="bg-slate-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition flex flex-col group border border-slate-100">
+            <Link key={blog.id} href={`/blog/${blog.slug}`} className="w-[85vw] shrink-0 snap-center md:w-auto bg-slate-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition flex flex-col group border border-slate-100">
               <div className="h-48 bg-slate-200 relative overflow-hidden">
                 {blog.coverImage ? (
                   <img src={blog.coverImage} alt={blog.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
@@ -68,11 +68,11 @@ export default function LatestBlogs() {
                   <div className="w-full h-full flex items-center justify-center bg-slate-100 text-slate-400">No Image</div>
                 )}
               </div>
-              <div className="p-6 flex-1 flex flex-col">
-                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-yellow-600 transition leading-tight">
+              <div className="p-4 md:p-6 flex-1 flex flex-col">
+                <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-2 md:mb-3 group-hover:text-yellow-600 transition leading-tight">
                   {blog.title}
                 </h3>
-                <p className="text-slate-600 mb-4 flex-1 line-clamp-3 text-sm">
+                <p className="text-slate-600 mb-3 md:mb-4 flex-1 line-clamp-2 md:line-clamp-3 text-xs md:text-sm">
                   {blog.excerpt}
                 </p>
                 <div className="flex items-center gap-4 text-xs text-slate-500 pt-4 border-t border-slate-200">

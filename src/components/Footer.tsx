@@ -27,7 +27,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-slate-950 text-slate-400 py-16 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12">
         <div>
           <div className="mb-6 bg-white inline-block p-3 rounded-2xl">
             <img src="/logo.png" alt="Summer Cabs Logo" className="h-12 object-contain" />
@@ -35,8 +35,8 @@ export default function Footer() {
           <p className="text-sm leading-relaxed mb-6">{t('footer.desc')}</p>
         </div>
         <div>
-          <h4 className="text-white font-bold text-lg mb-6">{t('footer.quickLinks')}</h4>
-          <ul className="space-y-3 text-sm">
+          <h4 className="text-white font-bold text-sm sm:text-base md:text-lg mb-4 md:mb-6">{t('footer.quickLinks')}</h4>
+          <ul className="space-y-2 md:space-y-3 text-[11px] sm:text-xs md:text-sm">
             <li><Link href="/" className="hover:text-yellow-400 transition">Home</Link></li>
             <li><Link href="/about" className="hover:text-yellow-400 transition">About Us</Link></li>
             <li><Link href="/services" className="hover:text-yellow-400 transition">Our Services</Link></li>
@@ -46,16 +46,16 @@ export default function Footer() {
           </ul>
         </div>
         <div>
-          <h4 className="text-white font-bold text-lg mb-6">{t('footer.legal')}</h4>
-          <ul className="space-y-3 text-sm">
+          <h4 className="text-white font-bold text-sm sm:text-base md:text-lg mb-4 md:mb-6">{t('footer.legal')}</h4>
+          <ul className="space-y-2 md:space-y-3 text-[11px] sm:text-xs md:text-sm">
             <li><Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link></li>
             <li><Link href="/terms" className="hover:text-white transition">Terms of Service</Link></li>
             <li><Link href="/cookie-policy" className="hover:text-white transition">Cookie Policy</Link></li>
           </ul>
         </div>
         <div>
-          <h4 className="text-white font-bold text-lg mb-6">Contact Us</h4>
-          <ul className="space-y-4 text-sm">
+          <h4 className="text-white font-bold text-sm sm:text-base md:text-lg mb-4 md:mb-6">Contact Us</h4>
+          <ul className="space-y-2.5 md:space-y-4 text-[11px] sm:text-xs md:text-sm">
             <li className="flex items-start gap-3">
               <MapPin className="w-5 h-5 text-yellow-400 shrink-0 mt-0.5" />
               <span>473/8/2 Ihala Biyanwila Rd,<br/>Kadawatha 11850, Sri Lanka</span>
