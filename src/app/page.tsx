@@ -260,7 +260,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             
             {/* Left text */}
-            <div key={currentImage % 6} className="text-left lg:col-span-7 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+            <div key={currentImage % 6} className="hidden md:block text-left lg:col-span-7 animate-in fade-in slide-in-from-bottom-4 duration-1000">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md text-white border border-white/20 mb-8 text-sm font-bold shadow-lg">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
@@ -661,33 +661,33 @@ export default function Home() {
       {/* Trust & Features Section */}
       <section className="py-10 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="flex items-center gap-4 p-5 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-md transition">
-              <div className="w-12 h-12 shrink-0 bg-yellow-100 rounded-full flex items-center justify-center">
-                <Clock4 className="text-yellow-600" size={24} />
+          <div className="grid grid-cols-3 gap-2 md:gap-6">
+            <div className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-2 md:gap-4 p-2 md:p-5 bg-slate-50 rounded-xl md:rounded-2xl border border-slate-100 hover:shadow-md transition">
+              <div className="w-8 h-8 md:w-12 md:h-12 shrink-0 bg-yellow-100 rounded-full flex items-center justify-center">
+                <Clock4 className="text-yellow-600 w-4 h-4 md:w-6 md:h-6" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-slate-900">{t('features.247')}</h3>
-                <p className="text-sm text-slate-500 mt-1">{t('features.247.desc')}</p>
+                <h3 className="text-[9px] md:text-base leading-tight font-bold text-slate-900">{t('features.247')}</h3>
+                <p className="hidden md:block text-sm text-slate-500 mt-1">{t('features.247.desc')}</p>
               </div>
             </div>
-            <div className="flex items-center gap-4 p-5 rounded-2xl border border-yellow-300 bg-yellow-50 hover:shadow-md transition relative overflow-hidden">
-              <div className="absolute top-0 right-0 bg-yellow-400 text-slate-900 text-[10px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-wider">Guaranteed</div>
-              <div className="w-12 h-12 shrink-0 bg-yellow-400 rounded-full flex items-center justify-center shadow-inner">
-                <Car className="text-slate-900" size={24} />
+            <div className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-2 md:gap-4 p-2 md:p-5 rounded-xl md:rounded-2xl border border-yellow-300 bg-yellow-50 hover:shadow-md transition relative overflow-hidden">
+              <div className="hidden md:block absolute top-0 right-0 bg-yellow-400 text-slate-900 text-[10px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-wider">Guaranteed</div>
+              <div className="w-8 h-8 md:w-12 md:h-12 shrink-0 bg-yellow-400 rounded-full flex items-center justify-center shadow-inner">
+                <Car className="text-slate-900 w-4 h-4 md:w-6 md:h-6" />
               </div>
               <div>
-                <h3 className="text-base font-extrabold text-slate-900">{t('features.guaranteed')}</h3>
-                <p className="text-sm text-slate-700 mt-1 font-medium">{t('features.guaranteed.desc')}</p>
+                <h3 className="text-[9px] md:text-base leading-tight font-extrabold text-slate-900">{t('features.guaranteed')}</h3>
+                <p className="hidden md:block text-sm text-slate-700 mt-1 font-medium">{t('features.guaranteed.desc')}</p>
               </div>
             </div>
-            <div className="flex items-center gap-4 p-5 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-md transition">
-              <div className="w-12 h-12 shrink-0 bg-yellow-100 rounded-full flex items-center justify-center">
-                <ShieldCheck className="text-yellow-600" size={24} />
+            <div className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-2 md:gap-4 p-2 md:p-5 bg-slate-50 rounded-xl md:rounded-2xl border border-slate-100 hover:shadow-md transition">
+              <div className="w-8 h-8 md:w-12 md:h-12 shrink-0 bg-yellow-100 rounded-full flex items-center justify-center">
+                <ShieldCheck className="text-yellow-600 w-4 h-4 md:w-6 md:h-6" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-slate-900">{t('features.verified')}</h3>
-                <p className="text-sm text-slate-500 mt-1">{t('features.verified.desc')}</p>
+                <h3 className="text-[9px] md:text-base leading-tight font-bold text-slate-900">{t('features.verified')}</h3>
+                <p className="hidden md:block text-sm text-slate-500 mt-1">{t('features.verified.desc')}</p>
               </div>
             </div>
           </div>
@@ -709,9 +709,9 @@ export default function Home() {
             </button>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 md:grid md:grid-cols-2 lg:grid-cols-4 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
             {flashDeals.length > 0 ? flashDeals.map((deal, idx) => (
-              <div key={deal.id || idx} className="bg-slate-50 rounded-xl p-0 border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 relative overflow-hidden transition duration-300 flex flex-col h-full">
+              <div key={deal.id || idx} className="w-[85vw] sm:w-[320px] md:w-auto shrink-0 snap-center bg-slate-50 rounded-xl p-0 border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 relative overflow-hidden transition duration-300 flex flex-col h-full">
                 {deal.imageUrl && (
                   <div className="h-28 w-full relative">
                     <img src={deal.imageUrl} alt={deal.title} className="w-full h-full object-cover" />
@@ -768,20 +768,20 @@ export default function Home() {
             <h2 className="text-3xl font-extrabold text-slate-900">{t('how.title')}</h2>
             <p className="mt-4 text-slate-500 max-w-2xl mx-auto text-lg">{t('how.subtitle')}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative mt-16">
+          <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-10 relative mt-8 md:mt-16">
             <div className="hidden md:block absolute top-1/2 left-[16%] right-[16%] h-0.5 bg-slate-200 -z-0"></div>
             {[
-              { step: '01', title: t('how.step1'), desc: t('how.step1.desc'), icon: <MapPin className="text-yellow-500" size={32} /> },
-              { step: '02', title: t('how.step2'), desc: t('how.step2.desc'), icon: <UserCheck className="text-yellow-500" size={32} /> },
-              { step: '03', title: t('how.step3'), desc: t('how.step3.desc'), icon: <Smile className="text-yellow-500" size={32} /> },
+              { step: '01', title: t('how.step1'), desc: t('how.step1.desc'), icon: <MapPin className="text-yellow-500 w-4 h-4 md:w-8 md:h-8" /> },
+              { step: '02', title: t('how.step2'), desc: t('how.step2.desc'), icon: <UserCheck className="text-yellow-500 w-4 h-4 md:w-8 md:h-8" /> },
+              { step: '03', title: t('how.step3'), desc: t('how.step3.desc'), icon: <Smile className="text-yellow-500 w-4 h-4 md:w-8 md:h-8" /> },
             ].map((item, idx) => (
-              <div key={idx} className="relative bg-white pt-12 pb-14 px-6 rounded-3xl border border-slate-200 shadow-xl shadow-slate-100/50 text-center z-10 flex flex-col justify-center min-h-[220px]">
-                <div className="w-20 h-20 bg-white border border-slate-100 shadow-md rounded-full flex items-center justify-center mx-auto mb-6 -mt-24 relative shrink-0">
+              <div key={idx} className="relative bg-white pt-6 pb-4 md:pt-12 md:pb-14 px-2 md:px-6 rounded-xl md:rounded-3xl border border-slate-200 shadow-sm md:shadow-xl shadow-slate-100/50 text-center z-10 flex flex-col items-center justify-start min-h-[120px] md:min-h-[220px] mt-8 md:mt-0">
+                <div className="w-8 h-8 md:w-20 md:h-20 bg-white border border-slate-100 shadow-md rounded-full flex items-center justify-center mx-auto mb-2 md:mb-6 -mt-10 md:-mt-24 relative shrink-0">
                   {item.icon}
-                  <div className="absolute -top-2 -right-2 bg-slate-900 text-yellow-400 text-xs font-black w-7 h-7 rounded-full flex items-center justify-center">{item.step}</div>
+                  <div className="absolute -top-1 -right-1 md:-top-2 md:-right-2 bg-slate-900 text-yellow-400 text-[8px] md:text-xs font-black w-4 h-4 md:w-7 md:h-7 rounded-full flex items-center justify-center">{item.step}</div>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-slate-900">{item.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                <h3 className="text-[10px] md:text-xl font-bold mb-1 md:mb-3 text-slate-900 leading-tight">{item.title}</h3>
+                <p className="hidden md:block text-slate-500 text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
