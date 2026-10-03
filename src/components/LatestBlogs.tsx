@@ -42,9 +42,9 @@ export default function LatestBlogs() {
   if (loading || blogs.length === 0) return null; // Don't show anything if loading or no blogs
 
   return (
-    <section className="py-24 bg-white relative">
+    <section className="py-12 md:py-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 md:mb-12 gap-4">
           <div>
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
               {t('nav.blog')} & {t('home.blogTitle')}

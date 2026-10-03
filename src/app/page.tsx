@@ -239,7 +239,7 @@ export default function Home() {
       )}
 
       {/* Hero Section */}
-      <div className="relative pt-32 pb-12 lg:pt-36 lg:pb-16 overflow-hidden flex items-center min-h-[70vh]">
+      <div className="relative pt-24 pb-8 md:pt-32 md:pb-12 lg:pt-36 lg:pb-16 overflow-hidden flex items-center min-h-[60vh] md:min-h-[70vh]">
         <div className="absolute inset-0 z-0 bg-slate-900">
           {heroImages.map((src, index) => (
             <img 
@@ -659,7 +659,7 @@ export default function Home() {
       </div>
 
       {/* Trust & Features Section */}
-      <section className="py-10 bg-white border-b border-slate-100">
+      <section className="py-6 md:py-10 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-3 gap-2 md:gap-6">
             <div className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-2 md:gap-4 p-2 md:p-5 bg-slate-50 rounded-xl md:rounded-2xl border border-slate-100 hover:shadow-md transition">
@@ -668,7 +668,7 @@ export default function Home() {
               </div>
               <div>
                 <h3 className="text-[9px] md:text-base leading-tight font-bold text-slate-900">{t('features.247')}</h3>
-                <p className="text-[8px] sm:text-[9px] md:text-sm leading-tight md:leading-normal text-slate-500 mt-0.5 md:mt-1">{t('features.247.desc')}</p>
+                <p className="text-[10px] sm:text-[11px] md:text-sm leading-tight md:leading-normal text-slate-500 mt-0.5 md:mt-1">{t('features.247.desc')}</p>
               </div>
             </div>
             <div className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-2 md:gap-4 p-2 md:p-5 rounded-xl md:rounded-2xl border border-yellow-300 bg-yellow-50 hover:shadow-md transition relative overflow-hidden">
@@ -678,7 +678,7 @@ export default function Home() {
               </div>
               <div>
                 <h3 className="text-[9px] md:text-base leading-tight font-extrabold text-slate-900">{t('features.guaranteed')}</h3>
-                <p className="text-[8px] sm:text-[9px] md:text-sm leading-tight md:leading-normal text-slate-700 mt-0.5 md:mt-1 font-medium">{t('features.guaranteed.desc')}</p>
+                <p className="text-[10px] sm:text-[11px] md:text-sm leading-tight md:leading-normal text-slate-700 mt-0.5 md:mt-1 font-medium">{t('features.guaranteed.desc')}</p>
               </div>
             </div>
             <div className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-2 md:gap-4 p-2 md:p-5 bg-slate-50 rounded-xl md:rounded-2xl border border-slate-100 hover:shadow-md transition">
@@ -687,7 +687,7 @@ export default function Home() {
               </div>
               <div>
                 <h3 className="text-[9px] md:text-base leading-tight font-bold text-slate-900">{t('features.verified')}</h3>
-                <p className="text-[8px] sm:text-[9px] md:text-sm leading-tight md:leading-normal text-slate-500 mt-0.5 md:mt-1">{t('features.verified.desc')}</p>
+                <p className="text-[10px] sm:text-[11px] md:text-sm leading-tight md:leading-normal text-slate-500 mt-0.5 md:mt-1">{t('features.verified.desc')}</p>
               </div>
             </div>
           </div>
@@ -762,26 +762,26 @@ export default function Home() {
       </section>
 
       {/* {t('how.title')} Section */}
-      <section className="pt-10 pb-20 bg-slate-50 border-b border-slate-100">
+      <section className="pt-8 pb-10 md:pt-10 md:pb-20 bg-slate-50 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
+          <div className="text-center mb-6 md:mb-10">
             <h2 className="text-3xl font-extrabold text-slate-900">{t('how.title')}</h2>
             <p className="mt-4 text-slate-500 max-w-2xl mx-auto text-lg">{t('how.subtitle')}</p>
           </div>
-          <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-10 relative mt-8 md:mt-16">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-10 relative mt-6 md:mt-16 justify-center">
             <div className="hidden md:block absolute top-1/2 left-[16%] right-[16%] h-0.5 bg-slate-200 -z-0"></div>
             {[
-              { step: '01', title: t('how.step1'), desc: t('how.step1.desc'), icon: <MapPin className="text-yellow-500 w-4 h-4 md:w-8 md:h-8" /> },
-              { step: '02', title: t('how.step2'), desc: t('how.step2.desc'), icon: <UserCheck className="text-yellow-500 w-4 h-4 md:w-8 md:h-8" /> },
-              { step: '03', title: t('how.step3'), desc: t('how.step3.desc'), icon: <Smile className="text-yellow-500 w-4 h-4 md:w-8 md:h-8" /> },
+              { step: '01', title: t('how.step1'), desc: t('how.step1.desc'), icon: <MapPin className="text-yellow-500 w-5 h-5 md:w-8 md:h-8" /> },
+              { step: '02', title: t('how.step2'), desc: t('how.step2.desc'), icon: <UserCheck className="text-yellow-500 w-5 h-5 md:w-8 md:h-8" /> },
+              { step: '03', title: t('how.step3'), desc: t('how.step3.desc'), icon: <Smile className="text-yellow-500 w-5 h-5 md:w-8 md:h-8" /> },
             ].map((item, idx) => (
-              <div key={idx} className="relative bg-white pt-6 pb-4 md:pt-12 md:pb-14 px-2 md:px-6 rounded-xl md:rounded-3xl border border-slate-200 shadow-sm md:shadow-xl shadow-slate-100/50 text-center z-10 flex flex-col items-center justify-start min-h-[120px] md:min-h-[220px] mt-8 md:mt-0">
-                <div className="w-8 h-8 md:w-20 md:h-20 bg-white border border-slate-100 shadow-md rounded-full flex items-center justify-center mx-auto mb-2 md:mb-6 -mt-10 md:-mt-24 relative shrink-0">
+              <div key={idx} className={`relative bg-white pt-8 pb-5 md:pt-12 md:pb-14 px-3 md:px-6 rounded-2xl md:rounded-3xl border border-slate-200 shadow-sm md:shadow-xl shadow-slate-100/50 text-center z-10 flex flex-col items-center justify-start min-h-[140px] md:min-h-[220px] mt-6 md:mt-0 ${idx === 2 ? "col-span-2 md:col-span-1 mx-auto w-1/2 md:w-full" : ""}`}>
+                <div className="w-10 h-10 md:w-20 md:h-20 bg-white border border-slate-100 shadow-md rounded-full flex items-center justify-center mx-auto mb-2 md:mb-6 -mt-10 md:-mt-24 relative shrink-0">
                   {item.icon}
-                  <div className="absolute -top-1 -right-1 md:-top-2 md:-right-2 bg-slate-900 text-yellow-400 text-[8px] md:text-xs font-black w-4 h-4 md:w-7 md:h-7 rounded-full flex items-center justify-center">{item.step}</div>
+                  <div className="absolute -top-1 -right-1 md:-top-2 md:-right-2 bg-slate-900 text-yellow-400 text-[9px] md:text-xs font-black w-5 h-5 md:w-7 md:h-7 rounded-full flex items-center justify-center">{item.step}</div>
                 </div>
-                <h3 className="text-[10px] md:text-xl font-bold mb-1 md:mb-3 text-slate-900 leading-tight">{item.title}</h3>
-                <p className="text-[8px] sm:text-[9px] md:text-sm text-slate-500 leading-tight md:leading-relaxed mt-1 md:mt-0">{item.desc}</p>
+                <h3 className="text-sm md:text-xl font-bold mb-1 md:mb-3 text-slate-900 leading-tight">{item.title}</h3>
+                <p className="text-[10px] sm:text-[11px] md:text-sm text-slate-500 leading-tight md:leading-relaxed mt-1 md:mt-0">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -789,9 +789,9 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="py-24 bg-slate-900 text-white">
+      <section className="py-12 md:py-24 bg-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 md:mb-12 gap-4 md:gap-6">
             <div>
               <h2 className="text-3xl font-extrabold text-white">{t('services.title')}</h2>
               <p className="mt-4 text-slate-400 max-w-2xl text-lg">{t('services.desc')}</p>
@@ -911,7 +911,7 @@ export default function Home() {
       </section>
 
       {/* Popular Routes */}
-      <section className="py-16 bg-slate-50 border-b border-slate-100">
+      <section className="py-10 md:py-16 bg-slate-50 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-extrabold text-slate-900">{t('transfers.title')}</h2>
@@ -940,7 +940,7 @@ export default function Home() {
       </section>
 
       {/* Customer Reviews Section */}
-      <section className="py-16 bg-white border-b border-slate-100">
+      <section className="py-10 md:py-16 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900">{t('clients.title')}</h2>
@@ -984,13 +984,13 @@ export default function Home() {
       <LatestBlogs />
 
       {/* FAQ Section */}
-      <section className="py-24 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
+      <section className="py-12 md:py-24 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
         {/* Background Decorative Elements */}
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 bg-yellow-400/10 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 bg-slate-900/5 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8 md:mb-16">
             <span className="text-yellow-500 font-bold tracking-wider uppercase text-sm mb-3 block">{t('support.title')}</span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">{t('faq.title')}</h2>
             <p className="mt-4 text-slate-500 text-lg">{t('faq.desc')}</p>
@@ -1036,7 +1036,7 @@ export default function Home() {
             })}
           </div>
 
-          <div className="mt-16 text-center bg-slate-900 rounded-3xl p-8 md:p-10 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+          <div className="mt-10 md:mt-16 text-center bg-slate-900 rounded-2xl md:rounded-3xl p-6 md:p-10 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-slate-900 to-slate-800 z-0"></div>
             <div className="text-left relative z-10">
               <h3 className="text-2xl font-bold text-white mb-2">{t('faq.stillQ')}</h3>
