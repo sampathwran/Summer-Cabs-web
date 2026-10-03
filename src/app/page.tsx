@@ -294,38 +294,38 @@ export default function Home() {
             </div>
 
             {/* Right Booking Widget */}
-            <div id="booking-form" className="lg:col-span-5 bg-white p-5 sm:p-8 rounded-3xl sm:rounded-[2rem] shadow-2xl relative overflow-hidden animate-in fade-in slide-in-from-right-8 duration-700">
+            <div id="booking-form" className="lg:col-span-5 bg-white p-4 md:p-8 rounded-2xl md:rounded-[2rem] shadow-2xl relative overflow-hidden animate-in fade-in slide-in-from-right-8 duration-700">
               
-              <div className="flex bg-slate-100 rounded-xl p-1.5 mb-8 shadow-inner">
+              <div className="flex bg-slate-100 rounded-xl p-1 md:p-1.5 mb-4 md:mb-8 shadow-inner">
                 <button 
                   onClick={() => setActiveTab('taxi')}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg font-bold shadow-sm transition transform ${activeTab === 'taxi' ? 'bg-white text-slate-900 hover:scale-[1.02]' : 'text-slate-500 hover:text-slate-900'}`}
+                  className={`flex-1 flex items-center justify-center gap-2 py-2 md:py-3 rounded-md md:rounded-lg text-sm md:text-base font-bold shadow-sm transition transform ${activeTab === 'taxi' ? 'bg-white text-slate-900 hover:scale-[1.02]' : 'text-slate-500 hover:text-slate-900'}`}
                 >
                   <Car size={18} /> {t('form.taxi')}
                 </button>
                 <button 
                   onClick={() => setActiveTab('hotels')}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg font-bold shadow-sm transition transform ${activeTab === 'hotels' ? 'bg-white text-slate-900 hover:scale-[1.02]' : 'text-slate-500 hover:text-slate-900'}`}
+                  className={`flex-1 flex items-center justify-center gap-2 py-2 md:py-3 rounded-md md:rounded-lg text-sm md:text-base font-bold shadow-sm transition transform ${activeTab === 'hotels' ? 'bg-white text-slate-900 hover:scale-[1.02]' : 'text-slate-500 hover:text-slate-900'}`}
                 >
                   <Hotel size={18} /> {t('form.hotels')}
                 </button>
                 <button 
                   onClick={() => setActiveTab('flights')}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg font-bold shadow-sm transition transform ${activeTab === 'flights' ? 'bg-white text-slate-900 hover:scale-[1.02]' : 'text-slate-500 hover:text-slate-900'}`}
+                  className={`flex-1 flex items-center justify-center gap-2 py-2 md:py-3 rounded-md md:rounded-lg text-sm md:text-base font-bold shadow-sm transition transform ${activeTab === 'flights' ? 'bg-white text-slate-900 hover:scale-[1.02]' : 'text-slate-500 hover:text-slate-900'}`}
                 >
                   <Plane size={18} /> {t('form.flights')}
                 </button>
               </div>
 
               {/* Booking Form */}
-              <form onSubmit={handleBookingSubmit} className="space-y-4">
+              <form onSubmit={handleBookingSubmit} className="space-y-2.5 md:space-y-4">
                 
                 {activeTab === 'taxi' && (
                   bookingStep === 1 ? (
-                    <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-4">
-<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                    <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-2.5 md:space-y-4">
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 md:gap-4 mb-2.5 md:mb-4">
                         <div className="relative">
-                          <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.serviceType')}</label>
+                          <label className="text-slate-700 text-sm font-bold mb-0.5 md:mb-1.5 block">{t('form.serviceType')}</label>
                           <div className="relative">
                             <select 
                               value={bookingServiceType}
@@ -333,7 +333,7 @@ export default function Home() {
                                 setBookingServiceType(e.target.value);
                                 setBookingPackage(''); // Reset package selection
                               }}
-                              className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
+                              className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-2 md:py-3.5 rounded-lg md:rounded-xl text-sm md:text-base focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
                             >
                               <option value="One-way transfer">One-way transfer</option>
                               <option value="Airport Transfers">Airport Transfers</option>
@@ -346,7 +346,7 @@ export default function Home() {
                           </div>
                         </div>
                         <div className="relative">
-                          <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.vehicleType')}</label>
+                          <label className="text-slate-700 text-sm font-bold mb-0.5 md:mb-1.5 block">{t('form.vehicleType')}</label>
                           <div className="relative">
                             <select 
                               value={bookingVehicle}
@@ -354,7 +354,7 @@ export default function Home() {
                                 setBookingVehicle(e.target.value);
                                 setBookingPackage(''); // Reset package selection
                               }}
-                              className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
+                              className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-2 md:py-3.5 rounded-lg md:rounded-xl text-sm md:text-base focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
                             >
                               {vehicles.length > 0 ? vehicles.map((v, i) => (
                                 <option key={i} value={v.name}>{v.name}</option>
@@ -368,12 +368,12 @@ export default function Home() {
 
                         {(bookingServiceType === 'City Tours' || bookingServiceType === 'Multi-day Tours') && (
                           <div className="relative sm:col-span-2">
-                            <label className="text-slate-700 text-sm font-bold mb-1.5 block">Select Package</label>
+                            <label className="text-slate-700 text-sm font-bold mb-0.5 md:mb-1.5 block">Select Package</label>
                             <div className="relative">
                               <select 
                                 value={bookingPackage}
                                 onChange={(e) => setBookingPackage(e.target.value)}
-                                className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
+                                className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-4 pr-10 py-2 md:py-3.5 rounded-lg md:rounded-xl text-sm md:text-base focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition appearance-none cursor-pointer font-medium"
                               >
                                 <option value="">-- Choose a Package --</option>
                                 {bookingServiceType === 'City Tours' && hourlyPackages
@@ -405,7 +405,7 @@ export default function Home() {
 
                       {(bookingVehicle.toLowerCase().includes('coach') || bookingVehicle.toLowerCase().includes('bus')) && (
                         <div className="relative animate-in fade-in slide-in-from-top-2 duration-300">
-                          <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.passengers')}</label>
+                          <label className="text-slate-700 text-sm font-bold mb-0.5 md:mb-1.5 block">{t('form.passengers')}</label>
                           <div className="relative">
                             <Users className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                             <input 
@@ -415,7 +415,7 @@ export default function Home() {
                               value={passengerCount}
                               onChange={(e) => setPassengerCount(e.target.value)}
                               placeholder="Enter total passengers"
-                              className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
+                              className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-2 md:py-3.5 rounded-lg md:rounded-xl text-sm md:text-base focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
                             />
                           </div>
                         </div>
@@ -424,7 +424,7 @@ export default function Home() {
                       
 
                       <div className="relative">
-                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.pickup')}</label>
+                        <label className="text-slate-700 text-sm font-bold mb-0.5 md:mb-1.5 block">{t('form.pickup')}</label>
                         <div className="relative">
                           <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                           <Autocomplete 
@@ -437,15 +437,15 @@ export default function Home() {
                               setTimeout(() => setPickupLocation(val), 200);
                             }}
                             placeholder={bookingServiceType === "Airport Transfers" ? "Bandaranaike International Airport (CMB)" : "e.g. 123 Galle Road, Colombo"}
-                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
+                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-2 md:py-3.5 rounded-lg md:rounded-xl text-sm md:text-base focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
                           />
                         </div>
                       </div>
 
-                      <div className="space-y-3">
+                      <div className="space-y-2.5 md:space-y-3">
                         {dropoffs.map((drop, index) => (
                           <div key={index} className="relative">
-                            <div className="flex justify-between items-end mb-1.5">
+                            <div className="flex justify-between items-end mb-0.5 md:mb-1.5">
                               <label className="text-slate-700 text-sm font-bold">
                                 {index === 0 ? t('form.dropoff') : `Stop ${index}`}
                               </label>
@@ -471,7 +471,7 @@ export default function Home() {
                                   setTimeout(() => handleDropoffChange(index, val), 200);
                                 }}
                                 placeholder="Enter destination (e.g. Colombo, Kandy)"
-                                className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
+                                className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-2 md:py-3.5 rounded-lg md:rounded-xl text-sm md:text-base focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
                               />
                             </div>
                           </div>
@@ -489,7 +489,7 @@ export default function Home() {
                       </div>
 
                       <div className="relative mt-4">
-                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.date')}</label>
+                        <label className="text-slate-700 text-sm font-bold mb-0.5 md:mb-1.5 block">{t('form.date')}</label>
                         <div className="relative">
                           <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                           <input 
@@ -497,7 +497,7 @@ export default function Home() {
                             required
                             value={dateTime}
                             onChange={(e) => setDateTime(e.target.value)}
-                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition cursor-pointer font-medium"
+                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-2 md:py-3.5 rounded-lg md:rounded-xl text-sm md:text-base focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition cursor-pointer font-medium"
                           />
                         </div>
                       </div>
@@ -511,13 +511,13 @@ export default function Home() {
                             alert("Please fill in pickup, drop-off, and date/time first.");
                           }
                         }}
-                        className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-8 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20"
+                        className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-base md:text-lg py-3 md:py-4 rounded-lg md:rounded-xl mt-4 md:mt-8 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-lg md:shadow-xl shadow-yellow-400/20"
                       >
                         {t('form.next')} <ArrowRight size={20} />
                       </button>
                     </div>
                   ) : (
-                    <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-4">
+                    <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-2.5 md:space-y-4">
                       <button 
                         type="button"
                         onClick={() => setBookingStep(1)}
@@ -526,34 +526,34 @@ export default function Home() {
                         {t('form.back')}
                       </button>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 md:gap-4">
                         <div className="relative">
-                          <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.name')}</label>
+                          <label className="text-slate-700 text-sm font-bold mb-0.5 md:mb-1.5 block">{t('form.name')}</label>
                           <input 
                             type="text" 
                             required
                             value={customerName}
                             onChange={(e) => setCustomerName(e.target.value)}
                             placeholder="John Doe"
-                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 px-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
+                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 px-4 py-2 md:py-3.5 rounded-lg md:rounded-xl text-sm md:text-base focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
                           />
                         </div>
 
                         <div className="relative">
-                          <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.phone')}</label>
+                          <label className="text-slate-700 text-sm font-bold mb-0.5 md:mb-1.5 block">{t('form.phone')}</label>
                           <input 
                             type="tel" 
                             required
                             value={customerPhone}
                             onChange={(e) => setCustomerPhone(e.target.value)}
                             placeholder="+94 7X XXX XXXX"
-                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 px-4 py-3.5 rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
+                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 px-4 py-2 md:py-3.5 rounded-lg md:rounded-xl text-sm md:text-base focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition placeholder:text-slate-400 font-medium"
                           />
                         </div>
                       </div>
                       
                       <div className="relative">
-                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.note')}</label>
+                        <label className="text-slate-700 text-sm font-bold mb-0.5 md:mb-1.5 block">{t('form.note')}</label>
                         <textarea 
                           value={additionalNote}
                           onChange={(e) => setAdditionalNote(e.target.value)}
@@ -566,7 +566,7 @@ export default function Home() {
                       <button 
                         type="submit" 
                         disabled={isSubmitting}
-                        className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-lg py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-xl shadow-yellow-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-base md:text-lg py-3 md:py-4 rounded-lg md:rounded-xl mt-4 md:mt-6 flex items-center justify-center gap-2 transition transform hover:scale-[1.02] shadow-lg md:shadow-xl shadow-yellow-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {isSubmitting ? (
                           t('form.processing')
@@ -581,47 +581,47 @@ export default function Home() {
                 )}
 
                 {activeTab === 'hotels' && (
-                  <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-4">
+                  <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-2.5 md:space-y-4">
                     <div className="relative">
-                      <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.hotelDest')}</label>
+                      <label className="text-slate-700 text-sm font-bold mb-0.5 md:mb-1.5 block">{t('form.hotelDest')}</label>
                       <div className="relative">
                         <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                         <input 
                           type="text" 
                           placeholder="e.g. Colombo, Kandy, Galle"
-                          className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition placeholder:text-slate-400 font-medium"
+                          className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-2 md:py-3.5 rounded-lg md:rounded-xl text-sm md:text-base focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition placeholder:text-slate-400 font-medium"
                         />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 md:gap-4">
                       <div className="relative">
-                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.checkIn')}</label>
+                        <label className="text-slate-700 text-sm font-bold mb-0.5 md:mb-1.5 block">{t('form.checkIn')}</label>
                         <div className="relative">
                           <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                           <input 
                             type="date" 
-                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition cursor-pointer font-medium"
+                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-2 md:py-3.5 rounded-lg md:rounded-xl text-sm md:text-base focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition cursor-pointer font-medium"
                           />
                         </div>
                       </div>
                       <div className="relative">
-                        <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.checkOut')}</label>
+                        <label className="text-slate-700 text-sm font-bold mb-0.5 md:mb-1.5 block">{t('form.checkOut')}</label>
                         <div className="relative">
                           <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                           <input 
                             type="date" 
-                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition cursor-pointer font-medium"
+                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-2 md:py-3.5 rounded-lg md:rounded-xl text-sm md:text-base focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition cursor-pointer font-medium"
                           />
                         </div>
                       </div>
                     </div>
 
                     <div className="relative">
-                      <label className="text-slate-700 text-sm font-bold mb-1.5 block">{t('form.guests')}</label>
+                      <label className="text-slate-700 text-sm font-bold mb-0.5 md:mb-1.5 block">{t('form.guests')}</label>
                       <div className="relative">
                         <Users className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                        <select className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-3.5 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition appearance-none cursor-pointer font-medium">
+                        <select className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-2 md:py-3.5 rounded-lg md:rounded-xl text-sm md:text-base focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition appearance-none cursor-pointer font-medium">
                           <option>1 Guest, 1 Room</option>
                           <option>2 Guests, 1 Room</option>
                           <option>3 Guests, 1 Room</option>
