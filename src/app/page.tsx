@@ -668,7 +668,7 @@ export default function Home() {
               </div>
               <div>
                 <h3 className="text-[9px] md:text-base leading-tight font-bold text-slate-900">{t('features.247')}</h3>
-                <p className="hidden md:block text-sm text-slate-500 mt-1">{t('features.247.desc')}</p>
+                <p className="text-[8px] sm:text-[9px] md:text-sm leading-tight md:leading-normal text-slate-500 mt-0.5 md:mt-1">{t('features.247.desc')}</p>
               </div>
             </div>
             <div className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-2 md:gap-4 p-2 md:p-5 rounded-xl md:rounded-2xl border border-yellow-300 bg-yellow-50 hover:shadow-md transition relative overflow-hidden">
@@ -678,7 +678,7 @@ export default function Home() {
               </div>
               <div>
                 <h3 className="text-[9px] md:text-base leading-tight font-extrabold text-slate-900">{t('features.guaranteed')}</h3>
-                <p className="hidden md:block text-sm text-slate-700 mt-1 font-medium">{t('features.guaranteed.desc')}</p>
+                <p className="text-[8px] sm:text-[9px] md:text-sm leading-tight md:leading-normal text-slate-700 mt-0.5 md:mt-1 font-medium">{t('features.guaranteed.desc')}</p>
               </div>
             </div>
             <div className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-2 md:gap-4 p-2 md:p-5 bg-slate-50 rounded-xl md:rounded-2xl border border-slate-100 hover:shadow-md transition">
@@ -687,7 +687,7 @@ export default function Home() {
               </div>
               <div>
                 <h3 className="text-[9px] md:text-base leading-tight font-bold text-slate-900">{t('features.verified')}</h3>
-                <p className="hidden md:block text-sm text-slate-500 mt-1">{t('features.verified.desc')}</p>
+                <p className="text-[8px] sm:text-[9px] md:text-sm leading-tight md:leading-normal text-slate-500 mt-0.5 md:mt-1">{t('features.verified.desc')}</p>
               </div>
             </div>
           </div>
