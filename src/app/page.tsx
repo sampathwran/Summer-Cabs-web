@@ -239,7 +239,7 @@ export default function Home() {
       )}
 
       {/* Hero Section */}
-      <div className="relative pt-24 pb-8 md:pt-32 md:pb-12 lg:pt-36 lg:pb-16 overflow-hidden flex items-center min-h-[60vh] md:min-h-[70vh]">
+      <div className="relative pt-32 pb-8 md:pt-32 md:pb-12 lg:pt-36 lg:pb-16 overflow-hidden flex items-center min-h-[70vh]">
         <div className="absolute inset-0 z-0 bg-slate-900">
           {heroImages.map((src, index) => (
             <img 
