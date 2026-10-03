@@ -781,7 +781,7 @@ export default function Home() {
                   <div className="absolute -top-1 -right-1 md:-top-2 md:-right-2 bg-slate-900 text-yellow-400 text-[8px] md:text-xs font-black w-4 h-4 md:w-7 md:h-7 rounded-full flex items-center justify-center">{item.step}</div>
                 </div>
                 <h3 className="text-[10px] md:text-xl font-bold mb-1 md:mb-3 text-slate-900 leading-tight">{item.title}</h3>
-                <p className="hidden md:block text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                <p className="text-[8px] sm:text-[9px] md:text-sm text-slate-500 leading-tight md:leading-relaxed mt-1 md:mt-0">{item.desc}</p>
               </div>
             ))}
           </div>
